@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class ResSearch implements IData {
 
+
+
     private ArrayList<SearchInfo> searchInfos;
 
     public ArrayList<SearchInfo> getSearchInfos() {

@@ -28,7 +28,6 @@ public class ApiGetCityList extends TrevoHubRequester {
     @Autowired
     TrevoHubTemplateWithArray dTemplate;
 
-    Airline airline;
 
     private static final Logger logger = LoggerFactory.getLogger(ApiGetAirlines.class);
 
