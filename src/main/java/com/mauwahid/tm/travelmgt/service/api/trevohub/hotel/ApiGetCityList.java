@@ -32,7 +32,7 @@ public class ApiGetCityList extends TrevoHubRequester {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiGetAirlines.class);
 
-    private String callApi(String city) throws IOException {
+    public String callApi(String city) throws IOException {
         String jsonResponse = "--";
 
         params = getMapParams();
@@ -102,4 +102,6 @@ public class ApiGetCityList extends TrevoHubRequester {
         return trevoHubTemplateWithArray;
 
     }
+
+
 }
