@@ -1,11 +1,20 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AirlineClass {
 
+    @JsonProperty("class_id")
     private String classId;
+
+    @JsonProperty("class_name")
     private String className;
+
+    @JsonProperty("class_type")
     private String classType;
+
+    @JsonProperty("seat")
     private String seat;
 
     private Price price;

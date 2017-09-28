@@ -1,25 +1,60 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 
 public class Depart {
 
+    @JsonProperty("schedule_key")
     private String scheduleKey;
+
+    @JsonProperty("airline_id")
     private String airlineId;
+
+    @JsonProperty("airline_code")
     private String airlineCode;
+
+    @JsonProperty("airline_name")
     private String airlineName;
+
+    @JsonProperty("from")
     private String from;
+
+    @JsonProperty("from_city")
     private String fromCity;
+
+    @JsonProperty("to")
     private String to;
+
+    @JsonProperty("to_city")
     private String toCity;
+
+    @JsonProperty("date")
     private String date;
+
+    @JsonProperty("via")
     private String via;
+
+    @JsonProperty("fno")
     private String fno;
+
+    @JsonProperty("etd")
     private String etd;
+
+    @JsonProperty("eta")
     private String eta;
+
+    @JsonProperty("etd_date")
     private String etdDate;
+
+    @JsonProperty("eta_date")
     private String etaDate;
+
+    @JsonProperty("type")
     private String type;
+
+    @JsonProperty("class")
     private ArrayList<AirlineClass> classes;
 
     public String getScheduleKey() {

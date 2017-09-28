@@ -1,11 +1,20 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Price {
 
+    @JsonProperty("b2b_commision")
     private String b2bCommision;
+
+    @JsonProperty("agent_commision")
     private String agentCommision;
+
+    @JsonProperty("branch_commision")
     private String branchCommision;
+
+    @JsonProperty("ticket_price")
     private String ticketPrice;
 
     public String getB2bCommision() {
