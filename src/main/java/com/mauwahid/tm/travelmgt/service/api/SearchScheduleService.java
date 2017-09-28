@@ -84,15 +84,17 @@ public class SearchScheduleService {
             Set<String> searchApiSet = new HashSet<>(Arrays.asList(searchApis));
 
 
+            if(searchApiSet.contains("trevohub")){
+                logger.debug("cek trevohub");
+                data.add(getTrevohub(reqSearch));
+            }
+
             if(searchApiSet.contains("pointer")){
                 logger.debug("cek pointer");
                 data.add(getPointer(reqSearch));
             }
 
-            if(searchApiSet.contains("trevohub")){
-                logger.debug("cek trevohub");
-                data.add(getTrevohub(reqSearch));
-            }
+
         }
 
 
