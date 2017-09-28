@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.domain.api.response;
 
 public class StdResponse {
 
-    private String status = "SUCCESS";
+    private String status = "success";
 
     private String statusCode;
 
