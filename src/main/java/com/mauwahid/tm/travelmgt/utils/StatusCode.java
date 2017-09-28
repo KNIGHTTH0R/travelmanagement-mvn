@@ -13,6 +13,7 @@ public class StatusCode {
 
     public static String S_SUCCESS = "SUCCESS";
     public static String S_API_ERROR_PARAM = "Wrong Parameter Error";
+    public static String S_API_ERROR_CALL = "Error Calling API";
 
 
 }

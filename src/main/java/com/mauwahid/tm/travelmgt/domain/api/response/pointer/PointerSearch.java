@@ -2,8 +2,11 @@ package com.mauwahid.tm.travelmgt.domain.api.response.pointer;
 
 
 import com.mauwahid.tm.travelmgt.domain.api.response.IData;
+import org.springframework.boot.jackson.JsonComponent;
 
-public class PointerSearch implements IData {
+
+@JsonComponent
+public class PointerSearch{
 
     private String code;
     private PointerResult pointerResult;
@@ -24,8 +27,4 @@ public class PointerSearch implements IData {
         this.pointerResult = pointerResult;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

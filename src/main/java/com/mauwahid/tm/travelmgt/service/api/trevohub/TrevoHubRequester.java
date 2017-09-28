@@ -10,16 +10,16 @@ import java.util.Map;
 public class TrevoHubRequester {
 
     @Value("${trevohub.url}")
-    public String url;
+    public String url = "https://astrindotravel.astindohub.co.id/api/";
 
     @Value("${trevohub.b2b_code}")
-    private String b2bCode;
+    private String b2bCode = "AST100717ICANVO";
 
     @Value("${trevohub.h2h_code}")
-    private String h2hCode;
+    private String h2hCode = "HINF210717FUWX0";
 
     @Value("${trevohub.ip")
-    private String ip;
+    private String ip = "127.0.0.1";
 
 
     public Map<String,String> getMapParams(){

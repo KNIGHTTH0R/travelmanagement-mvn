@@ -10,11 +10,11 @@ import java.util.Map;
 public class PointerRequester {
 
     @Value("${pointer.url}")
-    public String uri;
+    public String uri = "http://54.169.218.195:8989/sandbox/";
 
 
     @Value("${pointer.token}")
-    public String authToken;
+    public String authToken = "7cbe43b2721111e7ab0106a69b186ee1";
 
 
 

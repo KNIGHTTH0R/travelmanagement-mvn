@@ -20,7 +20,7 @@ public class GetWithHeaderRequester {
         OkHttpClient client = new OkHttpClient();
 
 
-        uri = uri+"lion/search/best_price";
+       // uri = uri+"lion/search/best_price";
 
 
         logger.debug("data uri : "+uri);

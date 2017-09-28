@@ -1,13 +1,20 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mauwahid.tm.travelmgt.domain.api.response.IData;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Airline implements IData {
 
+
+    @JsonProperty("airlines_id")
     private String airlinesId;
+
+    @JsonProperty("airlines_code")
     private String airlinesCode;
+
+    @JsonProperty("airlines_name")
     private String airlinesName;
     private String connectionStatus;
 

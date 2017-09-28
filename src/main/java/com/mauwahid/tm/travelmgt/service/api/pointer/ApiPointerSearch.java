@@ -225,7 +225,7 @@ public class ApiPointerSearch extends PointerRequester {
         pointerSearch.setCode(jsonPointerSearch.getString("code"));
         pointerSearch.setPointerResult(result);
 
-        dTemplate.setData(pointerSearch);
+        //dTemplate.setData(pointerSearch);
 
 
         return  dTemplate;

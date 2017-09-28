@@ -4,9 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.ReqSearch;
 import com.mauwahid.tm.travelmgt.domain.api.response.Response;
 import com.mauwahid.tm.travelmgt.domain.apimodel.SearchInfo;
 import com.mauwahid.tm.travelmgt.service.api.HotelCityService;
-import com.mauwahid.tm.travelmgt.service.api.trevohub.hotel.ApiDetail;
-import com.mauwahid.tm.travelmgt.service.api.trevohub.hotel.ApiGetCityList;
-import com.mauwahid.tm.travelmgt.service.api.trevohub.hotel.ApiSearchHotel;
+import com.mauwahid.tm.travelmgt.service.api.trevohub.hotel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,16 +20,22 @@ public class HotelRestController{
 
 
     @Autowired
-    HotelCityService hotelCityService;
+    private HotelCityService hotelCityService;
 
     @Autowired
-    ApiGetCityList apiGetCityList;
+    private ApiGetCityList apiGetCityList;
 
     @Autowired
-    ApiSearchHotel apiSearchHotel;
+    private ApiSearchHotel apiSearchHotel;
 
     @Autowired
-    ApiDetail apiDetail;
+    private ApiDetail apiDetail;
+
+    @Autowired
+    private ApiBook apiBook;
+
+    @Autowired
+    private ApiIssue apiIssue;
 
     @RequestMapping("/city")
     public String searchCity(@RequestParam(value = "city")String city)
@@ -63,6 +67,33 @@ public class HotelRestController{
                               @RequestParam(value = "service_id")String serviceId)
             throws IOException{
         return apiDetail.callApi(sessionId,hotelKey,hotelId,serviceId);
+    }
+
+    @RequestMapping("/book")
+    public String bookHotel(
+            @RequestParam(value = "session_id")String sessionId,
+            @RequestParam(value = "room_id")String roomId,
+            @RequestParam(value = "bed_type_id")String bedTypeId,
+            @RequestParam(value = "smoking_pref")String smokingPref,
+            @RequestParam(value = "customer_first_name")String customerFirstName,
+            @RequestParam(value = "customer_last_name")String customerLastName,
+            @RequestParam(value = "customer_phone")String customerPhone,
+            @RequestParam(value = "custoemer_email")String customerEmail,
+            @RequestParam(value = "customer_id_num")String customerIdNum,
+            @RequestParam(value = "ext_service")String extService,
+            @RequestParam(value = "total_margin")String totalMargin)
+            throws IOException{
+        return apiBook.callApi(sessionId,roomId,bedTypeId,smokingPref,customerFirstName,
+                customerLastName,customerPhone, customerEmail,customerIdNum,extService,
+                totalMargin);
+    }
+
+    @RequestMapping("/issue")
+    public String issueHotel(@RequestParam(value = "hotel_data_id")String hotelDataId,
+                             @RequestParam(value = "payment_type")String paymentType,
+                             @RequestParam(value = "invoice_no")String invoiceNo)
+            throws IOException{
+        return apiIssue.callApi(hotelDataId,paymentType,invoiceNo);
     }
 
 
