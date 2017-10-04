@@ -1,20 +1,21 @@
 package com.mauwahid.tm.travelmgt.controller;
 
 
-import com.mauwahid.tm.travelmgt.domain.api.request.ReqSearch;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.ResSearch;
+import com.mauwahid.tm.travelmgt.domain.api.response.ResSearchDetail;
 import com.mauwahid.tm.travelmgt.domain.api.response.pointer.PointerSearch;
 import com.mauwahid.tm.travelmgt.domain.apimodel.SearchInfo;
-import com.mauwahid.tm.travelmgt.service.api.SearchScheduleService;
-import com.mauwahid.tm.travelmgt.service.api.pointer.PointerSearchSchedule;
-import com.mauwahid.tm.travelmgt.service.api.trevohub.SearchSchedule;
+import com.mauwahid.tm.travelmgt.service.agent.ScheduleDetailService;
+import com.mauwahid.tm.travelmgt.service.agent.SearchScheduleService;
+import com.mauwahid.tm.travelmgt.service.agent.pointer.PointerSearchSchedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/flight")
@@ -24,12 +25,15 @@ public class FlightController {
     @Autowired
     private SearchScheduleService searchSchedule;
 
+    @Autowired
+    private ScheduleDetailService scheduleDetailService;
+
     @PostMapping("/search")
-    public ResponseEntity searchFlight(@RequestHeader(name = "api-key") String apiKey,
-                                       @RequestBody ReqSearch reqSearch){
+    public ResponseEntity searchFlight(@RequestHeader(name = "agent-key") String apiKey,
+                                       @RequestBody FlightSearchReq flightSearchReq){
 
         ArrayList<SearchInfo> searchInfoList = new ArrayList<>();
-        searchInfoList = searchSchedule.populateScheduleData(reqSearch);
+        searchInfoList = searchSchedule.populateScheduleData(flightSearchReq);
 
         ResSearch resSearch = new ResSearch();
         resSearch.setErrorNo("0");
@@ -40,12 +44,24 @@ public class FlightController {
 
     }
 
+
+    @PostMapping("/detail")
+    public ResponseEntity searchFlight(@RequestHeader(name = "agent-key") String apiKey,
+                                       @RequestBody FlightSearchDetailReq reqSearch){
+
+        ResSearchDetail resSearchDetail = new ResSearchDetail();
+        resSearchDetail = scheduleDetailService.getScheduleDetail(reqSearch);
+
+        return new ResponseEntity(resSearchDetail, HttpStatus.OK);
+
+    }
+
     @PostMapping("/search-pointer")
-    public ResponseEntity searchFlightPointer(@RequestHeader(name = "api-key") String apiKey,
-                                      @RequestBody ReqSearch reqSearch){
+    public ResponseEntity searchFlightPointer(@RequestHeader(name = "agent-key") String apiKey,
+                                      @RequestBody FlightSearchReq flightSearchReq){
         PointerSearchSchedule pointerSearchSchedule = new PointerSearchSchedule();
 
-        pointerSearchSchedule.setReqSearch(reqSearch);
+        pointerSearchSchedule.setFlightSearchReq(flightSearchReq);
 
         PointerSearch pointerSearch = pointerSearchSchedule.getPointerSearch();
         return new ResponseEntity(pointerSearch, HttpStatus.OK);

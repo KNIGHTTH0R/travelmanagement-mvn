@@ -3,6 +3,8 @@ package com.mauwahid.tm.travelmgt.domain.apimodel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.applet.AudioClip;
+
 public class Price {
 
     @JsonProperty("b2b_commision")
@@ -16,6 +18,11 @@ public class Price {
 
     @JsonProperty("ticket_price")
     private String ticketPrice;
+
+    @JsonProperty("agent_price")
+    private String agentPrice;
+
+    private Adult adult;
 
     public String getB2bCommision() {
         return b2bCommision;
@@ -47,5 +54,21 @@ public class Price {
 
     public void setTicketPrice(String ticketPrice) {
         this.ticketPrice = ticketPrice;
+    }
+
+    public Adult getAdult() {
+        return adult;
+    }
+
+    public void setAdult(Adult adult) {
+        this.adult = adult;
+    }
+
+    public String getAgentPrice() {
+        return agentPrice;
+    }
+
+    public void setAgentPrice(String agentPrice) {
+        this.agentPrice = agentPrice;
     }
 }

@@ -1,11 +1,11 @@
 package com.mauwahid.tm.travelmgt.controller;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.ReqSearch;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.Response;
 import com.mauwahid.tm.travelmgt.domain.apimodel.SearchInfo;
 import com.mauwahid.tm.travelmgt.service.ContohService;
-import com.mauwahid.tm.travelmgt.service.api.AirlinesService;
-import com.mauwahid.tm.travelmgt.service.api.SearchService;
+import com.mauwahid.tm.travelmgt.service.agent.AirlinesService;
+import com.mauwahid.tm.travelmgt.service.agent.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,19 +54,19 @@ public class TestRestController {
             @RequestParam(value = "airlineType") String airlineType
             , HttpServletRequest request){
 
-        ReqSearch reqSearch = new ReqSearch();
-        reqSearch.setAdultPax(adultPax);
-        reqSearch.setAirlineName(airlineName);
-        reqSearch.setAirlineType(airlineType);
-        reqSearch.setChildPax(childPax);
-        reqSearch.setDepartDate(departDate);
-        reqSearch.setFrom(from);
-        reqSearch.setTo(to);
-        reqSearch.setRoundtrip(roundtrip);
-        reqSearch.setReturnDate(returnDate);
-        reqSearch.setInfantPax(infantPax);
+        FlightSearchReq flightSearchReq = new FlightSearchReq();
+        flightSearchReq.setAdultPax(adultPax);
+        flightSearchReq.setAirlineName(airlineName);
+        flightSearchReq.setAirlineType(airlineType);
+        flightSearchReq.setChildPax(childPax);
+        flightSearchReq.setDepartDate(departDate);
+        flightSearchReq.setFrom(from);
+        flightSearchReq.setTo(to);
+        flightSearchReq.setRoundtrip(roundtrip);
+        flightSearchReq.setReturnDate(returnDate);
+        flightSearchReq.setInfantPax(infantPax);
 
 
-        return searchService.searchAirline(reqSearch);
+        return searchService.searchAirline(flightSearchReq);
     }
 }
