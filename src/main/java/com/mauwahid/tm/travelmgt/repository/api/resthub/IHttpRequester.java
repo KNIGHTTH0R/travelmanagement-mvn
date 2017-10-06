@@ -1,4 +1,4 @@
-package com.mauwahid.tm.travelmgt.service.agent;
+package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
 import java.io.IOException;
 import java.util.Map;

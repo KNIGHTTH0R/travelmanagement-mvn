@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.service.agent.trevohub.hotel;
 
-import com.mauwahid.tm.travelmgt.service.agent.IHttpRequester;
-import com.mauwahid.tm.travelmgt.service.agent.PostStdRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.IHttpRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.TrevoHubRequester;
 import org.springframework.stereotype.Service;
 

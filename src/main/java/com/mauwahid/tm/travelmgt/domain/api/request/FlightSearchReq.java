@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FlightSearchReq {
 
-    @JsonProperty("airline_name")
+    @JsonProperty("airline")
     private String airlineName;
 
     @JsonProperty("round_trip")

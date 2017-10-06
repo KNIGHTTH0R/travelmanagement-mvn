@@ -1,19 +1,21 @@
-package com.mauwahid.tm.travelmgt.service.agent;
+package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;
 
+@Component
 public class GetWithHeaderRequester {
 
 
     Logger logger = LoggerFactory.getLogger(GetWithHeaderRequester.class);
 
 
-    public String sendRequest(String uri, Map<String, String> headerParam, Map<String, String> params)
+    public  String sendRequest(String uri, Map<String, String> headerParam, Map<String, String> params)
     throws IOException{
 
         OkHttpClient client = new OkHttpClient();

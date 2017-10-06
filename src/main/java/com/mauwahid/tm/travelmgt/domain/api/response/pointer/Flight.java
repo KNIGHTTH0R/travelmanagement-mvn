@@ -3,13 +3,13 @@ package com.mauwahid.tm.travelmgt.domain.api.response.pointer;
 public class Flight {
 
     private String code;
-    private String timeDepart;
-    private String dateArrive;
-    private String dateDepart;
-    private String areaDepart;
-    private String timeArrive;
+    private String etd;
+    private String eta;
+    private String etdDate;
+    private String departArea;
+    private String etaDate;
     private String flightId;
-    private String areaArrive;
+    private String arriveArea;
 
     public String getCode() {
         return code;
@@ -19,44 +19,44 @@ public class Flight {
         this.code = code;
     }
 
-    public String getTimeDepart() {
-        return timeDepart;
+    public String getEtd() {
+        return etd;
     }
 
-    public void setTimeDepart(String timeDepart) {
-        this.timeDepart = timeDepart;
+    public void setEtd(String etd) {
+        this.etd = etd;
     }
 
-    public String getDateArrive() {
-        return dateArrive;
+    public String getEta() {
+        return eta;
     }
 
-    public void setDateArrive(String dateArrive) {
-        this.dateArrive = dateArrive;
+    public void setEta(String eta) {
+        this.eta = eta;
     }
 
-    public String getDateDepart() {
-        return dateDepart;
+    public String getEtdDate() {
+        return etdDate;
     }
 
-    public void setDateDepart(String dateDepart) {
-        this.dateDepart = dateDepart;
+    public void setEtdDate(String etdDate) {
+        this.etdDate = etdDate;
     }
 
-    public String getAreaDepart() {
-        return areaDepart;
+    public String getDepartArea() {
+        return departArea;
     }
 
-    public void setAreaDepart(String areaDepart) {
-        this.areaDepart = areaDepart;
+    public void setDepartArea(String departArea) {
+        this.departArea = departArea;
     }
 
-    public String getTimeArrive() {
-        return timeArrive;
+    public String getEtaDate() {
+        return etaDate;
     }
 
-    public void setTimeArrive(String timeArrive) {
-        this.timeArrive = timeArrive;
+    public void setEtaDate(String etaDate) {
+        this.etaDate = etaDate;
     }
 
     public String getFlightId() {
@@ -67,11 +67,11 @@ public class Flight {
         this.flightId = flightId;
     }
 
-    public String getAreaArrive() {
-        return areaArrive;
+    public String getArriveArea() {
+        return arriveArea;
     }
 
-    public void setAreaArrive(String areaArrive) {
-        this.areaArrive = areaArrive;
+    public void setArriveArea(String arriveArea) {
+        this.arriveArea = arriveArea;
     }
 }
