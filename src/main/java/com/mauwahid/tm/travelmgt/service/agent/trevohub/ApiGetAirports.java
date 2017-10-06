@@ -1,10 +1,10 @@
 package com.mauwahid.tm.travelmgt.service.agent.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.apimodel.Airport;
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Airport;
+import com.mauwahid.tm.travelmgt.domain.api.old.IData;
 import com.mauwahid.tm.travelmgt.domain.api.response.trevohub.TrevoHubTemplateWithArray;
-import com.mauwahid.tm.travelmgt.service.agent.IHttpRequester;
-import com.mauwahid.tm.travelmgt.service.agent.PostStdRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.IHttpRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;

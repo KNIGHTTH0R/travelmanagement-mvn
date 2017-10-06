@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.utils;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.Status;
+import com.mauwahid.tm.travelmgt.domain.api.old.Response;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 
 public class ApiStatic {
 

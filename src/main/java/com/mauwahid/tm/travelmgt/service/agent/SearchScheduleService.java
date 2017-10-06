@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.agent;
 
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.*;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.SearchInfo;
 import com.mauwahid.tm.travelmgt.service.agent.pointer.PointerSearchSchedule;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.SearchScheduleApi;
 import org.slf4j.Logger;
@@ -15,10 +15,9 @@ import java.util.*;
 @Service
 public class SearchScheduleService {
 
-    @Autowired
+
     private SearchScheduleApi apiSearchTrevohub;
 
-    @Autowired
     private PointerSearchSchedule apiPointerSearch;
 
     Logger logger = LoggerFactory.getLogger(SearchScheduleService.class);

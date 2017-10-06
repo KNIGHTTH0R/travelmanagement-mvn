@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.controller;
 
 
-import com.mauwahid.tm.travelmgt.domain.apimodel.Airline;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Airline;
 import com.mauwahid.tm.travelmgt.service.HiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

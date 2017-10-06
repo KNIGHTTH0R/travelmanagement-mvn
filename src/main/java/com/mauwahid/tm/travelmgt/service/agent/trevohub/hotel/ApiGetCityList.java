@@ -1,9 +1,9 @@
 package com.mauwahid.tm.travelmgt.service.agent.trevohub.hotel;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.CityHotel;
+import com.mauwahid.tm.travelmgt.domain.api.old.CityHotel;
 import com.mauwahid.tm.travelmgt.domain.api.response.trevohub.TrevoHubTemplateWithArray;
-import com.mauwahid.tm.travelmgt.service.agent.IHttpRequester;
-import com.mauwahid.tm.travelmgt.service.agent.PostStdRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.IHttpRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.ApiGetAirlines;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.TrevoHubRequester;
 import org.json.JSONArray;

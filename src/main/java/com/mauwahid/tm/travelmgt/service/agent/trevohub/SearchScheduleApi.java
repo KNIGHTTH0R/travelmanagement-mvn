@@ -1,9 +1,9 @@
 package com.mauwahid.tm.travelmgt.service.agent.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.*;
-import com.mauwahid.tm.travelmgt.service.agent.IHttpRequester;
-import com.mauwahid.tm.travelmgt.service.agent.PostStdRequester;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.*;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.IHttpRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-@Service
+
 public class SearchScheduleApi extends TrevoHubRequester  {
 
     private FlightSearchReq flightSearchReq;

@@ -1,11 +1,11 @@
 package com.mauwahid.tm.travelmgt.service.agent;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.ResGetAirport;
-import com.mauwahid.tm.travelmgt.domain.api.response.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.Status;
+import com.mauwahid.tm.travelmgt.domain.api.old.ResGetAirport;
+import com.mauwahid.tm.travelmgt.domain.api.old.Response;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 import com.mauwahid.tm.travelmgt.domain.api.response.trevohub.TrevoHubTemplateWithArray;
 import com.mauwahid.tm.travelmgt.entity.log.LogGetAirports;
-import com.mauwahid.tm.travelmgt.repository.log.LogGetAirportsRepo;
+import com.mauwahid.tm.travelmgt.repository.database.log.LogGetAirportsRepo;
 import com.mauwahid.tm.travelmgt.service.AuthService;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.ApiGetAirlines;
 import com.mauwahid.tm.travelmgt.utils.ApiStatic;

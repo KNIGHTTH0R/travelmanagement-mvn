@@ -1,7 +1,6 @@
 package com.mauwahid.tm.travelmgt.domain.api.response.pointer;
 
 
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
 import org.springframework.boot.jackson.JsonComponent;
 
 

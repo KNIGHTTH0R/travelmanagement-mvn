@@ -1,10 +1,10 @@
 package com.mauwahid.tm.travelmgt.service.agent.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.ResSearchDetail;
-import com.mauwahid.tm.travelmgt.domain.apimodel.*;
-import com.mauwahid.tm.travelmgt.service.agent.IHttpRequester;
-import com.mauwahid.tm.travelmgt.service.agent.PostStdRequester;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReqOld;
+import com.mauwahid.tm.travelmgt.domain.api.old.ResSearchDetail;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.*;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.IHttpRequester;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -23,9 +23,9 @@ public class BookApi extends TrevoHubRequester {
 
     private static final Logger logger = LoggerFactory.getLogger(BookApi.class);
 
-    private FlightBookReq flightBookReq;
+    private FlightBookReqOld flightBookReq;
 
-    public void setReqSearch(FlightBookReq flightBookReq){
+    public void setReqSearch(FlightBookReqOld flightBookReq){
         this.flightBookReq = flightBookReq;
     }
 

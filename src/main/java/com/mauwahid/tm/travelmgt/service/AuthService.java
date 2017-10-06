@@ -1,11 +1,11 @@
 package com.mauwahid.tm.travelmgt.service;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.Status;
+import com.mauwahid.tm.travelmgt.domain.api.old.Response;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 import com.mauwahid.tm.travelmgt.entity.User;
 import com.mauwahid.tm.travelmgt.entity.log.error.LogErrorAuth;
-import com.mauwahid.tm.travelmgt.repository.UserRepository;
-import com.mauwahid.tm.travelmgt.repository.log.error.LogErrorAuthRepository;
+import com.mauwahid.tm.travelmgt.repository.database.UserRepository;
+import com.mauwahid.tm.travelmgt.repository.database.log.error.LogErrorAuthRepository;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

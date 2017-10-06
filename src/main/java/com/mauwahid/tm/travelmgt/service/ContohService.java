@@ -1,9 +1,9 @@
 package com.mauwahid.tm.travelmgt.service;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.ContohData;
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
-import com.mauwahid.tm.travelmgt.domain.api.response.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.Status;
+import com.mauwahid.tm.travelmgt.domain.api.old.ContohData;
+import com.mauwahid.tm.travelmgt.domain.api.old.IData;
+import com.mauwahid.tm.travelmgt.domain.api.old.Response;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.ApiGetAirlines;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.mauwahid.tm.travelmgt.domain.api.response.pointer;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
+import com.mauwahid.tm.travelmgt.domain.api.old.IData;
 
 import java.util.ArrayList;
 

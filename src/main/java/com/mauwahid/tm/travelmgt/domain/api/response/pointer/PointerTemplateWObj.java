@@ -1,8 +1,6 @@
 package com.mauwahid.tm.travelmgt.domain.api.response.pointer;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
-
-import java.util.ArrayList;
+import com.mauwahid.tm.travelmgt.domain.api.old.IData;
 
 public class PointerTemplateWObj {
 

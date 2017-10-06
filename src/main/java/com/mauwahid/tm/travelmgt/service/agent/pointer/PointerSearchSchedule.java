@@ -2,8 +2,8 @@ package com.mauwahid.tm.travelmgt.service.agent.pointer;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.pointer.*;
-import com.mauwahid.tm.travelmgt.domain.apimodel.*;
-import com.mauwahid.tm.travelmgt.service.agent.GetWithHeaderRequester;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.*;
+import com.mauwahid.tm.travelmgt.repository.api.resthub.GetWithHeaderRequester;
 import com.mauwahid.tm.travelmgt.utils.Common;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Component
+
 public class PointerSearchSchedule extends PointerRequester {
 
     private Map<String, String> params;
@@ -139,7 +139,7 @@ public class PointerSearchSchedule extends PointerRequester {
 
 
         GetWithHeaderRequester requester = new GetWithHeaderRequester();
-        jsonResponse = requester.sendRequest(uri, getHeaderParams(), params);
+       // jsonResponse = requester.sendRequest(uri, getHeaderParams(), params);
 
         return jsonResponse;
     }
@@ -225,11 +225,11 @@ public class PointerSearchSchedule extends PointerRequester {
 
                     flight.setCode(jsonFlight.optString("code"));
                     flight.setCode(jsonFlight.optString("time_depart"));
-                    flight.setDateArrive(jsonFlight.optString("date_arrive"));
-                    flight.setDateDepart(jsonFlight.optString("date_depart"));
-                    flight.setAreaDepart(jsonFlight.optString("area_depart"));
-                    flight.setTimeArrive(jsonFlight.optString("time_arrive"));
-                    flight.setAreaArrive(jsonFlight.optString("area_arrive"));
+                    flight.setEta(jsonFlight.optString("date_arrive"));
+                    flight.setEtdDate(jsonFlight.optString("date_depart"));
+                    flight.setDepartArea(jsonFlight.optString("area_depart"));
+                    flight.setEtaDate(jsonFlight.optString("time_arrive"));
+                    flight.setArriveArea(jsonFlight.optString("area_arrive"));
 
                     flights.add(flight);
 
@@ -311,14 +311,14 @@ public class PointerSearchSchedule extends PointerRequester {
 
 
       //  searchInfoPointer.setAirline(searchInfo.getAirline());
-      //  searchInfoPointer.setSessionId(searchInfo.getSessionId());
+      //  searchInfoPointer.setFlightKey(searchInfo.getFlightKey());
 
      //   departPointer.setAirlineCode(departTrevo.getAirlineCode());
      //   departPointer.setAirlineId(departTrevo.getAirlineId());
      //   departPointer.setAirlineName(departTrevo.getAirlineName());
         departPointer.setScheduleKey(pointerSeat.getFlightKey());
-        departPointer.setEtd(flight.getTimeDepart());
-        departPointer.setEta(flight.getTimeArrive());
+        departPointer.setEtd(flight.getEtd());
+        departPointer.setEta(flight.getEtaDate());
 
 
         AirlineClass pointerClass = new AirlineClass();

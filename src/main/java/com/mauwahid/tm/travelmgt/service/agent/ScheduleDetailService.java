@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.agent;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchDetailReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.ResSearchDetail;
+import com.mauwahid.tm.travelmgt.domain.api.old.ResSearchDetail;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.ScheduleDetailApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

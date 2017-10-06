@@ -1,9 +1,7 @@
 package com.mauwahid.tm.travelmgt.domain.api.response.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.api.response.IData;
+import com.mauwahid.tm.travelmgt.domain.api.old.IData;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 @Component
 public class TrevoHubTemplateWObj {

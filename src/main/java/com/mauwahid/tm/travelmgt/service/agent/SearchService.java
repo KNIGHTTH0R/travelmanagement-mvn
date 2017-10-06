@@ -3,8 +3,7 @@ package com.mauwahid.tm.travelmgt.service.agent;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.pointer.*;
 import com.mauwahid.tm.travelmgt.domain.api.response.trevohub.TrevoHubTemplateWObj;
-import com.mauwahid.tm.travelmgt.domain.apimodel.*;
-import com.mauwahid.tm.travelmgt.service.agent.pointer.ApiPointerSearch;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.*;
 import com.mauwahid.tm.travelmgt.service.agent.trevohub.ApiSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +19,8 @@ public class SearchService {
 
     FlightSearchReq flightSearchReq;
 
-    @Autowired
     ApiSearch apiSearch;
 
-    @Autowired
-    ApiPointerSearch apiPointerSearch;
 
     Logger logger = LoggerFactory.getLogger(SearchService.class);
 
@@ -56,13 +52,14 @@ public class SearchService {
     private PointerTemplateWObj getPointer(){
 
 
-        apiPointerSearch.setSearchParam(flightSearchReq);
-        return apiPointerSearch.getData();
+     //   apiPointerSearch.setSearchParam(flightSearchReq);
+     //   return apiPointerSearch.getData();
        // if(flightSearchReq.getAirlineType().equalsIgnoreCase("domestic")){
     //        return apiPointerSearch.getData();
        // }else{
            // return apiPointerSearch.getInternational();
       //  }
+        return null;
     }
 
 
@@ -134,8 +131,8 @@ public class SearchService {
         departPointer.setAirlineId(departTrevo.getAirlineId());
         departPointer.setAirlineName(departTrevo.getAirlineName());
         departPointer.setScheduleKey(pointerSeat.getFlightKey());
-        departPointer.setEtd(flight.getTimeDepart());
-        departPointer.setEta(flight.getAreaArrive());
+        departPointer.setEtd(flight.getEtd());
+        departPointer.setEta(flight.getArriveArea());
 
 
         AirlineClass pointerClass = new AirlineClass();
