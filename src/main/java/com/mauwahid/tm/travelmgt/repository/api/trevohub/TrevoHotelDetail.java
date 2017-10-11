@@ -116,6 +116,19 @@ public class TrevoHotelDetail {
 
         JSONArray arrFacilities = objInfo.optJSONArray("facilities");
 
+        try{
+            hotelAddInfo.setFacitilies(getFacilities(arrFacilities));
+
+        }catch (Exception ex){
+            logger.error("Ex "+ex.toString());
+        }
+
+        return hotelAddInfo;
+
+    }
+
+
+    private Set<String> getFacilities(JSONArray arrFacilities){
         Set<String> setFacilities = new HashSet<>();
 
         for(int i=0;i<arrFacilities.length();i++){
@@ -127,10 +140,7 @@ public class TrevoHotelDetail {
             }
         }
 
-        hotelAddInfo.setFacitilies(setFacilities);
-
-        return hotelAddInfo;
-
+        return setFacilities;
     }
 
     private Set<HotelRoom> getHotelRoom(JSONArray arrRooms){
@@ -157,16 +167,15 @@ public class TrevoHotelDetail {
                 JSONObject objPriceRoom = objRoom.optJSONObject("price_per_room");
 
                 HotelPricePerRoom pricePerRoom = new HotelPricePerRoom();
-                pricePerRoom.setBasicPrice(objRoom.optString("basic_price"));
-                pricePerRoom.setService(objRoom.optString("service"));
-                pricePerRoom.setB2bCommision(objRoom.optString("b2b_commission"));
-                pricePerRoom.setAgentCommission(objRoom.optString("agent_commission"));
-                pricePerRoom.setBranchCommisiion(objRoom.optString("branch_commission"));
-                pricePerRoom.setVoucherPrice(objRoom.optString("voucher_price"));
-                pricePerRoom.setAgentPrice(objRoom.optString("agent_price"));
+                pricePerRoom.setBasicPrice(objPriceRoom.optString("basic_price"));
+                pricePerRoom.setService(objPriceRoom.optString("service"));
+                pricePerRoom.setB2bCommision(objPriceRoom.optString("b2b_commission"));
+                pricePerRoom.setAgentCommission(objPriceRoom.optString("agent_commission"));
+                pricePerRoom.setBranchCommisiion(objPriceRoom.optString("branch_commission"));
+                pricePerRoom.setVoucherPrice(objPriceRoom.optString("voucher_price"));
+                pricePerRoom.setAgentPrice(objPriceRoom.optString("agent_price"));
 
                 hotelRoom.setPricePerRoom(pricePerRoom);
-
 
                 JSONObject objPrice = objRoom.optJSONObject("price");
 
@@ -176,6 +185,31 @@ public class TrevoHotelDetail {
                 price.setBranchCommisiion(objPrice.optString("branch_commission"));
                 price.setVoucherPrice(objPrice.optString("voucher_price"));
                 price.setAgentPrice(objPrice.optString("agent_price"));
+
+                JSONArray arrFac = objRoom.optJSONArray("facility");
+
+                try{
+                    hotelRoom.setFacilities(getFacilities(arrFac));
+                }catch (Exception ex){
+                    logger.error("ex "+ex.toString());
+                }
+
+                JSONArray arrSmook = objRoom.optJSONArray("smoking_pref");
+
+                try{
+                    hotelRoom.setSmookingPrefs(getSmookingPref(arrSmook));
+                }catch (Exception ex){
+                    logger.error("ex "+ex.toString());
+                }
+
+                JSONArray arrBedType = objRoom.optJSONArray("bed_types");
+
+                try{
+                    hotelRoom.setBedTypes(getBedTypes(arrBedType));
+                }catch (Exception ex){
+                    logger.error("ex "+ex.toString());
+                }
+
 
                 hotelRoom.setPrice(price);
 
@@ -216,6 +250,44 @@ public class TrevoHotelDetail {
         return images;
     }
 
+
+    private Set<HotelBedType> getBedTypes(JSONArray arrBedTypes){
+        HotelBedType hotelBedType = null;
+        Set<HotelBedType> hotelBedTypes = new HashSet<>();
+
+        JSONObject objBed;
+
+        for(int i=0;i<arrBedTypes.length();i++){
+            hotelBedType = new HotelBedType();
+            objBed = arrBedTypes.optJSONObject(i);
+
+            hotelBedType.setKey(objBed.optString("key"));
+            hotelBedType.setDesc(objBed.optString("desc"));
+
+            hotelBedTypes.add(hotelBedType);
+        }
+
+        return hotelBedTypes;
+    }
+
+    private Set<HotelSmookingPref> getSmookingPref(JSONArray arrBedTypes){
+        HotelSmookingPref hotelSmookingPref = null;
+        Set<HotelSmookingPref> hotelSmookingPrefs = new HashSet<>();
+
+        JSONObject objBed;
+
+        for(int i=0;i<arrBedTypes.length();i++){
+            hotelSmookingPref = new HotelSmookingPref();
+            objBed = arrBedTypes.optJSONObject(i);
+
+            hotelSmookingPref.setKey(objBed.optString("key"));
+            hotelSmookingPref.setDesc(objBed.optString("desc"));
+
+            hotelSmookingPrefs.add(hotelSmookingPref);
+        }
+
+        return hotelSmookingPrefs;
+    }
 
     //static method
     public static Map translateToParam(HotelDetailReq hotelDetailReq){

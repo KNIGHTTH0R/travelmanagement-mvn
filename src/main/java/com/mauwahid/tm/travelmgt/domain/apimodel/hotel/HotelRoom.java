@@ -23,6 +23,8 @@ public class HotelRoom {
 
     private String currency;
 
+    private Set<String> facilities;
+
 
     @JsonProperty("total_room")
     private String totalRoom;
@@ -38,6 +40,12 @@ public class HotelRoom {
     private HotelPricePerRoom pricePerRoom;
 
     private HotelPriceTotal price;
+
+    @JsonProperty("bed_types")
+    private Set<HotelBedType> bedTypes;
+
+    @JsonProperty("smooking_prefs")
+    private Set<HotelSmookingPref> smookingPrefs;
 
     private Set<HotelImage> images;
 
@@ -135,5 +143,29 @@ public class HotelRoom {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public Set<HotelBedType> getBedTypes() {
+        return bedTypes;
+    }
+
+    public void setBedTypes(Set<HotelBedType> bedTypes) {
+        this.bedTypes = bedTypes;
+    }
+
+    public Set<HotelSmookingPref> getSmookingPrefs() {
+        return smookingPrefs;
+    }
+
+    public void setSmookingPrefs(Set<HotelSmookingPref> smookingPrefs) {
+        this.smookingPrefs = smookingPrefs;
+    }
+
+    public Set<String> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(Set<String> facilities) {
+        this.facilities = facilities;
     }
 }

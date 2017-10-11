@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelDetailService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/hotel")
+@Api(tags = "Hotel Detail",  description="Operations for Hotel's detail")
 public class HotelDetailController {
 
 

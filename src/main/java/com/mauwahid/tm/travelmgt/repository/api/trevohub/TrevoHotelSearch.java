@@ -129,6 +129,7 @@ public class TrevoHotelSearch {
                 hotelHotel.setHotelId(objHotel.optString("hotel_id"));
                 hotelHotel.setServiceName(objHotel.optString("service_name"));
                 hotelHotel.setServiceCode(objHotel.optString("service_code"));
+                hotelHotel.setServiceId(objHotel.optString("service_id"));
                 hotelHotel.setStars(objHotel.optString("stars"));
                 hotelHotel.setRating(objHotel.optString("rating"));
 

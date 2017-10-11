@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightBookService;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightSearchService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/flight")
+@Api(tags = "Flight Book",  description="Operations for flight booking")
 public class FlightBookController {
 
     @Autowired

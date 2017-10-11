@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.old.SearchInfo;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightSearchService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/flight")
+@Api(tags = "Flight Search",  description="Operations for searching flight schedule")
 public class FlightSearchController {
 
 
