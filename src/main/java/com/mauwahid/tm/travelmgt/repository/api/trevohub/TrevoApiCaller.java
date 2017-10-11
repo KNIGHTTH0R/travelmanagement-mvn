@@ -19,7 +19,7 @@ public class TrevoApiCaller {
     @Value("${trevohub.h2h_code}")
     public static String h2hCode = "HINF210717FUWX0";
 
-    @Value("${pointer.ip}")
+    @Value("${trevohub.ip}")
     public String authToken = "127.0.0.1";
 
     public String callApiPost(String uri, Map<String, String> params) throws IOException{
