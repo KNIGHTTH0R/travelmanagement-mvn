@@ -38,7 +38,7 @@ public class HotelBookReq {
     @JsonProperty("external_service")
     private String externalService;
 
-    private String margin;
+  //  private String margin;
 
     public String getApiSource() {
         return apiSource;
@@ -127,12 +127,12 @@ public class HotelBookReq {
     public void setExternalService(String externalService) {
         this.externalService = externalService;
     }
-
+/*
     public String getMargin() {
         return margin;
     }
 
     public void setMargin(String margin) {
         this.margin = margin;
-    }
+    }*/
 }

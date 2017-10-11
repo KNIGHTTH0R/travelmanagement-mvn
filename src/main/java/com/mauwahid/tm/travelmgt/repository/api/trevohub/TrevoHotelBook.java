@@ -181,9 +181,12 @@ public class TrevoHotelBook {
         param.put("smooking_pref", hotelBookReq.getSmookingPref());
         param.put("customer[first_name]", hotelBookReq.getCustomerFirstName());
         param.put("customer[last_name]", hotelBookReq.getCustomerLastName());
+        param.put("room[first_name]", hotelBookReq.getCustomerFirstName());
+        param.put("room[last_name]", hotelBookReq.getCustomerLastName());
         param.put("customer[email]", hotelBookReq.getCustomerEmail());
+        param.put("customer[id_number]", hotelBookReq.getCustomerIdNumber());
         param.put("external_service", hotelBookReq.getExternalService());
-        param.put("margin", hotelBookReq.getMargin());
+       // param.put("margin", hotelBookReq.getMargin());
 
         return param;
     }
