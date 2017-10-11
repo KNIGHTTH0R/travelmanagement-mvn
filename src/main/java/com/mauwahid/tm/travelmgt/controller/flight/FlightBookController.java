@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightBookService;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightSearchService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class FlightBookController {
     private FlightBookService flightBookService;
 
 
+    @ApiOperation(value = "Flight Book", response = FlightBookResponse.class)
     @PostMapping("/book")
     public ResponseEntity book(@RequestHeader(name = "api-key") String apiKey,
                                        @RequestBody FlightBookReq flightBookReq){

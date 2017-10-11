@@ -1,8 +1,10 @@
 package com.mauwahid.tm.travelmgt.controller.hotel;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
+import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelDetailService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ public class HotelDetailController {
     private HotelDetailService hotelDetailService;
 
 
+    @ApiOperation(value = "Hotel Detail", response = HotelDetailResponse.class)
     @PostMapping("/detail")
     public ResponseEntity search(@RequestHeader(name = "api-key") String apiKey,
                                  @RequestBody HotelDetailReq hotelDetailReq){

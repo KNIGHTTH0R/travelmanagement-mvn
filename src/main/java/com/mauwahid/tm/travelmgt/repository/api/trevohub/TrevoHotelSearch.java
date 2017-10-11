@@ -75,7 +75,7 @@ public class TrevoHotelSearch {
         HotelLocation location = null;
 
         JSONObject objData = new JSONObject(jsonData);
-        JSONArray arrResult = objData.optJSONArray("results");
+        JSONArray arrResult = objData.optJSONArray("result");
 
         JSONObject objTopResult = null;
 
@@ -180,14 +180,15 @@ public class TrevoHotelSearch {
         param.put("h2h_code", TrevoApiCaller.h2hCode);
         param.put("app","hotel");
         param.put("action", "search");
-        param.put("service_name","expedia");
+        param.put("service_name","all");
         param.put("sort", hotelSearchReq.getSort());
         param.put("city", hotelSearchReq.getCity());
         param.put("destination_key", hotelSearchReq.getDestinationKey());
         param.put("country_code", hotelSearchReq.getCountryCode());
         param.put("check_in", hotelSearchReq.getCheckIn());
         param.put("check_out", hotelSearchReq.getCheckOut());
-        param.put("room", hotelSearchReq.getRoom());
+        param.put("room[0][total_adult]", hotelSearchReq.getTotalAdult());
+        param.put("room[0][total_child]", hotelSearchReq.getTotalChild());
         param.put("limit", hotelSearchReq.getLimit());
 
         return param;

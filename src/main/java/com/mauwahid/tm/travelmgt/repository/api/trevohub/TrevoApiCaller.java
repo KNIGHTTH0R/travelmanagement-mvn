@@ -11,13 +11,13 @@ import java.util.Map;
 public class TrevoApiCaller {
 
     @Value("${trevohub.url}")
-    public static String uri = "https://astrindotravel.astindohub.co.id/api/";
+    public static String uri = "https://partner.aeroaffiliate.com/api/";
 
     @Value("${trevohub.b2b_code}")
-    public static String b2bCode = "AST100717ICANVO";
+    public static String b2bCode = "PAR191216UYCKNP";
 
     @Value("${trevohub.h2h_code}")
-    public static String h2hCode = "HINF210717FUWX0";
+    public static String h2hCode = "HIND160617GU2OS";
 
     @Value("${trevohub.ip}")
     public String authToken = "127.0.0.1";

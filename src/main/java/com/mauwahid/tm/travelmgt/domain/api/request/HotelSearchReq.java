@@ -18,11 +18,17 @@ public class HotelSearchReq {
     @JsonProperty("check_out")
     private String checkOut;
 
-    private String room;
+  //  private String room;
 
     private String limit;
 
     private String sort;
+
+    @JsonProperty("total_adult")
+    private String totalAdult;
+
+    @JsonProperty("total_child")
+    private String totalChild;
 
     @JsonProperty("api_source")
     private String[] apiSource;
@@ -67,14 +73,6 @@ public class HotelSearchReq {
         this.checkOut = checkOut;
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
     public String getLimit() {
         return limit;
     }
@@ -99,4 +97,19 @@ public class HotelSearchReq {
         this.apiSource = apiSource;
     }
 
+    public String getTotalAdult() {
+        return totalAdult;
+    }
+
+    public void setTotalAdult(String totalAdult) {
+        this.totalAdult = totalAdult;
+    }
+
+    public String getTotalChild() {
+        return totalChild;
+    }
+
+    public void setTotalChild(String totalChild) {
+        this.totalChild = totalChild;
+    }
 }
