@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightTravel;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightTravel;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 
 import java.util.Set;
 

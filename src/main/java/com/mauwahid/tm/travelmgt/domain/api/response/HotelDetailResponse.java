@@ -1,15 +1,16 @@
 package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
+import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelHotel;
 
-public class FlightBookResponse extends DefaultResponse {
+public class HotelDetailResponse extends DefaultResponse {
+
 
     @JsonProperty("session_key")
     private String sessionKey;
 
-    @JsonProperty("book_result")
-    private FlightBook flightBook;
+    @JsonProperty("result")
+    private HotelHotel hotelResult;
 
     public String getSessionKey() {
         return sessionKey;
@@ -19,11 +20,11 @@ public class FlightBookResponse extends DefaultResponse {
         this.sessionKey = sessionKey;
     }
 
-    public FlightBook getFlightBook() {
-        return flightBook;
+    public HotelHotel getHotelResult() {
+        return hotelResult;
     }
 
-    public void setFlightBook(FlightBook flightBook) {
-        this.flightBook = flightBook;
+    public void setHotelResult(HotelHotel hotelResult) {
+        this.hotelResult = hotelResult;
     }
 }

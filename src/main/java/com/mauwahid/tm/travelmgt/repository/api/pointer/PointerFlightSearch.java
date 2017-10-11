@@ -1,10 +1,10 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightFlight;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightPrice;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightSeat;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightTravel;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPrice;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,11 +1,7 @@
 package com.mauwahid.tm.travelmgt.controller.flight;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightIssue;
-import com.mauwahid.tm.travelmgt.service.integrator.FlightBookService;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightIssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

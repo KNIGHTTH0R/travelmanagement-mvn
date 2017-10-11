@@ -1,12 +1,8 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightBook;
-import com.mauwahid.tm.travelmgt.domain.apimodel.FlightIssue;
-import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightIssue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
