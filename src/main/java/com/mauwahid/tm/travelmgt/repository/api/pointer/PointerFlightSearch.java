@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Component
 public class PointerFlightSearch {
@@ -118,8 +116,8 @@ public class PointerFlightSearch {
                 flightTravel.setEta(objDetail.optString("time_arrive"));
                 flightTravel.setEtd(objDetail.optString("time_depart"));
                 flightTravel.setFlightId(objDetail.optString("flight_id"));
-                flightTravel.setArriveArea(objData.optString("area_arrive"));
-                flightTravel.setDepartArea(objData.optString("area_depart"));
+                flightTravel.setArriveArea(objDetail.optString("area_arrive"));
+                flightTravel.setDepartArea(objDetail.optString("area_depart"));
 
                 arrFlight = objDetail.optJSONArray("flight_list");
 
@@ -182,6 +180,7 @@ public class PointerFlightSearch {
 
     //static method
     public static Map translateParamDepart(FlightSearchReq flightSearchReq){
+
         Map param = new HashMap();
 
         param.put("airline",flightSearchReq.getAirlineName());

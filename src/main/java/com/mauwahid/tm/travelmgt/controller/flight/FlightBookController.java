@@ -8,15 +8,18 @@ import com.mauwahid.tm.travelmgt.service.integrator.FlightBookService;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightSearchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+
 @RestController
 @RequestMapping("/flight")
 @Api(tags = "Flight Book",  description="Operations for flight booking")
+@Slf4j
 public class FlightBookController {
 
     @Autowired
@@ -27,6 +30,7 @@ public class FlightBookController {
     @PostMapping("/book")
     public ResponseEntity book(@RequestHeader(name = "api-key") String apiKey,
                                        @RequestBody FlightBookReq flightBookReq){
+
 
         FlightBookResponse response = flightBookService.bookFlight(flightBookReq);
 

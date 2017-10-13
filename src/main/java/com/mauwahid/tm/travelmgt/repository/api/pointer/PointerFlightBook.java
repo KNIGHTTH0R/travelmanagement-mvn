@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class PointerFlightBook {
@@ -142,12 +139,14 @@ public class PointerFlightBook {
 
     //static method
     public static Map translateToParam(FlightBookReq flightBookReq){
+        Optional<FlightBookReq> opt = Optional.ofNullable(flightBookReq);
+
         Map param = new HashMap();
 
-        param.put("airline",flightBookReq.getAirlineId());
+      /*  param.put("airline",flightBookReq.getAirlineId());
         param.put("adult_title_1", flightBookReq.getAdultTitle1());
         param.put("adult_name_1", flightBookReq.getAdultName1());
-        param.put("contact_title", flightBookReq.getContactTitle());
+        param.put("contact_title", flightBookReq.getContactTitle()!=null?);
         param.put("contact_name",flightBookReq.getContactName());
         param.put("contact_phone", flightBookReq.getContactPhone());
         param.put("adult_title_2", flightBookReq.getAdultTitle2());
@@ -161,7 +160,25 @@ public class PointerFlightBook {
         param.put("infant_birth_date_1", flightBookReq.getInfantBirthDate1());
         param.put("infant_id_1", flightBookReq.getInfantId1());
         param.put("infant_special_request_1", flightBookReq.getInfantSpecialRequest1());
+        */
 
+        param.put("airline",opt.get().getAirlineId());
+        param.put("adult_title_1", opt.get().getAdultTitle1());
+        param.put("adult_name_1", opt.get().getAdultName1());
+        param.put("contact_title", opt.get().getContactTitle());
+        param.put("contact_name",opt.get().getContactName());
+        param.put("contact_phone", opt.get().getContactPhone());
+        param.put("adult_title_2", opt.get().getAdultTitle2());
+        param.put("adult_name_2", opt.get().getAdultName2());
+        param.put("adult_special_request_1", opt.get().getAdultSpecialRequest1());
+        param.put("child_title_1", opt.get().getChildTitle1());
+        param.put("child_name_1", opt.get().getChildName1());
+        param.put("child_special_req1", opt.get().getChildSpecialRequest1());
+        param.put("infant_title_1", opt.get().getInfantTitle1());
+        param.put("infant_name_1", opt.get().getInfantName1());
+        param.put("infant_birth_date_1", opt.get().getInfantBirthDate1());
+        param.put("infant_id_1", opt.get().getInfantId1());
+        param.put("infant_special_request_1", opt.get().getInfantSpecialRequest1());
 
 
         return param;

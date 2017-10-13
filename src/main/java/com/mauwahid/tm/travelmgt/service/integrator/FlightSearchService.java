@@ -7,6 +7,8 @@ import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,11 +23,19 @@ public class FlightSearchService {
 
     public FlightSearchResponse searchFlight(FlightSearchReq flightSearchReq){
 
-        Set<FlightTravel> departTravel = departTravel(flightSearchReq);
+        Set<FlightTravel> departTravel = null;
+
+
+        Set<String> apiSource = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
+
+        if(apiSource.contains("pointer"))
+            departTravel = departTravel(flightSearchReq);
+
         Set<FlightTravel> returnTravel = null;
 
         if(flightSearchReq.getRoundtrip().equalsIgnoreCase("1"))
-             returnTravel = returnTravel(flightSearchReq);
+            if(apiSource.contains("pointer"))
+                returnTravel = returnTravel(flightSearchReq);
 
         FlightSearchResponse response = translateResponse(departTravel,returnTravel);
 

@@ -57,7 +57,9 @@ public class PostStdRequester implements IHttpRequester {
                     {
                         try{
               //              logger.debug("data : "+x+", "+y);
-                            formDataBuilder.add(x,y);
+
+                            if(y!=null)
+                                formDataBuilder.add(x,y);
 
                         }catch (Exception ex){
                             logger.debug("exception "+ex.toString());
