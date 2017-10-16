@@ -13,10 +13,12 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class TrevoFlightSearch {
@@ -30,7 +32,7 @@ public class TrevoFlightSearch {
     @Autowired
     private TrevoApiCaller trevoApiCaller;
 
-    private Set<FlightTravel> search(Map params) {
+    private Set<FlightTravel> searchTravel(Map params) {
 
         String jsonData;
 
@@ -248,12 +250,31 @@ public class TrevoFlightSearch {
 
     public Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamDepart(flightSearchReq);
-        return search(param);
+        return searchTravel(param);
     }
 
     public Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamReturn(flightSearchReq);
-        return search(param);
+        return searchTravel(param);
     }
+
+    @Async
+    public CompletableFuture<Set<FlightTravel>> departTravelCF(FlightSearchReq flightSearchReq){
+        Map param = translateParamDepart(flightSearchReq);
+
+        Set<FlightTravel> flightTravels = searchTravel(param);
+
+        return CompletableFuture.completedFuture(flightTravels);
+    }
+
+    @Async
+    public CompletableFuture<Set<FlightTravel>> returnTravelCF(FlightSearchReq flightSearchReq){
+        Map param = translateParamReturn(flightSearchReq);
+
+        Set<FlightTravel> flightTravels = searchTravel(param);
+
+        return CompletableFuture.completedFuture(flightTravels);
+    }
+
 
 }

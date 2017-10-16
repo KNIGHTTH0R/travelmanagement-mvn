@@ -11,11 +11,13 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class PointerFlightSearch {
@@ -218,6 +220,24 @@ public class PointerFlightSearch {
     public Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamReturn(flightSearchReq);
         return searchTravel(param);
+    }
+
+    @Async
+    public CompletableFuture<Set<FlightTravel>> departTravelCF(FlightSearchReq flightSearchReq){
+        Map param = translateParamDepart(flightSearchReq);
+
+        Set<FlightTravel> flightTravels = searchTravel(param);
+
+        return CompletableFuture.completedFuture(flightTravels);
+    }
+
+    @Async
+    public CompletableFuture<Set<FlightTravel>> returnTravelCF(FlightSearchReq flightSearchReq){
+        Map param = translateParamReturn(flightSearchReq);
+
+        Set<FlightTravel> flightTravels = searchTravel(param);
+
+        return CompletableFuture.completedFuture(flightTravels);
     }
 
 }
