@@ -15,6 +15,9 @@ public class FlightTravel {
     @JsonProperty("travel_id")
     private String travelId;
 
+    @JsonProperty("travel_key")
+    private String travelKey;
+
     @JsonProperty("travel_api")
     private String travelAPI;
 
@@ -157,5 +160,13 @@ public class FlightTravel {
 
     public void setSeats(Set<FlightSeat> seats) {
         this.seats = seats;
+    }
+
+    public String getTravelKey() {
+        return travelKey;
+    }
+
+    public void setTravelKey(String travelKey) {
+        this.travelKey = travelKey;
     }
 }

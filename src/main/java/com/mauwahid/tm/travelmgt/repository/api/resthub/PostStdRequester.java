@@ -22,7 +22,8 @@ public class PostStdRequester implements IHttpRequester {
 
         params.forEach((k,v)->
                 {
-                    formBuilder.add(k,v);
+                   formBuilder.add(k,v);
+                   // logger.debug("k "+k+", v ");
                 }
         );
 

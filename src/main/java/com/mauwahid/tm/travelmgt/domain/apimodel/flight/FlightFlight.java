@@ -23,6 +23,9 @@ public class FlightFlight {
     @JsonProperty("arrive_area")
     private String arriveArea;
 
+    @JsonProperty("flight_type")
+    private String flightType;
+
 
     public String getCode() {
         return code;

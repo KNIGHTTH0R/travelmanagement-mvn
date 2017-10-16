@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
+import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoFlightSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,24 +21,21 @@ public class FlightSearchService {
     private PointerFlightSearch pointerFlightSearch;
 
 
+    @Autowired
+    private TrevoFlightSearch trevoFlightSearch;
+
+
 
     public FlightSearchResponse searchFlight(FlightSearchReq flightSearchReq){
 
-        Set<FlightTravel> departTravel = null;
+        Set<FlightTravel> departs = null;
+        departs = departTravel(flightSearchReq);
 
-
-        Set<String> apiSource = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
-
-        if(apiSource.contains("pointer"))
-            departTravel = departTravel(flightSearchReq);
-
-        Set<FlightTravel> returnTravel = null;
-
+        Set<FlightTravel> returns = null;
         if(flightSearchReq.getRoundtrip().equalsIgnoreCase("1"))
-            if(apiSource.contains("pointer"))
-                returnTravel = returnTravel(flightSearchReq);
+                returns = returnTravel(flightSearchReq);
 
-        FlightSearchResponse response = translateResponse(departTravel,returnTravel);
+        FlightSearchResponse response = translateResponse(departs,returns);
 
         return response;
 
@@ -46,18 +44,59 @@ public class FlightSearchService {
     private Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
 
         //api pointer
-        Map param = PointerFlightSearch.translateParamDepart(flightSearchReq);
-        Set<FlightTravel> flightTravels = pointerFlightSearch.searchTravel(param);
+        Set<FlightTravel> flightTravels = new HashSet<>();
+        Set<FlightTravel> travelsTemp = null;
+
+        Set<String> apis = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
+
+        if(apis.contains("pointer")) {
+            travelsTemp = pointerFlightSearch.departTravel(flightSearchReq);
+            if (travelsTemp != null)
+                flightTravels.addAll(travelsTemp);
+        }
+
+        if(apis.contains("trevohub")){
+            travelsTemp = trevoFlightSearch.departTravel(flightSearchReq);
+            if(travelsTemp!=null)
+                flightTravels.addAll(travelsTemp);
+
+        }
+
         return flightTravels;
 
     }
 
     private Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
-        Map param = PointerFlightSearch.translateParamReturn(flightSearchReq);
-        Set<FlightTravel> flightTravels = pointerFlightSearch.searchTravel(param);
+
+        //api pointer
+        Set<FlightTravel> flightTravels = new HashSet<>();
+        Set<FlightTravel> travelsTemp = null;
+
+        Set<String> apis = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
+
+
+        if(apis.contains("pointer")){
+            travelsTemp = pointerFlightSearch.returnTravel(flightSearchReq);
+            if(travelsTemp!=null)
+                flightTravels.addAll(travelsTemp);
+        }
+
+        if(apis.contains("trevohub")){
+            travelsTemp = trevoFlightSearch.returnTravel(flightSearchReq);
+            if(travelsTemp!=null)
+                flightTravels.addAll(travelsTemp);
+
+        }
+
         return flightTravels;
 
     }
+
+
+
+
+
+
 
     private FlightSearchResponse translateResponse(Set<FlightTravel> departTravel, Set<FlightTravel> returnTravel){
         FlightSearchResponse flightSearchResponse = new FlightSearchResponse();

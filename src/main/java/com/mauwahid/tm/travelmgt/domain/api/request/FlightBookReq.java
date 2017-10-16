@@ -10,6 +10,12 @@ public class FlightBookReq  {
     @JsonProperty("flight_key")
     private String flightKey;
 
+    @JsonProperty("travel_key")
+    private String travelKey;
+
+    @JsonProperty("class_key")
+    private String classKey;
+
     @JsonProperty("airline")
     private String airlineId;
 
@@ -244,6 +250,22 @@ public class FlightBookReq  {
 
     public void setInfantSpecialRequest1(String infantSpecialRequest1) {
         this.infantSpecialRequest1 = infantSpecialRequest1;
+    }
+
+    public String getTravelKey() {
+        return travelKey;
+    }
+
+    public void setTravelKey(String travelKey) {
+        this.travelKey = travelKey;
+    }
+
+    public String getClassKey() {
+        return classKey;
+    }
+
+    public void setClassKey(String classKey) {
+        this.classKey = classKey;
     }
 }
 

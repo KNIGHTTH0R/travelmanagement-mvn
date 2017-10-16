@@ -143,25 +143,6 @@ public class PointerFlightBook {
 
         Map param = new HashMap();
 
-      /*  param.put("airline",flightBookReq.getAirlineId());
-        param.put("adult_title_1", flightBookReq.getAdultTitle1());
-        param.put("adult_name_1", flightBookReq.getAdultName1());
-        param.put("contact_title", flightBookReq.getContactTitle()!=null?);
-        param.put("contact_name",flightBookReq.getContactName());
-        param.put("contact_phone", flightBookReq.getContactPhone());
-        param.put("adult_title_2", flightBookReq.getAdultTitle2());
-        param.put("adult_name_2", flightBookReq.getAdultName2());
-        param.put("adult_special_request_1", flightBookReq.getAdultSpecialRequest1());
-        param.put("child_title_1", flightBookReq.getChildTitle1());
-        param.put("child_name_1", flightBookReq.getChildName1());
-        param.put("child_special_req1", flightBookReq.getChildSpecialRequest1());
-        param.put("infant_title_1", flightBookReq.getInfantTitle1());
-        param.put("infant_name_1", flightBookReq.getInfantName1());
-        param.put("infant_birth_date_1", flightBookReq.getInfantBirthDate1());
-        param.put("infant_id_1", flightBookReq.getInfantId1());
-        param.put("infant_special_request_1", flightBookReq.getInfantSpecialRequest1());
-        */
-
         param.put("airline",opt.get().getAirlineId());
         param.put("adult_title_1", opt.get().getAdultTitle1());
         param.put("adult_name_1", opt.get().getAdultName1());

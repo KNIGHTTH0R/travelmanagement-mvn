@@ -179,7 +179,7 @@ public class PointerFlightSearch {
 
 
     //static method
-    public static Map translateParamDepart(FlightSearchReq flightSearchReq){
+    private Map translateParamDepart(FlightSearchReq flightSearchReq){
 
         Map param = new HashMap();
 
@@ -210,5 +210,14 @@ public class PointerFlightSearch {
         return param;
     }
 
+    public Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
+        Map param = translateParamDepart(flightSearchReq);
+        return searchTravel(param);
+    }
+
+    public Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
+        Map param = translateParamReturn(flightSearchReq);
+        return searchTravel(param);
+    }
 
 }
