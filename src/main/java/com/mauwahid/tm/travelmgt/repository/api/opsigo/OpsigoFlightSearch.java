@@ -10,19 +10,16 @@ import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.FlightAvail
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.Route;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import lombok.extern.slf4j.Slf4j;
-import netscape.javascript.JSObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
@@ -76,7 +73,7 @@ public class OpsigoFlightSearch {
     private Set<FlightTravel> exceptionHandling(Exception ex){
 
         return null;
-    };
+    }
 
     //Translator From JSON
 
