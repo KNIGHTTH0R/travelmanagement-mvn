@@ -98,7 +98,7 @@ public class TrevoHotelDetail {
         hotel.setImages(getHotelImage(arrImages));
 
         JSONArray arrRoom = objDetail.optJSONArray("rooms");
-        hotel.setRooms(getHotelRoom(arrRoom));
+       // hotel.setRooms(getHotelRoom(arrRoom));
 
 
         return hotel;
@@ -188,12 +188,12 @@ public class TrevoHotelDetail {
 
                 JSONArray arrFac = objRoom.optJSONArray("facility");
 
-                try{
+         /*       try{
                     hotelRoom.setFacilities(getFacilities(arrFac));
                 }catch (Exception ex){
                     logger.error("ex "+ex.toString());
                 }
-
+*/
                 JSONArray arrSmook = objRoom.optJSONArray("smoking_pref");
 
                 try{
@@ -236,9 +236,9 @@ public class TrevoHotelDetail {
                 objImage = arrImages.getJSONObject(i);
 
                 image = new HotelImage();
-                image.setLarge(objImage.optString("large"));
-                image.setThumbnail(objImage.optString("thumbnail"));
-                image.setDescription(objImage.optString("description"));
+         //       image.setLarge(objImage.optString("large"));
+           //     image.setThumbnail(objImage.optString("thumbnail"));
+             //   image.setDescription(objImage.optString("description"));
 
                 images.add(image);
             }catch (Exception e){

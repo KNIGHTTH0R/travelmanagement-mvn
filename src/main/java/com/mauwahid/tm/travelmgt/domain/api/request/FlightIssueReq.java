@@ -1,7 +1,9 @@
 package com.mauwahid.tm.travelmgt.domain.api.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class FlightIssueReq {
 
     @JsonProperty("session_key")
@@ -11,28 +13,5 @@ public class FlightIssueReq {
 
     @JsonProperty("booking_code")
     private String bookingCode;
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public String getAirline() {
-        return airline;
-    }
-
-    public void setAirline(String airline) {
-        this.airline = airline;
-    }
-
-    public String getBookingCode() {
-        return bookingCode;
-    }
-
-    public void setBookingCode(String bookingCode) {
-        this.bookingCode = bookingCode;
-    }
 }
+

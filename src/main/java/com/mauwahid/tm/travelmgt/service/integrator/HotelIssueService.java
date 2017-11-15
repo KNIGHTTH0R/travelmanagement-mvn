@@ -1,12 +1,10 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookInfo;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssue;
-import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelBook;
+import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssueResult;
+import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelIssue;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelIssue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,9 @@ public class HotelIssueService {
     @Autowired
     private TrevoHotelIssue trevoHotelIssue;
 
+    @Autowired
+    private AstriHotelIssue astriHotelIssue;
+
 
     public HotelIssueResponse issueHotel(HotelIssueReq hotelIssueReq){
 
@@ -27,8 +28,8 @@ public class HotelIssueService {
         response.setStatusCode("2");
         response.setStatusDesc("Not Implemented");
 
-        if(hotelIssueReq.getApiSource().equalsIgnoreCase("trevohub")){
-            HotelIssue hotelIssue = issueTrevo(hotelIssueReq);
+        if(hotelIssueReq.getApiSource().equalsIgnoreCase("astrindo")){
+            HotelIssueResult hotelIssue = issueAstri(hotelIssueReq);
             return translateResponse(hotelIssue);
         }
 
@@ -44,10 +45,21 @@ public class HotelIssueService {
 
     }
 
+    private HotelIssueResult issueAstri(HotelIssueReq hotelIssueReq){
 
-    private HotelIssueResponse translateResponse(HotelIssue hotelIssue){
+        Map param = AstriHotelIssue.translateToParam(hotelIssueReq);
+        HotelIssueResult hotelIssueResult = astriHotelIssue.issueHotel(param);
+        return hotelIssueResult;
+
+    }
+
+
+    private HotelIssueResponse translateResponse(HotelIssueResult hotelIssue){
         HotelIssueResponse response = new HotelIssueResponse();
         response.setHotelIssue(hotelIssue);
         return response;
+    }
+
+    public static class HotelAvailabilityService {
     }
 }

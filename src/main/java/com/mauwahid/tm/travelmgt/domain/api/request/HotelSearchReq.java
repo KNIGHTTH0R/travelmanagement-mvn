@@ -1,26 +1,40 @@
 package com.mauwahid.tm.travelmgt.domain.api.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+import lombok.Data;
 
+@Data
 public class HotelSearchReq {
 
+    @ApiModelProperty(example = "BKK")
     private String city;
 
-    @JsonProperty("destination_key")
-    private String destinationKey;
+   // @JsonProperty("destination_key")
+  //  private String destinationKey = "";
 
     @JsonProperty("country_code")
+    @ApiModelProperty(example = "TH")
     private String countryCode;
 
+    @JsonProperty("nationality_code")
+    @ApiModelProperty(example = "ID")
+    private String bookerNationalityCode;
+
     @JsonProperty("check_in")
+    @ApiModelProperty(example = "2017-12-01")
     private String checkIn;
 
     @JsonProperty("check_out")
+    @ApiModelProperty(example = "2017-12-03")
     private String checkOut;
 
   //  private String room;
 
-    private String limit;
+   /* private String limit;
 
     private String sort;
 
@@ -28,88 +42,38 @@ public class HotelSearchReq {
     private String totalAdult;
 
     @JsonProperty("total_child")
-    private String totalChild;
+    private String totalChild;*/
 
     @JsonProperty("api_source")
     private String[] apiSource;
 
-    public String getCity() {
-        return city;
-    }
+ /*   @JsonProperty("booker_Nationality")
+    private String bookerNationality;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    @JsonProperty("dest_country_code")
+    private String destCountryCode; */
 
-    public String getDestinationKey() {
-        return destinationKey;
-    }
+    @JsonProperty("single_room")
+    @ApiModelProperty(example = "0")
+    private String singleRoom;
 
-    public void setDestinationKey(String destinationKey) {
-        this.destinationKey = destinationKey;
-    }
+    @JsonProperty("double_room")
+    @ApiModelProperty(example = "1")
+    private String doubleRoom;
 
-    public String getCountryCode() {
-        return countryCode;
-    }
+    @JsonProperty("twin_room")
+    @ApiModelProperty(example = "0")
+    private String twinRoom;
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
+    @JsonProperty("triple_room")
+    @ApiModelProperty(example = "0")
+    private String tripleRoom;
 
-    public String getCheckIn() {
-        return checkIn;
-    }
+    @JsonProperty("quad_room")
+    @ApiModelProperty(example = "0")
+    private String quadRoom;
 
-    public void setCheckIn(String checkIn) {
-        this.checkIn = checkIn;
-    }
 
-    public String getCheckOut() {
-        return checkOut;
-    }
 
-    public void setCheckOut(String checkOut) {
-        this.checkOut = checkOut;
-    }
 
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
-    }
-
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public String[] getApiSource() {
-        return apiSource;
-    }
-
-    public void setApiSource(String[] apiSource) {
-        this.apiSource = apiSource;
-    }
-
-    public String getTotalAdult() {
-        return totalAdult;
-    }
-
-    public void setTotalAdult(String totalAdult) {
-        this.totalAdult = totalAdult;
-    }
-
-    public String getTotalChild() {
-        return totalChild;
-    }
-
-    public void setTotalChild(String totalChild) {
-        this.totalChild = totalChild;
-    }
 }

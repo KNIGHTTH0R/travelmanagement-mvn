@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelSearchResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelHotel;
+import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelAvailability;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class HotelSearchService {
     @Autowired
     private TrevoHotelSearch trevoHotelSearch;
 
+    @Autowired
+    private AstriHotelAvailability astriHotelAvailability;
+
 
     public HotelSearchResponse searchHotel(HotelSearchReq hotelSearchReq){
 
@@ -36,12 +40,13 @@ public class HotelSearchService {
 
     private Set<HotelHotel> agreate(HotelSearchReq hotelSearchReq){
 
-        Map param = TrevoHotelSearch.translateToParam(hotelSearchReq);
+        Map param = AstriHotelAvailability.translateToParam(hotelSearchReq);
 
 
-        Set<HotelHotel> trevoHubHotel = trevoHotelSearch.searchHotel(param);
+      //  Set<HotelHotel> trevoHubHotel = trevoHotelSearch.searchHotel(param);
+        Set<HotelHotel> hotels = astriHotelAvailability.searchHotel(param);
 
-        return trevoHubHotel;
+        return hotels;
 
     }
 

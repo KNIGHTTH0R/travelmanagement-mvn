@@ -1,169 +1,79 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel.hotel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
+import lombok.Data;
 
+import java.util.Set;
+
+@Data
 public class HotelBookResult {
 
-    @JsonProperty("hotel_id")
-    private String hotelId;
+    @JsonProperty("reservation_id")
+    private String reservationID;
 
-    @JsonProperty("room_id")
-    private String roomId;
+    @JsonProperty("merchant_id")
+    private String merchantID;
 
-    @JsonProperty("room_quality")
-    private String roomQuality;
+    @JsonProperty("reservation_code")
+    private String reservationCode;
 
-    private String night;
+    @JsonProperty("member_id")
+    private String memberID;
 
-    @JsonProperty("check_in")
-    private String checkIn;
+    @JsonProperty("itinerary_name")
+    private String itineraryName;
 
-    @JsonProperty("check_out")
-    private String checkOut;
+    @JsonProperty("product_type")
+    private String productType;
 
-    @JsonProperty("currency_code")
-    private String currencyCode;
+    @JsonProperty("email_alert")
+    private String emailAlert;
 
-    @JsonProperty("booking_date")
-    private String bookingDate;
+    @JsonProperty("status_code")
+    private String statusCode;
 
-    @JsonProperty("custoemr_name")
-    private String customerName;
+    @JsonProperty("created_ip_address")
+    private String createdIPAddress;
 
-    @JsonProperty("customer_email")
-    private String customerEmail;
+    @JsonProperty("last_updated_ip_address")
+    private String lastUpdatedIPAddress;
 
-    @JsonProperty("customer_phone")
-    private String customerPhone;
+    @JsonProperty("message_code")
+    private String messageCode;
 
-    private String status;
+    @JsonProperty("message_desc")
+    private String messageDesc;
 
-    @JsonProperty("book_id")
-    private String bookId;
+    @JsonProperty("created_by")
+    private String createdBy;
 
-    @JsonProperty("time_limit")
-    private String timeLimit;
+    @JsonProperty("created_time")
+    private String createdTime;
 
-    @JsonProperty("price_per_room")
-    private HotelPricePerRoom pricePerRoom;
+    @JsonProperty("last_updated_by")
+    private String lastUpdatedBy;
 
-    public String getHotelId() {
-        return hotelId;
-    }
+    @JsonProperty("last_updated_time")
+    private String lastUpdatedTime;
 
-    public void setHotelId(String hotelId) {
-        this.hotelId = hotelId;
-    }
+    private String active;
 
-    public String getRoomId() {
-        return roomId;
-    }
+    private Set<HotelReservationPax> hotelReservationPaxes;
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
+    private Set<HotelReservationPaymentMethod> hotelReservationPaymentMethods;
 
-    public String getRoomQuality() {
-        return roomQuality;
-    }
+    @JsonProperty("reservation_billing")
+    private Set<HotelReservationBilling> hotelReservationBillings;
 
-    public void setRoomQuality(String roomQuality) {
-        this.roomQuality = roomQuality;
-    }
 
-    public String getNight() {
-        return night;
-    }
+    @JsonProperty("reservation_hotel")
+    private HotelReservationHotel hotelReservationHotel;
 
-    public void setNight(String night) {
-        this.night = night;
-    }
+    @JsonProperty("reservation_customer")
+    private HotelReservationCustomer hotelReservationCustomer;
 
-    public String getCheckIn() {
-        return checkIn;
-    }
 
-    public void setCheckIn(String checkIn) {
-        this.checkIn = checkIn;
-    }
 
-    public String getCheckOut() {
-        return checkOut;
-    }
 
-    public void setCheckOut(String checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public String getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(String bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getTimeLimit() {
-        return timeLimit;
-    }
-
-    public void setTimeLimit(String timeLimit) {
-        this.timeLimit = timeLimit;
-    }
-
-    public HotelPricePerRoom getPricePerRoom() {
-        return pricePerRoom;
-    }
-
-    public void setPricePerRoom(HotelPricePerRoom pricePerRoom) {
-        this.pricePerRoom = pricePerRoom;
-    }
 }

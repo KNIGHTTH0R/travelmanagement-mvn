@@ -1,5 +1,6 @@
 package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,10 @@ import java.io.IOException;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class GetWithHeaderRequester {
 
 
-    Logger logger = LoggerFactory.getLogger(GetWithHeaderRequester.class);
 
 
     public  String sendRequest(String uri, Map<String, String> headerParam, Map<String, String> params)
@@ -24,9 +25,9 @@ public class GetWithHeaderRequester {
        // uri = uri+"lion/search/best_price";
 
 
-        logger.debug("data uri : "+uri);
-        logger.debug("map header : "+headerParam.toString());
-        logger.debug("map params : "+params.toString());
+        log.debug("data uri : "+uri);
+        log.debug("map header : "+headerParam.toString());
+        log.debug("map params : "+params.toString());
 
         Headers.Builder headerBuilder = new Headers.Builder();
 
@@ -51,6 +52,39 @@ public class GetWithHeaderRequester {
 
         Request request = new Request.Builder().
                 url(url).headers(headers).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+
+    public  String sendRequest(String uri, Map<String, String> params)
+            throws IOException{
+
+        OkHttpClient client = new OkHttpClient();
+
+
+        // uri = uri+"lion/search/best_price";
+
+
+
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(uri).newBuilder();
+
+        params.forEach((k,v)->
+                {
+                    urlBuilder.addQueryParameter(k,v);
+
+
+                }
+        );
+
+        String url = urlBuilder.build().toString();
+
+        log.debug("url : "+url);
+
+        Request request = new Request.Builder().
+                url(url).build();
 
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();

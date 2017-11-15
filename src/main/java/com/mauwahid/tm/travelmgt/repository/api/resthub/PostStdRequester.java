@@ -80,4 +80,35 @@ public class PostStdRequester implements IHttpRequester {
             return response.body().string();
         }
     }
+
+    public String sendRequest(String uri, Map<String,String> headerParam,String  jSONparams) throws IOException {
+
+        OkHttpClient client = new OkHttpClient();
+
+
+        Headers.Builder headerBuilder = new Headers.Builder();
+
+        headerParam.forEach((k,v)->
+                {
+                    headerBuilder.add(k,v);
+                }
+        );
+
+        Headers headers = headerBuilder.build();
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),jSONparams);
+
+        logger.debug("URL Call "+uri);
+
+        Request request = new Request.Builder().
+                url(uri).
+                headers(headers).
+                post(requestBody).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+
+
 }

@@ -1,9 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -64,7 +62,7 @@ public class TrevoHotelBook {
     private HotelBookInfo translateToObject(String jsonData) throws JSONException {
 
         HotelHotel hotel = translateToHotel(jsonData);
-        HotelBookResult bookResult = translateToResultInfo(jsonData);
+        HotelBookResultOld bookResult = translateToResultInfo(jsonData);
         HotelBookInfo hotelBookInfo = new HotelBookInfo();
 
         hotelBookInfo.setBookResult(bookResult);
@@ -90,7 +88,7 @@ public class TrevoHotelBook {
         hotel.setAddress(objHotel.optString("hotel_address"));
 
         HotelImage image = new HotelImage();
-        image.setLarge(objHotel.optString("hotel_img"));
+      //  image.setLarge(objHotel.optString("hotel_img"));
 
         Set<HotelImage> images = new HashSet<>();
         images.add(image);
@@ -105,7 +103,7 @@ public class TrevoHotelBook {
         Set<HotelRoom> rooms = new HashSet<>();
         rooms.add(hotelRoom);
 
-        hotel.setRooms(rooms);
+   //     hotel.setRooms(rooms);
 
         JSONObject objPrice = objData.optJSONObject("price");
         HotelPricePerRoom priceRoom = new HotelPricePerRoom();
@@ -120,32 +118,32 @@ public class TrevoHotelBook {
         Set<HotelPricePerRoom> pricePerRooms = new HashSet<>();
         pricePerRooms.add(priceRoom);
 
-        hotel.setPricePerRooms(pricePerRooms);
+     //   hotel.setPricePerRooms(pricePerRooms);
 
         return hotel;
     }
 
-    private HotelBookResult translateToResultInfo(String jsonData) throws JSONException{
+    private HotelBookResultOld translateToResultInfo(String jsonData) throws JSONException{
 
         JSONObject objData = new JSONObject(jsonData);
-        HotelBookResult hotelBookResult = new HotelBookResult();
+        HotelBookResultOld hotelBookResultOld = new HotelBookResultOld();
 
         JSONObject objResult = objData.optJSONObject("result");
 
-        hotelBookResult.setBookId(objResult.optString("book_id"));
-        hotelBookResult.setHotelId(objResult.optString("hotel_id"));
-        hotelBookResult.setRoomId(objResult.optString("room_id"));
-        hotelBookResult.setRoomQuality(objResult.optString("room_quality"));
-        hotelBookResult.setNight(objResult.optString("night"));
-        hotelBookResult.setCheckIn(objResult.optString("check_in"));
-        hotelBookResult.setCheckOut(objResult.optString("check_out"));
-        hotelBookResult.setCurrencyCode(objResult.optString("currency_code"));
-        hotelBookResult.setBookingDate(objResult.optString("booking_date"));
-        hotelBookResult.setCustomerName(objResult.optString("customer_name"));
-        hotelBookResult.setCustomerEmail(objResult.optString("customer_email"));
-        hotelBookResult.setCustomerPhone(objResult.optString("customer_phone"));
-        hotelBookResult.setStatus(objResult.optString("status"));
-        hotelBookResult.setTimeLimit(objResult.optString("time_limit"));
+        hotelBookResultOld.setBookId(objResult.optString("book_id"));
+        hotelBookResultOld.setHotelId(objResult.optString("hotel_id"));
+        hotelBookResultOld.setRoomId(objResult.optString("room_id"));
+        hotelBookResultOld.setRoomQuality(objResult.optString("room_quality"));
+        hotelBookResultOld.setNight(objResult.optString("night"));
+        hotelBookResultOld.setCheckIn(objResult.optString("check_in"));
+        hotelBookResultOld.setCheckOut(objResult.optString("check_out"));
+        hotelBookResultOld.setCurrencyCode(objResult.optString("currency_code"));
+        hotelBookResultOld.setBookingDate(objResult.optString("booking_date"));
+        hotelBookResultOld.setCustomerName(objResult.optString("customer_name"));
+        hotelBookResultOld.setCustomerEmail(objResult.optString("customer_email"));
+        hotelBookResultOld.setCustomerPhone(objResult.optString("customer_phone"));
+        hotelBookResultOld.setStatus(objResult.optString("status"));
+        hotelBookResultOld.setTimeLimit(objResult.optString("time_limit"));
 
 
         JSONObject objPrice = objResult.optJSONObject("price_per_room");
@@ -160,10 +158,10 @@ public class TrevoHotelBook {
         pricePerRoom.setVoucherPrice(objPrice.optString("voucher_price"));
         pricePerRoom.setAgentPrice(objPrice.optString("agent_price"));
 
-        hotelBookResult.setPricePerRoom(pricePerRoom);
+        hotelBookResultOld.setPricePerRoom(pricePerRoom);
 
 
-        return hotelBookResult;
+        return hotelBookResultOld;
     }
 
 
@@ -175,7 +173,7 @@ public class TrevoHotelBook {
         param.put("h2h_code", TrevoApiCaller.h2hCode);
         param.put("app","hotel");
         param.put("action", "book");
-        param.put("session_id", hotelBookReq.getHotelSessionId());
+   /*     param.put("session_id", hotelBookReq.getHotelSessionId());
         param.put("room_id", hotelBookReq.getRoomId());
         param.put("bed_type_id", hotelBookReq.getBedTypeId());
         param.put("smooking_pref", hotelBookReq.getSmookingPref());
@@ -186,7 +184,8 @@ public class TrevoHotelBook {
         param.put("customer[email]", hotelBookReq.getCustomerEmail());
         param.put("customer[id_number]", hotelBookReq.getCustomerIdNumber());
         param.put("external_service", hotelBookReq.getExternalService());
-       // param.put("margin", hotelBookReq.getMargin());
+      */
+     // param.put("margin", hotelBookReq.getMargin());
 
         return param;
     }

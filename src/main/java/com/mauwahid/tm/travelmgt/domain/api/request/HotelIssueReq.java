@@ -1,41 +1,20 @@
 package com.mauwahid.tm.travelmgt.domain.api.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
 public class HotelIssueReq {
 
+    @JsonProperty("api_source")
     private String apiSource;
-    private String hotelDataId;
+
+    @JsonProperty("trx_no")
+    private String trxNo;
+
+   /* private String hotelDataId;
     private String paymentType;
     private String invoiceNo = "";
+*/
 
-    public String getApiSource() {
-        return apiSource;
-    }
-
-    public void setApiSource(String apiSource) {
-        this.apiSource = apiSource;
-    }
-
-    public String getHotelDataId() {
-        return hotelDataId;
-    }
-
-    public void setHotelDataId(String hotelDataId) {
-        this.hotelDataId = hotelDataId;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public String getInvoiceNo() {
-        return invoiceNo;
-    }
-
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
 }

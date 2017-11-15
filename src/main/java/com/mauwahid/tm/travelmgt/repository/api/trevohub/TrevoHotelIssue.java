@@ -104,7 +104,7 @@ public class TrevoHotelIssue {
         Set<HotelRoom> rooms = new HashSet<>();
         rooms.add(hotelRoom);
 
-        hotel.setRooms(rooms);
+     //   hotel.setRooms(rooms);
 
         JSONObject objPrice = objData.optJSONObject("price");
         HotelPricePerRoom priceRoom = new HotelPricePerRoom();
@@ -119,7 +119,7 @@ public class TrevoHotelIssue {
         Set<HotelPricePerRoom> pricePerRooms = new HashSet<>();
         pricePerRooms.add(priceRoom);
 
-        hotel.setPricePerRooms(pricePerRooms);
+     //   hotel.setPricePerRooms(pricePerRooms);
 
         return hotel;
     }
@@ -151,9 +151,9 @@ public class TrevoHotelIssue {
         param.put("h2h_code", TrevoApiCaller.h2hCode);
         param.put("app","hotel");
         param.put("action", "book");
-        param.put("hotel_data_id", hotelIssueReq.getHotelDataId());
-        param.put("payment_type", hotelIssueReq.getPaymentType());
-        param.put("invoice_no", hotelIssueReq.getInvoiceNo());
+        //param.put("hotel_data_id", hotelIssueReq.getHotelDataId());
+        //param.put("payment_type", hotelIssueReq.getPaymentType());
+        //param.put("invoice_no", hotelIssueReq.getInvoiceNo());
 
         return param;
     }

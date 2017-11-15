@@ -11,7 +11,7 @@ public class HotelBookInfo {
     private HotelHotel hotelHotel;
 
     @JsonProperty("book_result")
-    private HotelBookResult bookResult;
+    private HotelBookResultOld bookResult;
 
     public String getHotelDataId() {
         return hotelDataId;
@@ -29,11 +29,11 @@ public class HotelBookInfo {
         this.hotelHotel = hotelHotel;
     }
 
-    public HotelBookResult getBookResult() {
+    public HotelBookResultOld getBookResult() {
         return bookResult;
     }
 
-    public void setBookResult(HotelBookResult bookResult) {
+    public void setBookResult(HotelBookResultOld bookResult) {
         this.bookResult = bookResult;
     }
 }

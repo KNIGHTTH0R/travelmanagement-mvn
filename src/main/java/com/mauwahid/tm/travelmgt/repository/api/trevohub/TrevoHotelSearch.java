@@ -109,8 +109,8 @@ public class TrevoHotelSearch {
 
             objImage = objTopResult.optJSONObject("image");
             image = new HotelImage();
-            image.setLarge(objImage.optString("large"));
-            image.setThumbnail(objImage.optString("thumbnail"));
+           // image.setLarge(objImage.optString("large"));
+          //  image.setThumbnail(objImage.optString("thumbnail"));
 
             Set<HotelImage> images = new HashSet<>();
             images.add(image);
@@ -159,8 +159,8 @@ public class TrevoHotelSearch {
 
                 hotelHotel.setLocation(location);
                 hotelHotel.setImages(images);
-                hotelHotel.setPricePerRooms(pricePerRooms);
-                hotelHotel.setPriceTotals(priceTotals);
+            //    hotelHotel.setPricePerRooms(pricePerRooms);
+            //    hotelHotel.setPriceTotals(priceTotals);
 
 
                 hotels.add(hotelHotel);
@@ -182,15 +182,15 @@ public class TrevoHotelSearch {
         param.put("app","hotel");
         param.put("action", "search");
         param.put("service_name","all");
-        param.put("sort", hotelSearchReq.getSort());
+      //  param.put("sort", hotelSearchReq.getSort());
         param.put("city", hotelSearchReq.getCity());
-        param.put("destination_key", hotelSearchReq.getDestinationKey());
+      //  param.put("destination_key", hotelSearchReq.getDestinationKey());
         param.put("country_code", hotelSearchReq.getCountryCode());
         param.put("check_in", hotelSearchReq.getCheckIn());
         param.put("check_out", hotelSearchReq.getCheckOut());
-        param.put("room[0][total_adult]", hotelSearchReq.getTotalAdult());
-        param.put("room[0][total_child]", hotelSearchReq.getTotalChild());
-        param.put("limit", hotelSearchReq.getLimit());
+     //   param.put("room[0][total_adult]", hotelSearchReq.getTotalAdult());
+     //   param.put("room[0][total_child]", hotelSearchReq.getTotalChild());
+     //   param.put("limit", hotelSearchReq.getLimit());
 
         return param;
     }

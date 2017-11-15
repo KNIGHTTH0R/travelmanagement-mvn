@@ -85,7 +85,7 @@ public class TrevoFlightSearch {
             flightTravel = new FlightTravel();
 
             flightTravel.setTravelAPI("trevohub");
-           // flightTravel.setTravelKey(sessionId);
+           // flightTravel.setTravelId(sessionId);
             flightTravel.setEtd(objKey.optString("etd"));
             flightTravel.setEta(objKey.optString("eta"));
             flightTravel.setTravelId(sessionId);
