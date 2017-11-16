@@ -2,8 +2,11 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.CustomerData;
+import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.PaxData;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
+import com.mauwahid.tm.travelmgt.domain.apimodel.old.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -249,15 +252,47 @@ public class AstriHotelBook {
         String jsonCustomer = "";
         String jsonPaxData = "";
 
+        HotelCustomerData hotelCustomerData = hotelBookReq.getCustomerData();
+        CustomerData customerData = new CustomerData();
+
+        customerData.setTitle(hotelCustomerData.getTitle());
+        customerData.setFirstName(hotelCustomerData.getFirstName());
+        customerData.setLastName(hotelCustomerData.getLastName());
+        customerData.setAddress(hotelCustomerData.getAddress());
+        customerData.setContactNumber(hotelCustomerData.getContactNumber());
+        customerData.setEmail(hotelCustomerData.getEmail());
+
+
+
         try{
-            jsonCustomer = objectMapper.writeValueAsString(hotelBookReq.getCustomerData());
+            jsonCustomer = objectMapper.writeValueAsString(customerData);
             log.debug("CUSTOMER DATA : "+jsonCustomer);
         }catch (Exception ex){
             log.error("ex "+ex.toString());
         }
 
+        Set<HotelCustomerPax> listCustPax = hotelBookReq.getPaxData();
+        Set<PaxData> listPaxData = new HashSet<>();
+
+        PaxData paxData = null;
+
+        for(HotelCustomerPax custPax : listCustPax){
+            paxData = new PaxData();
+            paxData.setAge(custPax.getAge());
+            paxData.setNationality(custPax.getNationality());
+            paxData.setPaxFirstName(custPax.getPaxFirstName());
+            paxData.setPaxLastName(custPax.getPaxLastName());
+            paxData.setPaxNo(custPax.getPaxNo());
+            paxData.setPaxTitle(custPax.getPaxTitle());
+            paxData.setPaxTypeCode(custPax.getPaxTypeCode());
+            paxData.setRoomId(custPax.getRoomId());
+
+            listPaxData.add(paxData);
+        }
+
+
         try{
-            jsonPaxData = objectMapper.writeValueAsString(hotelBookReq.getPaxData());
+            jsonPaxData = objectMapper.writeValueAsString(listPaxData);
         }catch (Exception ex){
             log.error("ex "+ex.toString());
         }

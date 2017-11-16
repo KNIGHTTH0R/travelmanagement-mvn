@@ -1,10 +1,7 @@
 package com.mauwahid.tm.travelmgt.controller.flight;
 
-import com.mauwahid.tm.travelmgt.domain.api.old.ResSearch;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.old.SearchInfo;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightSearchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/flight")
