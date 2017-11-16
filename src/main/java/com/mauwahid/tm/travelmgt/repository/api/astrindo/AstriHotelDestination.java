@@ -36,7 +36,7 @@ public class AstriHotelDestination {
 
         String jsonData;
 
-        url = AstriApiCaller.uri;
+        url = AstriApiCaller.BASE_URI+"HotelDestination.aspx";
         log.debug("params : "+params);
 
         try{

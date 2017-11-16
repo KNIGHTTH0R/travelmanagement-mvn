@@ -24,7 +24,7 @@ public class HotelDestinationService {
         response.setStatusDesc("Not Implemented");
 
         if(hotelDestinationReq.getApiSource().equalsIgnoreCase("astrindo")){
-            Set<HotelDestination> hotelDestinations = fethHotelDestination(hotelDestinationReq);
+            Set<HotelDestination> hotelDestinations = fetchHotelDestination(hotelDestinationReq);
             return translateResponse(hotelDestinations);
 
         }
@@ -34,7 +34,7 @@ public class HotelDestinationService {
 
     }
 
-    private Set<HotelDestination> fethHotelDestination(HotelDestinationReq hotelDestinationReq){
+    private Set<HotelDestination> fetchHotelDestination(HotelDestinationReq hotelDestinationReq){
 
         Map param = AstriHotelDestination.translateToParam(hotelDestinationReq);
 

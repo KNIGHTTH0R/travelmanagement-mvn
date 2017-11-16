@@ -14,9 +14,12 @@ import java.util.UUID;
 @Component
 public class AstriApiCaller {
 
-    public static String uri = "http://202.129.226.202:10007/B2B/";
 
-   // public static String ORGCODE = "TEST";
+    public static String BASE_URI = "http://202.129.226.202:10007/";
+
+    public static String uri = BASE_URI + "B2B/";
+
+    // public static String ORGCODE = "TEST";
     public static String ORGCODE = "DHWJddDxgJtZXcpYqA5uTg==";
 
    // public static String MERCHANTID = "1G";
