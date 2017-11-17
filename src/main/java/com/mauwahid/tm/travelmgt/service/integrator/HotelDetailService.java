@@ -5,6 +5,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelSearchResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelHotel;
+import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelDetail;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelDetail;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +22,25 @@ public class HotelDetailService {
     @Autowired
     private TrevoHotelDetail trevoHotelDetail;
 
+    @Autowired
+    private AstriHotelDetail astriHotelDetail;
+
 
     public HotelDetailResponse getDetailHotel(HotelDetailReq hotelDetailReq){
 
         HotelDetailResponse response = new HotelDetailResponse();
         response.setStatusCode("2");
         response.setStatusDesc("not implemented");
+        HotelHotel hotel;
 
         if(hotelDetailReq.getApiSource().equalsIgnoreCase("trevohub")){
 
-            HotelHotel hotel = getTrevohub(hotelDetailReq);
+            hotel = getTrevohub(hotelDetailReq);
+            response = translateResponse(hotel);
+        }
+
+        if(hotelDetailReq.getApiSource().equalsIgnoreCase("astrindo")){
+            hotel = getAstrindo(hotelDetailReq);
             response = translateResponse(hotel);
         }
 
@@ -40,6 +50,17 @@ public class HotelDetailService {
     }
 
     private HotelHotel getTrevohub(HotelDetailReq hotelDetailReq){
+
+        Map param = TrevoHotelDetail.translateToParam(hotelDetailReq);
+
+
+        HotelHotel trevoHubHotel = trevoHotelDetail.getDetailHotel(param);
+
+        return trevoHubHotel;
+
+    }
+
+    private HotelHotel getAstrindo(HotelDetailReq hotelDetailReq){
 
         Map param = TrevoHotelDetail.translateToParam(hotelDetailReq);
 

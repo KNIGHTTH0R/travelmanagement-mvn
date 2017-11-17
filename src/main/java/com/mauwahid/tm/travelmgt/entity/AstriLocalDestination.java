@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class LocalDestination {
+public class AstriLocalDestination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,10 +18,7 @@ public class LocalDestination {
     @Column
     private String localName;
 
-    @OneToOne(mappedBy = "localDestination")
-    private AstriLocalDestination astriLocalDestination;
-
-
-
-
+    @OneToOne
+    @JoinColumn
+    private LocalDestination localDestination;
 }
