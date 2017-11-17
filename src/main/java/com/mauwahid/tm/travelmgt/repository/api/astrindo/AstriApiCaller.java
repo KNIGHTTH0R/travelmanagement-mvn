@@ -1,7 +1,9 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.ApiCallerInterface;
 import com.mauwahid.tm.travelmgt.repository.api.resthub.GetWithHeaderRequester;
 import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,8 @@ import java.util.Random;
 import java.util.UUID;
 
 @Component
-public class AstriApiCaller {
+@Qualifier("astri_api_caller")
+public class AstriApiCaller implements ApiCallerInterface {
 
 
     public static String BASE_URI = "http://202.129.226.202:10007/";

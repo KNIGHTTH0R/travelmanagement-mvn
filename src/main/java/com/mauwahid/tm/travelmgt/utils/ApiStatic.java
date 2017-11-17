@@ -1,7 +1,5 @@
 package com.mauwahid.tm.travelmgt.utils;
 
-import com.mauwahid.tm.travelmgt.domain.api.old.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 
 public class ApiStatic {
 
@@ -25,15 +23,6 @@ public class ApiStatic {
     public static final int FLIGHT_INTERNATIONAL = 2;
     public static final int FLIGHT_ALL = 3;
 
-
-    public static Response GenErrorParam(){
-        Status status = new Status();
-
-        status.setStatusId(StatusCode.API_ERROR_PARAM);
-        status.setStatusDesc(StatusCode.S_API_ERROR_PARAM);
-
-        return  new Response(status);
-    }
 
 
 

@@ -2,10 +2,12 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelPolicyReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelCancelPolicy;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelPolicyInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,7 +16,8 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class AstriHotelCancelPolicy {
+@Qualifier("astri_hotel_cancel_policy")
+public class AstriHotelCancelPolicy implements HotelCancelPolicyInterface{
 
     private Map params = new HashMap<String,String>();
 

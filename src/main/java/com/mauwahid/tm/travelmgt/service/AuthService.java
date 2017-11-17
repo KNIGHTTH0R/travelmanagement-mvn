@@ -1,12 +1,9 @@
 package com.mauwahid.tm.travelmgt.service;
 
-import com.mauwahid.tm.travelmgt.domain.api.old.Response;
-import com.mauwahid.tm.travelmgt.domain.apimodel.old.Status;
 import com.mauwahid.tm.travelmgt.entity.User;
 import com.mauwahid.tm.travelmgt.entity.log.error.LogErrorAuth;
 import com.mauwahid.tm.travelmgt.repository.database.UserRepository;
 import com.mauwahid.tm.travelmgt.repository.database.log.error.LogErrorAuthRepository;
-import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,12 +30,12 @@ public class AuthService {
         LogErrorAuth logErrorAuth = new LogErrorAuth(apiKey,ipAddress, apiType, apiName,description);
         logErrorAuthRepository.save(logErrorAuth);
     }
-
+/*
     public static Response authFailed(){
         Status status = new Status(StatusCode.AUTH_FAILED, "Auth Failed");
         Response response = new Response(status);
         return response;
     }
-
+*/
 
 }

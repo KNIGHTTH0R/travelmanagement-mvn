@@ -2,11 +2,14 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelSearchInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,7 +17,8 @@ import java.util.*;
 
 @Component
 @Slf4j
-public class AstriHotelAvailability {
+@Qualifier("astri_hotel_search")
+public class AstriHotelAvailability implements HotelSearchInterface {
 
     private Map params = new HashMap<String,String>();
 
@@ -24,7 +28,8 @@ public class AstriHotelAvailability {
     @Autowired
     private AstriApiCaller astriApiCaller;
 
-
+  //TODO : Should be async task
+  //  @Async
     public Set<HotelHotel> searchHotel(Map params) {
 
         String jsonData;
@@ -53,9 +58,8 @@ public class AstriHotelAvailability {
     private Set<HotelHotel> exceptionHandling(Exception ex){
 
         return null;
-    };
+    }
 
-    //Translator From JSON
 
     private Set<HotelHotel> translateToObject(String jsonData) throws JSONException {
         HotelHotel hotel;
@@ -67,6 +71,8 @@ public class AstriHotelAvailability {
 
         HotelFacility hotelFacility = null;
         Set<HotelFacility> facilities = new HashSet<>();
+
+        HotelLocation location;
 
         for(int i=0;i<arrHotel.length();i++){
             objHotel = arrHotel.optJSONObject(i);
@@ -86,6 +92,11 @@ public class AstriHotelAvailability {
             hotel.setFax(objHotel.optString("Fax"));
             hotel.setEmail(objHotel.optString("Email"));
             hotel.setWebsite(objHotel.optString("Website"));
+
+            location = new HotelLocation();
+            location.setLatitude(objHotel.optString("Latititude"));
+            location.setLongitude(objHotel.optString("Longitude"));
+
 
             JSONArray arrFacilities = objHotel.optJSONArray("HotelFacilityList");
             JSONObject objFacility = null;

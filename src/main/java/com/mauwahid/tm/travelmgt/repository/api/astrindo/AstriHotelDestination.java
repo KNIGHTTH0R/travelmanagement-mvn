@@ -6,11 +6,13 @@ import com.mauwahid.tm.travelmgt.domain.api.request.HotelDestinationReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelDestination;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDestinationInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,7 +23,8 @@ import java.util.Set;
 
 @Component
 @Slf4j
-public class AstriHotelDestination {
+@Qualifier("astri_hotel_destination")
+public class AstriHotelDestination implements HotelDestinationInterface {
 
     private Map params = new HashMap<String,String>();
 

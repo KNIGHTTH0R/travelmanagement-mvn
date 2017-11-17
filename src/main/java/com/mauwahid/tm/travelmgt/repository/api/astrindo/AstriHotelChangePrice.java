@@ -5,11 +5,13 @@ import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelChangePriceResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssueResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelChangePriceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -20,7 +22,8 @@ import java.util.Set;
 
 @Component
 @Slf4j
-public class AstriHotelChangePrice {
+@Qualifier("astri_hotel_change_price")
+public class AstriHotelChangePrice implements HotelChangePriceInterface {
 
     private String url;
 

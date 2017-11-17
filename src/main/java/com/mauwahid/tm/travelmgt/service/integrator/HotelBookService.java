@@ -33,6 +33,9 @@ public class HotelBookService {
         hotelBookResponse.setStatusCode("2");
         hotelBookResponse.setStatusDesc("Not Implemented");
 
+
+
+
         if(hotelBookReq.getApiSource().equalsIgnoreCase("astrindo")){
             HotelBookResult hotelBookResult = bookAstri(hotelBookReq);
             return translateResponse(hotelBookResult);

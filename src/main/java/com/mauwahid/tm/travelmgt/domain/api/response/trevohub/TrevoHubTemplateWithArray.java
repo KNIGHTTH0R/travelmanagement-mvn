@@ -1,16 +1,15 @@
 package com.mauwahid.tm.travelmgt.domain.api.response.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.api.old.IData;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-public class TrevoHubTemplateWithArray<T extends IData> {
+public class TrevoHubTemplateWithArray {
 
     private String errorCode;
     private String errorDesc;
-    private ArrayList<T> data;
+    private ArrayList data;
 
     public String getErrorCode() {
         return errorCode;
@@ -20,11 +19,11 @@ public class TrevoHubTemplateWithArray<T extends IData> {
         this.errorCode = errorCode;
     }
 
-    public ArrayList<T> getData() {
+    public ArrayList getData() {
         return data;
     }
 
-    public void setData(ArrayList<T> data) {
+    public void setData(ArrayList data) {
         this.data = data;
     }
 
