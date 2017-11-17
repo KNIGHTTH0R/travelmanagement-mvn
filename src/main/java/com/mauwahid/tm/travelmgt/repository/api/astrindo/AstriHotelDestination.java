@@ -1,11 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDestinationReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelDestination;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDestinationInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;

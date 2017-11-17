@@ -1,11 +1,8 @@
 package com.mauwahid.tm.travelmgt.domain.api.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.CustomerData;
-import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.PaxData;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.HotelCustomerData;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.HotelCustomerPax;
-import io.swagger.annotations.ApiKeyAuthDefinition;
 import lombok.Data;
 
 import java.util.Set;

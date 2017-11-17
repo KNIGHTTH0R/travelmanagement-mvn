@@ -1,9 +1,6 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssueResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelIssueInterface;

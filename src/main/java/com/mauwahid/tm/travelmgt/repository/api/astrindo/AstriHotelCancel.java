@@ -1,9 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelCancelResult;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssueResult;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelInterface;
 import lombok.extern.slf4j.Slf4j;

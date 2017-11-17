@@ -1,11 +1,8 @@
 package com.mauwahid.tm.travelmgt.controller.hotel;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDestinationReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDestinationResponse;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelDestinationService;
-import com.mauwahid.tm.travelmgt.service.integrator.HotelDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,7 @@
 package com.mauwahid.tm.travelmgt.controller.hotel;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelPolicyReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelCancelPolicyResponse;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelCancelPolicyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

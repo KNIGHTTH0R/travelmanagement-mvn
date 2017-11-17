@@ -1,8 +1,6 @@
 package com.mauwahid.tm.travelmgt.repository.api.opsigo;
 
-import com.mauwahid.tm.travelmgt.repository.api.resthub.GetWithHeaderRequester;
 import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 

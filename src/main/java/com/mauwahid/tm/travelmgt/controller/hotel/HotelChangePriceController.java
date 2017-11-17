@@ -1,10 +1,7 @@
 package com.mauwahid.tm.travelmgt.controller.hotel;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelChangePriceReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelChangePriceResponse;
-import com.mauwahid.tm.travelmgt.service.integrator.HotelBookService;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelChangePriceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

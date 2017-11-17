@@ -1,6 +1,5 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel.hotel;
 
-import com.mauwahid.tm.travelmgt.domain.apimodel.old.Customer;
 
 public class HotelIssue {
 
