@@ -114,6 +114,8 @@ public class AstriHotelDetail implements HotelDetailInterface {
 
         hotel.setHotelFacilities(facilities);
 
+        log.debug("check available room");
+
         JSONArray arrAvailableRooms = objHotel.optJSONArray("AvailableRoomList");
         JSONObject objAvailableRoom = null;
 
@@ -178,33 +180,37 @@ public class AstriHotelDetail implements HotelDetailInterface {
 
 
         JSONArray arrMgRooms = objHotel.optJSONArray("MGRoomList");
-        JSONObject objMgRoom = null;
 
-        MGRoom mgRoom = null;
-        Set<MGRoom> mgRooms = new HashSet<>();
+        if(arrMgRooms!=null) {
 
-        for(int w=0;w<arrMgRooms.length();w++){
-            objMgRoom = arrMgRooms.optJSONObject(w);
+            JSONObject objMgRoom = null;
 
-            mgRoom = new MGRoom();
-            mgRoom.setRoomId(objMgRoom.optString("RoomId"));
-            mgRoom.setPaxPassport(objMgRoom.optString("PaxPassport"));
-            mgRoom.setCancelPolicyId(objMgRoom.optString("CancelPolicyID"));
-            mgRoom.setInternalCode(objMgRoom.optString("InternalCode"));
-            mgRoom.setCategoryCode(objMgRoom.optString("CategoryCode"));
-            mgRoom.setCategoryName(objMgRoom.optString("CategoryName"));
-            mgRoom.setTypeName(objMgRoom.optString("TypeName"));
-            mgRoom.setPricePerNight(objMgRoom.optString("PricePerNight"));
-            mgRoom.setTotalPrice(objMgRoom.optString("TotalPrice"));
-            mgRoom.setNumRooms(objMgRoom.optString("NumRooms"));
-            mgRoom.setBfType(objMgRoom.optString("BFType"));
+            MGRoom mgRoom = null;
+            Set<MGRoom> mgRooms = new HashSet<>();
 
-            mgRooms.add(mgRoom);
+            for (int w = 0; w < arrMgRooms.length(); w++) {
+                objMgRoom = arrMgRooms.optJSONObject(w);
+
+                mgRoom = new MGRoom();
+                mgRoom.setRoomId(objMgRoom.optString("RoomId"));
+                mgRoom.setPaxPassport(objMgRoom.optString("PaxPassport"));
+                mgRoom.setCancelPolicyId(objMgRoom.optString("CancelPolicyID"));
+                mgRoom.setInternalCode(objMgRoom.optString("InternalCode"));
+                mgRoom.setCategoryCode(objMgRoom.optString("CategoryCode"));
+                mgRoom.setCategoryName(objMgRoom.optString("CategoryName"));
+                mgRoom.setTypeName(objMgRoom.optString("TypeName"));
+                mgRoom.setPricePerNight(objMgRoom.optString("PricePerNight"));
+                mgRoom.setTotalPrice(objMgRoom.optString("TotalPrice"));
+                mgRoom.setNumRooms(objMgRoom.optString("NumRooms"));
+                mgRoom.setBfType(objMgRoom.optString("BFType"));
+
+                mgRooms.add(mgRoom);
+
+            }
+
+            hotel.setMgRooms(mgRooms);
 
         }
-
-        hotel.setMgRooms(mgRooms);
-
 
 
 
