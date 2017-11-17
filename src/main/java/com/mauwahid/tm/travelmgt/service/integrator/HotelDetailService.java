@@ -62,10 +62,10 @@ public class HotelDetailService {
 
     private HotelHotel getAstrindo(HotelDetailReq hotelDetailReq){
 
-        Map param = TrevoHotelDetail.translateToParam(hotelDetailReq);
+        Map param = AstriHotelDetail.translateToParam(hotelDetailReq);
 
 
-        HotelHotel trevoHubHotel = trevoHotelDetail.getDetailHotel(param);
+        HotelHotel trevoHubHotel = astriHotelDetail.getDetailHotel(param);
 
         return trevoHubHotel;
 

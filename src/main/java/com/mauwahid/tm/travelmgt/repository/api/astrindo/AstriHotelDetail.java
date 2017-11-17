@@ -221,7 +221,7 @@ public class AstriHotelDetail implements HotelDetailInterface {
         param.put("password", AstriApiCaller.PASSWORD);
         param.put("orgCode", AstriApiCaller.ORGCODE);
         param.put("merchantID", AstriApiCaller.MERCHANTID);
-        param.put("sessionID", AstriApiCaller.generateSessionID());
+        param.put("sessionID", hotelDetailReq.getSessionId());
 
 
         param.put("hotelKey",hotelDetailReq.getHotelKey());
