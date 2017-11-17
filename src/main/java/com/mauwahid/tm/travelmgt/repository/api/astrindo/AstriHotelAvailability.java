@@ -96,8 +96,11 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             hotel.setWebsite(objHotel.optString("Website"));
 
             location = new HotelLocation();
-            location.setLatitude(objHotel.optString("Latititude"));
+            location.setLatitude(objHotel.optString("Latitude"));
             location.setLongitude(objHotel.optString("Longitude"));
+
+            hotel.setLocation(location);
+
 
 
             JSONArray arrFacilities = objHotel.optJSONArray("HotelFacilityList");
