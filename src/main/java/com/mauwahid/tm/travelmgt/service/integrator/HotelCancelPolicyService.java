@@ -1,20 +1,17 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelPolicyReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelCancelPolicyResponse;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelCancelPolicy;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelHotel;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelCancelPolicy;
-import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelDetail;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelPolicyInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
-public class HotelCancelPolicyService {
+public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
 
     @Autowired
     private AstriHotelCancelPolicy astriHotelCancelPolicy;

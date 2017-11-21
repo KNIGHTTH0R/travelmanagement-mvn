@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPrice;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.FlightAvailReq;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.Route;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
@@ -23,7 +24,7 @@ import java.util.*;
 
 @Component
 @Slf4j
-public class OpsigoFlightSearch {
+public class OpsigoFlightSearch implements FlightSearchInterface {
 
     private Map params = new HashMap<String,String>();
 

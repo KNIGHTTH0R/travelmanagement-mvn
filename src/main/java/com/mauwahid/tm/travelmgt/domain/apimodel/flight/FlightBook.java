@@ -1,9 +1,11 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel.flight;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.util.Set;
 
+@Data
 public class FlightBook {
 
     @JsonProperty("status_code")
@@ -28,68 +30,4 @@ public class FlightBook {
 
     @JsonProperty("contact_detail")
     private FlightContact flightContact;
-
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getStatusDesc() {
-        return statusDesc;
-    }
-
-    public void setStatusDesc(String statusDesc) {
-        this.statusDesc = statusDesc;
-    }
-
-    public String getMaskapai() {
-        return maskapai;
-    }
-
-    public void setMaskapai(String maskapai) {
-        this.maskapai = maskapai;
-    }
-
-    public String getBookingCode() {
-        return bookingCode;
-    }
-
-    public void setBookingCode(String bookingCode) {
-        this.bookingCode = bookingCode;
-    }
-
-    public String getTimeLimit() {
-        return timeLimit;
-    }
-
-    public void setTimeLimit(String timeLimit) {
-        this.timeLimit = timeLimit;
-    }
-
-    public Set<FlightFlight> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(Set<FlightFlight> flights) {
-        this.flights = flights;
-    }
-
-    public Set<FlightPassenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(Set<FlightPassenger> passengers) {
-        this.passengers = passengers;
-    }
-
-    public FlightContact getFlightContact() {
-        return flightContact;
-    }
-
-    public void setFlightContact(FlightContact flightContact) {
-        this.flightContact = flightContact;
-    }
 }

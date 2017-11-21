@@ -29,6 +29,11 @@ public class HotelSearchReq {
     @ApiModelProperty(example = "2017-12-03")
     private String checkOut;
 
+
+    @JsonProperty("destination_code")
+    @ApiModelProperty(example = "f6cc2187dea984c9f16a1c948c3c5222")
+    private String destinationKey;
+
   //  private String room;
 
    /* private String limit;

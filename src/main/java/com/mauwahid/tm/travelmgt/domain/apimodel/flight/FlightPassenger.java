@@ -1,7 +1,9 @@
 package com.mauwahid.tm.travelmgt.domain.apimodel.flight;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class FlightPassenger {
 
 
@@ -16,36 +18,4 @@ public class FlightPassenger {
 
     @JsonProperty("ticket_no")
     private String ticketNo;
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getPassengerType() {
-        return passengerType;
-    }
-
-    public void setPassengerType(String passengerType) {
-        this.passengerType = passengerType;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getTicketNo() {
-        return ticketNo;
-    }
-
-    public void setTicketNo(String ticketNo) {
-        this.ticketNo = ticketNo;
-    }
 }

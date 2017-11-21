@@ -9,6 +9,15 @@ public class Common {
 
 
 
+    public static final String API_ASTRINDO = "astrindo";
+
+    public static final String API_POINTER = "pointer";
+
+    public static final String API_TREVOHUB = "trevohub";
+
+    public static final String API_OPSIGO = "opsigo";
+
+
     //dd-MM-yyyy
     public static String toPointerStandar(String dateWindoFormat) throws ParseException{
         String NEW_FORMAT = "dd-MM-yyy";

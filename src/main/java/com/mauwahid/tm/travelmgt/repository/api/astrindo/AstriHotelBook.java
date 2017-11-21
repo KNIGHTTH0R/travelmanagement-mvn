@@ -2,11 +2,15 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelPolicyReq;
 import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.CustomerData;
 import com.mauwahid.tm.travelmgt.domain.api.request.hotelbook.PaxData;
+import com.mauwahid.tm.travelmgt.domain.api.response.HotelCancelPolicyResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
+import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelBookInterface;
+import com.mauwahid.tm.travelmgt.service.integrator.HotelCancelPolicyService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +38,23 @@ public class AstriHotelBook  implements HotelBookInterface{
     @Autowired
     private AstriApiCaller astriApiCaller;
 
+    @Autowired
+    private HotelCancelPolicyService hotelCancelPolicyService;
+
 
     public HotelBookResult bookHotel(Map params) {
 
         String jsonData;
+
+
+        if(!isCanbeBooked(params)){
+            HotelBookResult hotelBookResult = new HotelBookResult();
+            hotelBookResult.setStatusCode("02");
+            hotelBookResult.setMessageDesc("Cannot be booked");
+
+            return hotelBookResult;
+        }
+
 
         url = AstriApiCaller.uri+"HotelBooking.aspx";
         log.debug("params : "+params);
@@ -63,9 +80,36 @@ public class AstriHotelBook  implements HotelBookInterface{
     private HotelBookResult exceptionHandling(Exception ex){
 
         return null;
-    };
+    }
 
     //Translator From JSON
+
+
+    private boolean isCanbeBooked(Map params){
+        HotelCancelPolicyReq hotelCancelPolicyReq = new HotelCancelPolicyReq();
+
+        hotelCancelPolicyReq.setHotelKey(params.get("hotelKey").toString());
+        hotelCancelPolicyReq.setSessionID(params.get("sessionID").toString());
+        hotelCancelPolicyReq.setRoomID(params.get("roomID").toString());
+
+        HotelCancelPolicyResponse response = hotelCancelPolicyService.getPolicyResponse(hotelCancelPolicyReq);
+
+        log.debug("Response policy : "+response.toString());
+
+        //Todo : save data for log
+        // --- this code --
+
+        HotelCancelPolicy hotelCancelPolicy = response.getHotelCancelPolicy();
+
+        if(hotelCancelPolicy.getHotelKey()==null){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+
 
     private HotelBookResult translateToObject(String jsonData) throws JSONException {
         HotelBookResult hotelBookResult = new HotelBookResult();
@@ -248,7 +292,7 @@ public class AstriHotelBook  implements HotelBookInterface{
 
         param.put("sessionID", hotelBookReq.getSessionId());
         param.put("hotelKey", hotelBookReq.getHotelKey());
-        param.put("roomId=", hotelBookReq.getRoomId());
+        param.put("roomID", hotelBookReq.getRoomId());
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonCustomer = "";
