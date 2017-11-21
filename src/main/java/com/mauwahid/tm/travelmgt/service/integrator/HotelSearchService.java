@@ -7,6 +7,7 @@ import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelAvailability;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelSearch;
 import com.mauwahid.tm.travelmgt.utils.Common;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class HotelSearchService {
 
 
@@ -51,8 +53,10 @@ public class HotelSearchService {
 
         if(apiSources.contains(Common.API_ASTRINDO)){
             hotelSearchInterface = new AstriHotelAvailability();
-            AstriHotelAvailability.translateToParam(hotelSearchReq);
+            param = AstriHotelAvailability.translateToParam(hotelSearchReq);
 
+            log.debug("hotel search param "+hotelSearchReq.toString());
+            log.debug("translate to param "+param);
             hotels = hotelSearchInterface.searchHotel(param);
         }
 

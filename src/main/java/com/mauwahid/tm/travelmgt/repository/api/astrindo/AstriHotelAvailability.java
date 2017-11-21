@@ -7,9 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -28,15 +26,16 @@ public class AstriHotelAvailability implements HotelSearchInterface {
     private String url;
 
 
-    @Autowired
+  //  @Autowired
     private AstriApiCaller astriApiCaller;
 
   //TODO : Should be async task
-    @Async
+  //  @Async
     public Set<HotelHotel> searchHotel(Map params) {
 
         String jsonData;
 
+        astriApiCaller = new AstriApiCaller();
         url = AstriApiCaller.uri + "HotelAvailability.aspx";
         log.debug("params : "+params);
 

@@ -3,8 +3,10 @@ package com.mauwahid.tm.travelmgt.domain.api.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class HotelSearchReq {
 
     @ApiModelProperty(example = "BKK")
