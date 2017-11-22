@@ -1,10 +1,8 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightContact;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPassenger;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
+import com.mauwahid.tm.travelmgt.domain.apimodel.flight.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Component
-public class PointerFlightBook {
-
-    private Map params = new HashMap<String,String>();
+public class PointerFlightBook implements FlightBookInterface {
 
     private String url;
 
@@ -29,7 +28,9 @@ public class PointerFlightBook {
     private PointerApiCaller pointerApiCaller;
 
 
-    public FlightBook bookFlight(Map params) {
+    public FlightBook bookFlight(FlightBookReq2 flightBookReq) {
+
+        Map params = translateToParam(flightBookReq);
 
         url = PointerApiCaller.uri;
         url = url+params.get("airline")+"/book";
@@ -138,29 +139,41 @@ public class PointerFlightBook {
 
 
     //static method
-    public static Map translateToParam(FlightBookReq flightBookReq){
-        Optional<FlightBookReq> opt = Optional.ofNullable(flightBookReq);
+    private static Map translateToParam(FlightBookReq2 flightBookReq){
+       // Optional<FlightBookReq> opt = Optional.ofNullable(flightBookReq);
 
         Map param = new HashMap();
 
-        param.put("airline",opt.get().getAirlineId());
-        param.put("adult_title_1", opt.get().getAdultTitle1());
-        param.put("adult_name_1", opt.get().getAdultName1());
-        param.put("contact_title", opt.get().getContactTitle());
-        param.put("contact_name",opt.get().getContactName());
-        param.put("contact_phone", opt.get().getContactPhone());
-        param.put("adult_title_2", opt.get().getAdultTitle2());
-        param.put("adult_name_2", opt.get().getAdultName2());
-        param.put("adult_special_request_1", opt.get().getAdultSpecialRequest1());
-        param.put("child_title_1", opt.get().getChildTitle1());
-        param.put("child_name_1", opt.get().getChildName1());
-        param.put("child_special_req1", opt.get().getChildSpecialRequest1());
-        param.put("infant_title_1", opt.get().getInfantTitle1());
-        param.put("infant_name_1", opt.get().getInfantName1());
-        param.put("infant_birth_date_1", opt.get().getInfantBirthDate1());
-        param.put("infant_id_1", opt.get().getInfantId1());
-        param.put("infant_special_request_1", opt.get().getInfantSpecialRequest1());
+        FlightContact flightContact = flightBookReq.getFlightContact();
 
+        FlightSegment flightSegment = flightBookReq.getFlightSegments()
+                            .stream().findFirst().get();
+
+        int idx = 1;
+
+        for(FlightPassenger passenger : flightBookReq.getPassengers()){
+
+
+
+            if(passenger.getType().equalsIgnoreCase("1")){
+                param.put("adult_title_"+idx,passenger.getTitle());
+                param.put("adult_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
+                param.put("adult_special_request_"+idx,passenger.getAdultAssoc());
+
+            }else if(passenger.getType().equalsIgnoreCase("2")){
+                param.put("child_title_"+idx,passenger.getTitle());
+                param.put("child_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
+                param.put("child_special_request_"+idx,passenger.getAdultAssoc());
+
+            }else{
+                param.put("infant_title_"+idx,passenger.getTitle());
+                param.put("infant_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
+                param.put("infant_special_request_"+idx,passenger.getAdultAssoc());
+                param.put("infant_birth_date_"+idx, passenger.getBirthDate());
+
+            }
+
+        }
 
         return param;
     }

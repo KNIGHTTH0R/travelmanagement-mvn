@@ -8,23 +8,25 @@ import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.FlightAvailReq;
-import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.Route;
+import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.RouteOps;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
+import com.mauwahid.tm.travelmgt.utils.Common;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
-public class OpsigoFlightSearch implements FlightSearchInterface {
+public class OpsigoFlightSearch  implements FlightSearchInterface{
 
     private Map params = new HashMap<String,String>();
 
@@ -32,14 +34,15 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
 
     private Logger logger = LoggerFactory.getLogger(PointerFlightSearch.class);
 
-    @Autowired
     private OpsigoApiCaller opsigoApiCaller;
 
 
-    public Set<FlightTravel> searchTravel(FlightAvailReq flightAvailReq) {
+    private Set<FlightTravel> searchTravel(Map map) {
 
         url = OpsigoApiCaller.uri;
         url = url+"/apiv4/FlightAvailability";
+
+        FlightAvailReq flightAvailReq = translateToFlightRequest(map);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonParam = "";
@@ -54,6 +57,9 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
         String jsonData;
 
         try{
+            opsigoApiCaller = new OpsigoApiCaller();
+
+            logger.debug("JSON Req "+jsonParam);
             jsonData = opsigoApiCaller.callApiPost(url,jsonParam);
             logger.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
@@ -90,16 +96,8 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
         JSONArray arrDetail;
         JSONObject objDetail;
 
-        JSONArray arrSeat;
-        JSONObject objSeat;
 
-        JSONArray arrFlight;
-        JSONObject objFlight;
-
-        JSONObject objPrice;
-        FlightPrice price;
-
-        airline = objData.optString("airline");
+       // airline = objData.optString("Airline");
 
         //FlightData
         FlightTravel flightTravel = null;
@@ -121,6 +119,7 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
 
             arrDetail = objTravel.optJSONArray("Flights");
 
+            log.debug("after open flight");
             //iterate detail
             for(int j=0;j<arrDetail.length();j++){
                 objDetail = arrDetail.optJSONObject(j);
@@ -131,8 +130,8 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
                 flightTravel.setEta(objDetail.optString("ArriveTime"));
                 flightTravel.setEtd(objDetail.optString("DepartTime"));
                 flightTravel.setFlightId(objDetail.optString("Id"));
-                flightTravel.setArriveArea(objDetail.optString("area_arrive"));
-                flightTravel.setDepartArea(objDetail.optString("area_depart"));
+                flightTravel.setArriveArea(objDetail.optString("Destination"));
+                flightTravel.setDepartArea(objDetail.optString("Origin"));
 
                 int transit = objDetail.optInt("TotalTransit");
 
@@ -151,9 +150,7 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
 
                     flights.add(flight);
 
-                    flightTravel.setFlights(flights);
-
-                    JSONArray arrClassObj = objDetail.optJSONArray("ClassObject");
+                    JSONArray arrClassObj = objDetail.optJSONArray("ClassObjects");
                     JSONObject objClass;
 
                     Set<FlightSeat> flightSeats = new HashSet<>();
@@ -165,6 +162,8 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
                         FlightPrice flightPrice = new FlightPrice();
 
                         flightSeat.setAvailable(objClass.optString("Seat"));
+                        flightSeat.setClassKey(objClass.optString("Id"));
+
                         flightPrice.setFare(objClass.optString("Fare"));
                         flightPrice.setTax(objClass.optString("Tax"));
 
@@ -180,6 +179,9 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
 
                     flightTravel.setSeats(flightSeats);
 
+                    flightTravel.setFlights(flights);
+
+
                 }else{ //if there is transit
 
 
@@ -187,56 +189,6 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
                 }
 
 
-                arrFlight = objDetail.optJSONArray("flight_list");
-
-                 for (int k=0;k<arrFlight.length();k++){
-                    objFlight = arrFlight.optJSONObject(k);
-                    flight = new FlightFlight();
-                    flight.setCode(objFlight.optString("code"));
-                    flight.setEtd(objFlight.optString("time_depart"));
-                    flight.setEta(objFlight.optString("time_arrive"));
-                    flight.setEtaDate(objFlight.optString("date_arrive"));
-                    flight.setEtdDate(objFlight.optString("date_depart"));
-                    flight.setArriveArea(objFlight.optString("area_arrive"));
-                    flight.setDepartArea(objFlight.optString("area_depart"));
-                    flight.setFlightId(objFlight.optString("flight_id"));
-
-                    flights.add(flight);
-                }
-
-                flightTravel.setFlights(flights);
-
-                arrSeat = objDetail.optJSONArray("seat");
-
-                seats = new HashSet<>();
-
-                for(int m=0;m<arrSeat.length();m++){
-                    objSeat = arrSeat.optJSONObject(m);
-                    seat = new FlightSeat();
-
-                    seat.setAvailable(objSeat.optString("available"));
-                    seat.setCode(objSeat.optString("code"));
-                    seat.setFlightKey(objSeat.optString("flight_key"));
-                    seat.setSeatClass(objSeat.optString("class"));
-
-
-                    objPrice = objSeat.optJSONObject("best_price");
-                    price = new FlightPrice();
-                    price.setFare(objPrice.optString("fare"));
-                    price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
-                    price.setFareChildPax(objPrice.optString("fare_child_pax"));
-                    price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
-                    price.setTax(objPrice.optString("tax"));
-                    price.setTotalPrice(objPrice.optString("total_price"));
-
-                    seat.setFlightPrice(price);
-                    seats.add(seat);
-
-
-
-                }
-
-                flightTravel.setSeats(seats);
             }
 
             flightTravels.add(flightTravel);
@@ -245,85 +197,99 @@ public class OpsigoFlightSearch implements FlightSearchInterface {
     }
 
 
-    private FlightAvailReq translateParamDepart(FlightSearchReq flightSearchReq){
+    private Map translateParamDepart(FlightSearchReq flightSearchReq){
 
-        Route route = new Route();
-        route.setDepartDate(flightSearchReq.getDepartDate());
-        route.setDestination(flightSearchReq.getTo());
-        route.setOrigin(flightSearchReq.getFrom());
+        Map param = new HashMap();
 
-        List<Route> routes = new ArrayList();
+        param.put("airline", Common.opsTranslateAirline(flightSearchReq.getAirlineName()));
+        param.put("from", flightSearchReq.getFrom());
+        param.put("to", flightSearchReq.getTo());
+        param.put("date", flightSearchReq.getDepartDate());
+        param.put("adult", flightSearchReq.getAdultPax());
+        param.put("child", flightSearchReq.getChildPax());
+        param.put("infant", flightSearchReq.getInfantPax());
+
+
+        return param;
+    }
+
+    private Map translateParamReturn(FlightSearchReq flightSearchReq){
+
+        Map param = new HashMap();
+
+        param.put("airline",Common.opsTranslateAirline(flightSearchReq.getAirlineName()));
+        param.put("to", flightSearchReq.getFrom());
+        param.put("from", flightSearchReq.getTo());
+        param.put("date", flightSearchReq.getReturnDate());
+        param.put("adult", flightSearchReq.getAdultPax());
+        param.put("child", flightSearchReq.getChildPax());
+        param.put("infant", flightSearchReq.getInfantPax());
+
+
+        return param;
+    }
+
+
+    private FlightAvailReq translateToFlightRequest(Map map){
+
+        RouteOps route = new RouteOps();
+        route.setDepartDate(map.get("date").toString());
+        route.setDestination(map.get("to").toString());
+        route.setOrigin(map.get("from").toString());
+
+        List<RouteOps> routes = new ArrayList();
         routes.add(route);
 
         FlightAvailReq flightAvailReq = new FlightAvailReq();
         flightAvailReq.setRoutes(routes);
         try{
-            flightAvailReq.setAdult(Integer.parseInt(flightSearchReq.getAdultPax()));
+            flightAvailReq.setAdult(Integer.parseInt(map.get("adult").toString()));
         }catch (Exception ex){
             flightAvailReq.setAdult(0);
         }
 
         try{
-            flightAvailReq.setChild(Integer.parseInt(flightSearchReq.getChildPax()));
+            flightAvailReq.setChild(Integer.parseInt(map.get("child").toString()));
         }catch (Exception ex){
             flightAvailReq.setChild(0);
         }
 
         try{
-            flightAvailReq.setInfant(Integer.parseInt(flightSearchReq.getInfantPax()));
+            flightAvailReq.setInfant(Integer.parseInt(map.get("infant").toString()));
         }catch (Exception ex){
             flightAvailReq.setInfant(0);
         }
+
+        flightAvailReq.setFareType("Default");
+
+        int airline = Integer.parseInt(map.get("airline").toString());
+
+        List<Integer> prefAirlines = new ArrayList<>();
+        prefAirlines.add(airline);
+
+        flightAvailReq.setPreferredAirlines(prefAirlines);
 
 
         return flightAvailReq;
     }
 
-    public static FlightAvailReq translateParamReturn(FlightSearchReq flightSearchReq){
+    @Async
+    public CompletableFuture<Set<FlightTravel>> departTravel(FlightSearchReq flightSearchReq){
+        Map param = translateParamDepart(flightSearchReq);
 
-        Route route = new Route();
-        route.setDepartDate(flightSearchReq.getReturnDate());
-        route.setDestination(flightSearchReq.getFrom());
-        route.setOrigin(flightSearchReq.getTo());
+        Set<FlightTravel> flightTravels = searchTravel(param);
 
-        List<Route> routes = new ArrayList();
-        routes.add(route);
-
-        FlightAvailReq flightAvailReq = new FlightAvailReq();
-        flightAvailReq.setRoutes(routes);
-        try{
-            flightAvailReq.setAdult(Integer.parseInt(flightSearchReq.getAdultPax()));
-        }catch (Exception ex){
-            flightAvailReq.setAdult(0);
-        }
-
-        try{
-            flightAvailReq.setChild(Integer.parseInt(flightSearchReq.getChildPax()));
-        }catch (Exception ex){
-            flightAvailReq.setChild(0);
-        }
-
-        try{
-            flightAvailReq.setInfant(Integer.parseInt(flightSearchReq.getInfantPax()));
-        }catch (Exception ex){
-            flightAvailReq.setInfant(0);
-        }
-
-
-        return flightAvailReq;
+        return CompletableFuture.completedFuture(flightTravels);
     }
 
-    public Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
-        FlightAvailReq param = translateParamDepart(flightSearchReq);
-        return searchTravel(param);
+    @Async
+    public CompletableFuture<Set<FlightTravel>> returnTravel(FlightSearchReq flightSearchReq){
+        Map param = translateParamReturn(flightSearchReq);
+
+        Set<FlightTravel> flightTravels = searchTravel(param);
+
+        return CompletableFuture.completedFuture(flightTravels);
     }
-
-    public Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
-        FlightAvailReq param = translateParamReturn(flightSearchReq);
-        return searchTravel(param);
-    }
-
-
 
 
 }

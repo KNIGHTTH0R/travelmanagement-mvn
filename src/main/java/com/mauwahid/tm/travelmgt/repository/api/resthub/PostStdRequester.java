@@ -1,17 +1,15 @@
 package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
+@Slf4j
 public class PostStdRequester implements IHttpRequester {
 
 
-    Logger logger = LoggerFactory.getLogger(PostStdRequester.class);
 
     @Override
     public String sendRequest(String uri, Map<String,String> params) throws IOException {
@@ -27,7 +25,7 @@ public class PostStdRequester implements IHttpRequester {
                 }
         );
 
-        logger.debug("URI "+uri);
+        log.debug("URI "+uri);
         Request request = new Request.Builder().url(uri).post(formBuilder.build()).build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -63,13 +61,13 @@ public class PostStdRequester implements IHttpRequester {
                                 formDataBuilder.add(x,y);
 
                         }catch (Exception ex){
-                            logger.debug("exception "+ex.toString());
+                            log.debug("exception "+ex.toString());
                         }
 
                     }
             );
 
-        logger.debug("URL Call "+uri);
+        log.debug("URL Call "+uri);
 
         Request request = new Request.Builder().
                 url(uri).
@@ -98,7 +96,8 @@ public class PostStdRequester implements IHttpRequester {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),jSONparams);
 
-        logger.debug("URL Call "+uri);
+        log.debug("URL Call "+uri);
+
 
         Request request = new Request.Builder().
                 url(uri).

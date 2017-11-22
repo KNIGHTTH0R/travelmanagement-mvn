@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FlightAvailReq {
 
     @JsonProperty("Routes")
-    private List<Route> routes = null;
+    private List<RouteOps> routes = null;
     @JsonProperty("Adult")
     private Integer adult;
     @JsonProperty("Child")
@@ -38,12 +38,12 @@ public class FlightAvailReq {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("Routes")
-    public List<Route> getRoutes() {
+    public List<RouteOps> getRoutes() {
         return routes;
     }
 
     @JsonProperty("Routes")
-    public void setRoutes(List<Route> routes) {
+    public void setRoutes(List<RouteOps> routes) {
         this.routes = routes;
     }
 

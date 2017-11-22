@@ -1,6 +1,6 @@
 package com.mauwahid.tm.travelmgt.controller.flight;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.service.integrator.FlightBookService;
 import io.swagger.annotations.Api;
@@ -26,7 +26,7 @@ public class FlightBookController {
     @ApiOperation(value = "Flight Book", response = FlightBookResponse.class)
     @PostMapping("/book")
     public ResponseEntity book(@RequestHeader(name = "api-key") String apiKey,
-                                       @RequestBody FlightBookReq flightBookReq){
+                                       @RequestBody FlightBookReq2 flightBookReq){
 
 
 

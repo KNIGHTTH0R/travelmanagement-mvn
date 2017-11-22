@@ -18,4 +18,7 @@ public class FlightSeat {
     @JsonProperty("price")
     private FlightPrice flightPrice;
 
+    @JsonProperty("class_key")
+    private String classKey;
+
 }

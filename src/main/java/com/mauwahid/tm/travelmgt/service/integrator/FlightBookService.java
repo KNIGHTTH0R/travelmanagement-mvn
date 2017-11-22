@@ -1,23 +1,22 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
+import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightBook;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mauwahid.tm.travelmgt.utils.Common;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class FlightBookService {
 
-    @Autowired
-    private PointerFlightBook pointerFlightBook;
+    private FlightBookInterface flightBookInterface;
 
 
 
-    public FlightBookResponse bookFlight(FlightBookReq flightBookReq){
+    public FlightBookResponse bookFlight(FlightBookReq2 flightBookReq){
 
         FlightBook flightBook = book(flightBookReq);
 
@@ -27,11 +26,23 @@ public class FlightBookService {
 
     }
 
-    private FlightBook book(FlightBookReq flightBookReq){
+    private FlightBook book(FlightBookReq2 flightBookReq){
 
         //api pointer
-        Map param = PointerFlightBook.translateToParam(flightBookReq);
-        FlightBook flightBook = pointerFlightBook.bookFlight(param);
+
+        FlightBook flightBook = null;
+        switch (flightBookReq.getApiSource()){
+            case Common.API_OPSIGO :
+                flightBookInterface = new OpsigoFlightBook();
+                break;
+            case Common.API_POINTER :
+                flightBookInterface = new PointerFlightBook();
+                break;
+            default:
+                flightBookInterface = new PointerFlightBook();
+        }
+
+        flightBook = flightBookInterface.bookFlight(flightBookReq);
         return flightBook;
 
     }

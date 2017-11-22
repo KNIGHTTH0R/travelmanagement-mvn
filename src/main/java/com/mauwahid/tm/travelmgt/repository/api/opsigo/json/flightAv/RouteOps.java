@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "Destination",
     "DepartDate"
 })
-public class Route {
+public class RouteOps {
 
     @JsonProperty("Origin")
     private String origin;

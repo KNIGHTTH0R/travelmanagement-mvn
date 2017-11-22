@@ -12,7 +12,7 @@ import java.util.Map;
 public class OpsigoApiCaller {
 
    // @Value("${opsigo.url}")
-    public static String uri = "https://opsitools-demo.azurewebsites.net/";
+    public static String uri = "https://opsigo-b2c.azurewebsites.net";
 
 
     public String authToken = "";

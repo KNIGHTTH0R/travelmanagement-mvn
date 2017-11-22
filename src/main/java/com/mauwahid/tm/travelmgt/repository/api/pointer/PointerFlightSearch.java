@@ -5,6 +5,7 @@ import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPrice;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Component
-public class PointerFlightSearch {
+public class PointerFlightSearch implements FlightSearchInterface {
 
     private Map params = new HashMap<String,String>();
 
@@ -31,7 +32,7 @@ public class PointerFlightSearch {
     private PointerApiCaller pointerApiCaller;
 
 
-    public Set<FlightTravel> searchTravel(Map params) {
+    private Set<FlightTravel> searchTravel(Map params) {
 
         url = PointerApiCaller.uri;
         url = url+params.get("airline")+"/search/best_price";
@@ -39,8 +40,9 @@ public class PointerFlightSearch {
         String jsonData;
 
         try{
-           jsonData = pointerApiCaller.callApiGet(url,params);
-           logger.debug("JSON RES : "+jsonData);
+            pointerApiCaller = new PointerApiCaller();
+            jsonData = pointerApiCaller.callApiGet(url,params);
+            logger.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             logger.error("searchTravel : "+ex.toString());
             return exceptionHandling(ex);
@@ -211,18 +213,18 @@ public class PointerFlightSearch {
         return param;
     }
 
-    public Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
+    public Set<FlightTravel> departTravelOld(FlightSearchReq flightSearchReq){
         Map param = translateParamDepart(flightSearchReq);
         return searchTravel(param);
     }
 
-    public Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
+    public Set<FlightTravel> returnTravelOld(FlightSearchReq flightSearchReq){
         Map param = translateParamReturn(flightSearchReq);
         return searchTravel(param);
     }
 
     @Async
-    public CompletableFuture<Set<FlightTravel>> departTravelCF(FlightSearchReq flightSearchReq){
+    public CompletableFuture<Set<FlightTravel>> departTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamDepart(flightSearchReq);
 
         Set<FlightTravel> flightTravels = searchTravel(param);
@@ -231,7 +233,7 @@ public class PointerFlightSearch {
     }
 
     @Async
-    public CompletableFuture<Set<FlightTravel>> returnTravelCF(FlightSearchReq flightSearchReq){
+    public CompletableFuture<Set<FlightTravel>> returnTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamReturn(flightSearchReq);
 
         Set<FlightTravel> flightTravels = searchTravel(param);

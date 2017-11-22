@@ -1,12 +1,11 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPrice;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Component
-public class TrevoFlightSearch {
+public class TrevoFlightSearch implements FlightSearchInterface {
 
     private Map params = new HashMap<String,String>();
 
@@ -247,7 +246,7 @@ public class TrevoFlightSearch {
         return param;
     }
 
-
+/*
     public Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamDepart(flightSearchReq);
         return searchTravel(param);
@@ -257,9 +256,9 @@ public class TrevoFlightSearch {
         Map param = translateParamReturn(flightSearchReq);
         return searchTravel(param);
     }
-
+*/
     @Async
-    public CompletableFuture<Set<FlightTravel>> departTravelCF(FlightSearchReq flightSearchReq){
+    public CompletableFuture<Set<FlightTravel>> departTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamDepart(flightSearchReq);
 
         Set<FlightTravel> flightTravels = searchTravel(param);
@@ -268,7 +267,7 @@ public class TrevoFlightSearch {
     }
 
     @Async
-    public CompletableFuture<Set<FlightTravel>> returnTravelCF(FlightSearchReq flightSearchReq){
+    public CompletableFuture<Set<FlightTravel>> returnTravel(FlightSearchReq flightSearchReq){
         Map param = translateParamReturn(flightSearchReq);
 
         Set<FlightTravel> flightTravels = searchTravel(param);
