@@ -1,7 +1,8 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDetailInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class TrevoHotelDetail {
+public class TrevoHotelDetail implements HotelDetailInterface {
 
     private Map params = new HashMap<String,String>();
 

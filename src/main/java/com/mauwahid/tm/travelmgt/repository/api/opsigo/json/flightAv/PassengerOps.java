@@ -10,7 +10,7 @@ public class PassengerOps {
     private int index;
 
     @JsonProperty("Type")
-    private String type;
+    private int type;
 
     @JsonProperty("Title")
     private String title;
@@ -33,7 +33,7 @@ public class PassengerOps {
     @JsonProperty("MobilePhone")
     private String mobilePhone;
 
-    @JsonProperty("OthePhone")
+    @JsonProperty("OtherPhone")
     private String otherPhone;
 
     @JsonProperty("IdNumber")

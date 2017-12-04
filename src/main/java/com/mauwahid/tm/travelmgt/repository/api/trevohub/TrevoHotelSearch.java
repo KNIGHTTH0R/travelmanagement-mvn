@@ -1,8 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
-import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

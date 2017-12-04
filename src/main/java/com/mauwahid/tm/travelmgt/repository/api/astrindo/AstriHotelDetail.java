@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDetailInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;

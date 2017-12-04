@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.*;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
 import org.json.JSONArray;
 import org.json.JSONException;

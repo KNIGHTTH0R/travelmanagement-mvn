@@ -1,8 +1,8 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelChangePriceReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelChangePriceResult;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.reservation.*;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelChangePriceResult;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelChangePriceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;

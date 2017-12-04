@@ -2,8 +2,8 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssue;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelIssueResult;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelIssue;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelIssueResult;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelIssue;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelIssue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class HotelIssueService {
     public HotelIssueResponse issueHotel(HotelIssueReq hotelIssueReq){
 
         HotelIssueResponse response = new HotelIssueResponse();
-        response.setStatusCode("2");
-        response.setStatusDesc("Not Implemented");
+        response.setStatus("2");
+        response.setMessage("Not Implemented");
 
         if(hotelIssueReq.getApiSource().equalsIgnoreCase("astrindo")){
             HotelIssueResult hotelIssue = issueAstri(hotelIssueReq);

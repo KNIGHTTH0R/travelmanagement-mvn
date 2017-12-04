@@ -1,6 +1,6 @@
 package com.mauwahid.tm.travelmgt.service.common;
 
-import com.mauwahid.tm.travelmgt.domain.apimodel.common.Destination;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.common.Destination;
 import com.mauwahid.tm.travelmgt.entity.City;
 import com.mauwahid.tm.travelmgt.entity.Country;
 import com.mauwahid.tm.travelmgt.entity.LocalDestination;

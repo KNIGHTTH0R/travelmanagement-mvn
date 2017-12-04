@@ -1,36 +1,32 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelHotel;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelSearchResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelHotel;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelDetail;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDetailInterface;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelDetail;
-import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelSearch;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class HotelDetailService {
 
     private HotelDetailResponse hotelDetailResponse;
 
-    @Autowired
-    private TrevoHotelDetail trevoHotelDetail;
 
-    @Autowired
-    private AstriHotelDetail astriHotelDetail;
+    private HotelDetailInterface hotelDetailInterface;
 
 
-    public HotelDetailResponse getDetailHotel(HotelDetailReq hotelDetailReq){
+    public HotelDetailResponse getDetailHotel(int userId, HotelDetailReq hotelDetailReq){
 
         HotelDetailResponse response = new HotelDetailResponse();
-        response.setStatusCode("2");
-        response.setStatusDesc("not implemented");
+        response.setStatus(StatusCode.NOT_IMPLEMENTED);
+        response.setMessage(StatusCode.S_NOT_IMPLEMENTED);
         HotelHotel hotel;
 
         if(hotelDetailReq.getApiSource().equalsIgnoreCase("trevohub")){
@@ -53,8 +49,9 @@ public class HotelDetailService {
 
         Map param = TrevoHotelDetail.translateToParam(hotelDetailReq);
 
+        hotelDetailInterface = new TrevoHotelDetail();
 
-        HotelHotel trevoHubHotel = trevoHotelDetail.getDetailHotel(param);
+        HotelHotel trevoHubHotel = hotelDetailInterface.getDetailHotel(param);
 
         return trevoHubHotel;
 
@@ -64,21 +61,30 @@ public class HotelDetailService {
 
         Map param = AstriHotelDetail.translateToParam(hotelDetailReq);
 
+        hotelDetailInterface = new AstriHotelDetail();
 
-        HotelHotel trevoHubHotel = astriHotelDetail.getDetailHotel(param);
+        HotelHotel astriHotel = hotelDetailInterface.getDetailHotel(param);
 
-        return trevoHubHotel;
+        return astriHotel;
 
     }
 
 
-
     private HotelDetailResponse translateResponse(HotelHotel hotel){
         HotelDetailResponse hotelDetailResponse = new HotelDetailResponse();
-        hotelDetailResponse.setSessionKey("abcdefghijklm");
 
+        String sessionId = Common.generateSessionID();
+
+        hotelDetailResponse.setSessionKey(sessionId);
         hotelDetailResponse.setHotelResult(hotel);
 
         return hotelDetailResponse;
+    }
+
+    private void saveToLog(int userId, HotelSearchResponse hotelSearchResponse){
+
+
+        //todo : log_hotel_detail -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+
     }
 }

@@ -1,9 +1,9 @@
 package com.mauwahid.tm.travelmgt.domain.api.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightContact;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPassenger;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSegment;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightContact;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPassenger;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightSegment;
 import lombok.Data;
 
 import java.util.Set;

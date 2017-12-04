@@ -7,11 +7,8 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Client {
+public class Client extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
 
     @Column(unique = true, length = 30)
     private String clientName;

@@ -10,7 +10,7 @@ public class SegmentOps {
     private String classId;
 
     @JsonProperty("Airline")
-    private String airline;
+    private int airline;
 
     @JsonProperty("FlightNumber")
     private String flightNumber;

@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelBookResult;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelBookResult;
 import lombok.Data;
 
 @Data

@@ -1,37 +1,24 @@
 package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
+import lombok.Data;
 
-public class DefaultResponse {
+@Data
+public class DefaultResponse implements ResponseInterface {
 
-    @JsonProperty("status_code")
-    private String statusCode = "0";
+    @JsonProperty("status")
+    private int status = StatusCode.SUCCESS;
 
-    @JsonProperty("status_desc")
-    private String statusDesc = "success";
+    @JsonProperty("message")
+    private String message = StatusCode.S_SUCCESS;
 
 
     public DefaultResponse() {
     }
 
-    public DefaultResponse(String statusCode, String statusDesc) {
-        this.statusCode = statusCode;
-        this.statusDesc = statusDesc;
-    }
-
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getStatusDesc() {
-        return statusDesc;
-    }
-
-    public void setStatusDesc(String statusDesc) {
-        this.statusDesc = statusDesc;
+    public DefaultResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 }

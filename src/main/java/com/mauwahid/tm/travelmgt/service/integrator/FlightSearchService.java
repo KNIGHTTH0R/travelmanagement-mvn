@@ -1,12 +1,13 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoFlightSearch;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -185,8 +186,8 @@ public class FlightSearchService {
         flightSearchResponse.setSessionKey("abcdefghijklm");
         flightSearchResponse.setDepartTravel(departTravel);
         flightSearchResponse.setReturnTravel(returnTravel);
-        flightSearchResponse.setStatusCode("0");
-        flightSearchResponse.setStatusDesc("success");
+        flightSearchResponse.setStatus(StatusCode.SUCCESS);
+        flightSearchResponse.setMessage(StatusCode.S_SUCCESS);
 
         return flightSearchResponse;
     }

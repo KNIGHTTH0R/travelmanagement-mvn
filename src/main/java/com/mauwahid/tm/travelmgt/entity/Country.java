@@ -9,13 +9,13 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Country {
+public class Country extends AbstractEntity {
 
 
-    @Id
+  /*  @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Long id;
+    private Long id; */
 
     @Column(length = 5)
     @JsonProperty("country_code")

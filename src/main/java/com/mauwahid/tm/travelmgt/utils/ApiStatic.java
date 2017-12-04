@@ -7,11 +7,14 @@ public class ApiStatic {
     public static String API_FLIGHT = "API_FLIGHT";
     public static String API_HOTEL = "API_HOTEL";
 
-    public static String FLIGHT_GET_AIRLINES = "GetAirlines";
-    public static String FLIGHT_GET_AIRPORTS = "ApiGetAirports";
-    public static String FLIGHT_GET_ROUTES = "GetRoutes";
-    public static String FLIGHT_GET_POPULAR_ROUTES = "GetPopularRoutes";
-    public static String FLIGHT_SEARCH = "Search";
+
+    public static final String API_HOTEL_SEARCH = "API_HOTEL_SEARCH";
+
+    public static final String FLIGHT_GET_AIRLINES = "GetAirlines";
+    public static final String FLIGHT_GET_AIRPORTS = "ApiGetAirports";
+    public static final String FLIGHT_GET_ROUTES = "GetRoutes";
+    public static final String FLIGHT_GET_POPULAR_ROUTES = "GetPopularRoutes";
+    public static final String FLIGHT_SEARCH = "Search";
     public static String FLIGHT_DETAIL = "detail";
     public static String FLIGHT_BOOK = "book";
     public static String FLIGHT_ISSUE = "issue";

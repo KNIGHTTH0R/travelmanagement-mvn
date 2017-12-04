@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightIssueResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightIssue;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightIssue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +46,8 @@ public class FlightIssueService {
     private FlightIssueResponse translateResponse(FlightIssue flightIssue){
         FlightIssueResponse flightIssueResponse = new FlightIssueResponse();
         flightIssueResponse.setSessionKey("123134");
-        flightIssueResponse.setStatusCode("200");
-        flightIssueResponse.setStatusDesc("success");
+        flightIssueResponse.setStatus("200");
+        flightIssueResponse.setMessage("success");
 
         flightIssueResponse.setFlightIssue(flightIssue);
 

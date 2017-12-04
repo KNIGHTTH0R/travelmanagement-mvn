@@ -2,10 +2,10 @@ package com.mauwahid.tm.travelmgt.repository.api.opsigo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightContact;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPassenger;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSegment;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightBook;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightContact;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPassenger;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightSegment;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.Contact;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv.FlightBookOpsReq;
@@ -114,8 +114,16 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
         FlightBookOpsReq flightBookOpsReq = new FlightBookOpsReq();
 
+        log.debug("Flight type : "+flightBookReq.getFlightType());
+
+        if(flightBookReq.getFlightType().equalsIgnoreCase(Common.FLIGHT_DOMESTIC.trim())){
+            flightBookOpsReq.setFlightType("NonGds");
+        }else{
+            flightBookOpsReq.setFlightType("Gds");
+        }
+
         flightBookOpsReq.setCallBackUri(flightBookReq.getCallBackUri());
-        flightBookOpsReq.setFlightType(flightBookOpsReq.getFlightType());
+      //  flightBookOpsReq.setFlightType(flightBookOpsReq.getFlightType());
 
         FlightContact flightContact = flightBookReq.getFlightContact();
 
@@ -135,7 +143,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
         PassengerOps passengerOps;
         Set<PassengerOps> passengerOpsSet = new HashSet<>();
 
-        int idx = 0;
+        int idx = 1;
         for(FlightPassenger passenger : flightBookReq.getPassengers()){
 
             passengerOps = new PassengerOps();
@@ -154,7 +162,11 @@ public class OpsigoFlightBook implements FlightBookInterface {
             passengerOps.setPassportExpired(passenger.getPassportExpired());
             passengerOps.setPassportOrigin(passenger.getPassportOrigin());
             passengerOps.setTitle(passenger.getTitle());
-            passengerOps.setType(passenger.getType());
+            try{
+                passengerOps.setType(Integer.parseInt(passenger.getType()));
+            }catch (Exception ex){
+                passengerOps.setType(1);
+            }
 
             passengerOpsSet.add(passengerOps);
             idx++;
@@ -169,7 +181,10 @@ public class OpsigoFlightBook implements FlightBookInterface {
         for(FlightSegment flightSegment : flightBookReq.getFlightSegments()){
             segmentOps = new SegmentOps();
 
-            segmentOps.setAirline(Common.opsTranslateAirline(flightSegment.getAirline()));
+            String airline = Common.opsTranslateAirline(flightSegment.getAirline());
+            segmentOps.setAirline(Integer.parseInt(airline));
+
+
             segmentOps.setClassId(flightSegment.getClassId());
             segmentOps.setFlightNumber(flightSegment.getFlightNumber());
             segmentOps.setOrigin(flightSegment.getOrigin());

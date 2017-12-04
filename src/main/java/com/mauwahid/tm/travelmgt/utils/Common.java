@@ -1,9 +1,13 @@
 package com.mauwahid.tm.travelmgt.utils;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mauwahid.tm.travelmgt.domain.api.response.ResponseInterface;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Common {
 
@@ -17,13 +21,15 @@ public class Common {
 
     public static final String API_OPSIGO = "opsigo";
 
+    public static final String FLIGHT_DOMESTIC = "domestic";
+
+    public static final String FLIGHT_INTERNATIONAL = "international";
+
 
     //dd-MM-yyyy
     public static String toPointerStandar(String dateWindoFormat) throws ParseException{
         String NEW_FORMAT = "dd-MM-yyy";
         String OLD_FORMAT = "yyyy-MM-dd";
-
-        String newDateString;
 
         SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
         Date date = null;
@@ -57,6 +63,24 @@ public class Common {
             default:
                 return "2";
         }
+    }
+
+    public static String generateSessionID(){
+        return UUID.randomUUID().toString();
+    }
+
+
+    public static String generateJSONFromObject(ResponseInterface responseInterface){
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonData = "";
+
+        try{
+            jsonData = objectMapper.writeValueAsString(responseInterface);
+        }catch (Exception ex){
+
+        }
+
+        return jsonData;
     }
 
 }

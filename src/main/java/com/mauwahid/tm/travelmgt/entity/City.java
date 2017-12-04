@@ -9,12 +9,8 @@ import java.util.Set;
 
 @Entity
 @Data
-public class City {
+public class City extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private Long id;
 
     @Column
     @JsonProperty("city_code")

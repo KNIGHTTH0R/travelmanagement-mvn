@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightBook;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

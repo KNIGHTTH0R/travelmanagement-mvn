@@ -1,15 +1,13 @@
 package com.mauwahid.tm.travelmgt.service;
 
+import com.mauwahid.tm.travelmgt.domain.api.response.DefaultResponse;
 import com.mauwahid.tm.travelmgt.entity.User;
-import com.mauwahid.tm.travelmgt.entity.log.error.LogErrorAuth;
 import com.mauwahid.tm.travelmgt.repository.database.UserRepository;
 import com.mauwahid.tm.travelmgt.repository.database.log.error.LogErrorAuthRepository;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.util.List;
 
-@Component
 public class AuthService {
 
     @Autowired
@@ -18,24 +16,34 @@ public class AuthService {
     @Autowired
     LogErrorAuthRepository logErrorAuthRepository;
 
-    public int isAuthenticated(String apiKey){
-        int id = 0;
-        List<User> users = userRepository.findByApiKey(apiKey);
-        id =  users.isEmpty()?0: users.stream().findFirst().get().getId();
-        return id;
+
+    public AuthService getInstance() {
+        return new AuthService();
+    }
+
+    public Long authKey(String apiKey,String ipAddress, String apiName){
+       // int id = 0;
+        //List<User> users = userRepository.findByApiKey(apiKey);
+        User user = userRepository.findByApiKey(apiKey);
+
+        if(user==null){
+            logError(apiKey,ipAddress,StatusCode.S_FORBIDDEN, apiName,StatusCode.S_FORBIDDEN);
+
+            return 0L;
+        }
+
+        return user.getId();
     }
 
 
     public void logError(String apiKey, String ipAddress, String apiType, String apiName, String description){
-        LogErrorAuth logErrorAuth = new LogErrorAuth(apiKey,ipAddress, apiType, apiName,description);
-        logErrorAuthRepository.save(logErrorAuth);
+      //  LogErrorAuth logErrorAuth = new LogErrorAuth(apiKey,ipAddress, apiType, apiName,description);
+      //  logErrorAuthRepository.save(logErrorAuth);
     }
-/*
-    public static Response authFailed(){
-        Status status = new Status(StatusCode.AUTH_FAILED, "Auth Failed");
-        Response response = new Response(status);
-        return response;
+
+    public DefaultResponse respAuthFailed(){
+        return new DefaultResponse(StatusCode.FORBIDDEN,StatusCode.S_FORBIDDEN);
     }
-*/
+
 
 }

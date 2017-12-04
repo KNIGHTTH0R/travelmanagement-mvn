@@ -25,9 +25,9 @@ public class AstriApiCaller implements ApiCallerInterface {
    // public static String MERCHANTID = "1G";
     public static String MERCHANTID = "D8qwkNHW07RWHcS1ParYFg==";
 
-    public static String USERNAME = "hszlQuXQgZJvVJpHtGLMBg==";
+    public static String USERNAME = "DHWJddDxgJtZXcpYqA5uTg==";
 
-    public static String PASSWORD = "mtTsoQWJuz5AOu+F+2Og1g9yInDvhxegiA7PiHgLyTzPI41kFjOVWNsFCU9tmtQ2";
+    public static String PASSWORD = "hszlQuXQgZJvVJpHtGLMBg==";
 
   //  @Value("${trevohub.ip}")
     public String authToken = "127.0.0.1";
@@ -44,7 +44,5 @@ public class AstriApiCaller implements ApiCallerInterface {
     }
 
 
-    public static String generateSessionID(){
-        return UUID.randomUUID().toString();
-    }
+
 }

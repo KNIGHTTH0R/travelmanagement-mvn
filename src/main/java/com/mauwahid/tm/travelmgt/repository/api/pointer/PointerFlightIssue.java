@@ -1,9 +1,9 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightIssue;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPassenger;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightFlight;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPassenger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

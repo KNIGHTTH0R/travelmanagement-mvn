@@ -8,12 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class LocalDestination {
+public class LocalDestination extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private Long id;
 
     @Column
     @JsonProperty("local_code")

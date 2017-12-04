@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDestinationReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDestinationResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelDestination;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelDestination;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class HotelDestinationService {
     public HotelDestinationResponse getDestination(HotelDestinationReq hotelDestinationReq){
 
         HotelDestinationResponse response = new HotelDestinationResponse();
-        response.setStatusCode("2");
-        response.setStatusDesc("Not Implemented");
+        response.setStatus("2");
+        response.setMessage("Not Implemented");
 
         if(hotelDestinationReq.getApiSource().equalsIgnoreCase("astrindo")){
             Set<HotelDestination> hotelDestinations = fetchHotelDestination(hotelDestinationReq);

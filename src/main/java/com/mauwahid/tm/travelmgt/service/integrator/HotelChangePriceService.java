@@ -2,7 +2,7 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelChangePriceReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelChangePriceResponse;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.HotelChangePriceResult;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelChangePriceResult;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelChangePrice;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelBook;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +25,8 @@ public class HotelChangePriceService {
     public HotelChangePriceResponse changePrice(HotelChangePriceReq hotelCancelReq){
 
         HotelChangePriceResponse hotelCancelResponse = new HotelChangePriceResponse();
-        hotelCancelResponse.setStatusCode("2");
-        hotelCancelResponse.setStatusDesc("Not Implemented");
+        hotelCancelResponse.setStatus("2");
+        hotelCancelResponse.setMessage("Not Implemented");
 
         if(hotelCancelReq.getApiSource().equalsIgnoreCase("astrindo")){
             HotelChangePriceResult hotelChangePriceResult = changePriceAstri(hotelCancelReq);

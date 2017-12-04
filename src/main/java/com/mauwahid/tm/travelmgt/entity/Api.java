@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Api {
+public class Api extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

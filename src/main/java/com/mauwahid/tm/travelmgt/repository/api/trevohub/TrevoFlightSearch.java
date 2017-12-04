@@ -1,10 +1,10 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightFlight;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightPrice;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightSeat;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightTravel;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightFlight;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPrice;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightSeat;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import org.json.JSONArray;
 import org.json.JSONException;

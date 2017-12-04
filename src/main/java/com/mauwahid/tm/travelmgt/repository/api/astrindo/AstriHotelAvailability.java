@@ -1,13 +1,14 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
-import com.mauwahid.tm.travelmgt.domain.apimodel.hotel.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelSearchInterface;
+import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,48 +19,47 @@ import java.util.Set;
 
 @Component
 @Slf4j
-@Qualifier("astri_hotel_search")
 public class AstriHotelAvailability implements HotelSearchInterface {
-
-    private Map params = new HashMap<String,String>();
 
     private String url;
 
 
-  //  @Autowired
     private AstriApiCaller astriApiCaller;
 
   //TODO : Should be async task
   //  @Async
     public Set<HotelHotel> searchHotel(Map params) {
 
-        String jsonData;
+        String jsonData = "";
 
         astriApiCaller = new AstriApiCaller();
         url = AstriApiCaller.uri + "HotelAvailability.aspx";
-        log.debug("params : "+params);
 
         try{
             jsonData = astriApiCaller.callApiGet(url,params);
-            log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
-            log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex);
+           return exceptionHandling(ex, params.toString(), jsonData);
         }
 
         try{
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            log.error("translateToObj : "+ex.getMessage());
-
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
     }
 
 
-    private Set<HotelHotel> exceptionHandling(Exception ex){
+    private Set<HotelHotel> exceptionHandling(Exception ex,String param, String jsonData){
 
-        return null;
+        Set<HotelHotel> hotelHotels = new HashSet<>();
+        HotelHotel hotelHotel = new HotelHotel();
+        hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
+        hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
+
+        //todo : set log error api here
+
+
+        return hotelHotels;
     }
 
 
@@ -223,7 +223,6 @@ public class AstriHotelAvailability implements HotelSearchInterface {
     }
 
 
-    //static method
     public static Map translateToParam(HotelSearchReq hotelSearchReq){
         Map param = new HashMap();
 
@@ -231,7 +230,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         param.put("password", AstriApiCaller.PASSWORD);
         param.put("orgCode", AstriApiCaller.ORGCODE);
         param.put("merchantID", AstriApiCaller.MERCHANTID);
-        param.put("sessionID", AstriApiCaller.generateSessionID());
+        param.put("sessionID", Common.generateSessionID());
 
 
         param.put("nationalityCode",hotelSearchReq.getBookerNationalityCode());
@@ -247,5 +246,6 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
         return param;
     }
+
 
 }

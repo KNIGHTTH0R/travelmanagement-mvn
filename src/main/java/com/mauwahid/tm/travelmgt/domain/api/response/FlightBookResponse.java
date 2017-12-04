@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mauwahid.tm.travelmgt.domain.apimodel.flight.FlightBook;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightBook;
 
 public class FlightBookResponse extends DefaultResponse {
 
