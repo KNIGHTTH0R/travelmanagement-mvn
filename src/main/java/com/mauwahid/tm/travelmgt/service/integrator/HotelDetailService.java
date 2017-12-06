@@ -3,12 +3,15 @@ package com.mauwahid.tm.travelmgt.service.integrator;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelHotel;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelDetailResponse;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelSearchResponse;
+import com.mauwahid.tm.travelmgt.entity.log.LogHotelDetail;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelDetail;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDetailInterface;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelDetail;
+import com.mauwahid.tm.travelmgt.repository.database.log.LogHotelDetailRepository;
 import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -21,8 +24,11 @@ public class HotelDetailService {
 
     private HotelDetailInterface hotelDetailInterface;
 
+    @Autowired
+    private LogHotelDetailRepository logHotelDetailRepository;
 
-    public HotelDetailResponse getDetailHotel(int userId, HotelDetailReq hotelDetailReq){
+
+    public HotelDetailResponse getDetailHotel(long userId, HotelDetailReq hotelDetailReq){
 
         HotelDetailResponse response = new HotelDetailResponse();
         response.setStatus(StatusCode.NOT_IMPLEMENTED);
@@ -40,6 +46,7 @@ public class HotelDetailService {
             response = translateResponse(hotel);
         }
 
+        saveToLog(userId,hotelDetailResponse);
 
         return response;
 
@@ -81,10 +88,20 @@ public class HotelDetailService {
         return hotelDetailResponse;
     }
 
-    private void saveToLog(int userId, HotelSearchResponse hotelSearchResponse){
 
 
-        //todo : log_hotel_detail -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+    private void saveToLog(long userId, HotelDetailResponse hotelDetailResponse){
 
+        //todo : log_hotel_search -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+
+        String jsonData = Common.generateJSONFromObject(hotelDetailResponse);
+
+        LogHotelDetail logHotelDetail = new LogHotelDetail();
+        logHotelDetail.setUserId(userId);
+        logHotelDetail.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logHotelDetail.setMessage(hotelDetailResponse.getMessage());
+        logHotelDetail.setApiSessionKey(hotelDetailResponse.getSessionKey());
+
+        logHotelDetailRepository.save(logHotelDetail);
     }
 }
