@@ -42,6 +42,8 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
         try{
             jsonData = astriApiCaller.callApiGet(url,params);
+
+            log.debug("JSON DATA "+jsonData);
         }catch (IOException ex){
            return exceptionHandling(ex, params.toString(), jsonData);
         }
