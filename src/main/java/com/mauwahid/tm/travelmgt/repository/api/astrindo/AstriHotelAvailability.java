@@ -61,6 +61,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
         hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
 
+//        logErrorHelper = new LogErrorHelper();
         logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_SEARCH, ex.toString(), param, jsonData);
 
         return hotelHotels;
