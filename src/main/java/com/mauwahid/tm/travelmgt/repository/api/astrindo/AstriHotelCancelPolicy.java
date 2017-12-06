@@ -19,7 +19,6 @@ import java.util.Map;
 @Qualifier("astri_hotel_cancel_policy")
 public class AstriHotelCancelPolicy implements HotelCancelPolicyInterface{
 
-    private Map params = new HashMap<String,String>();
 
     private String url;
 

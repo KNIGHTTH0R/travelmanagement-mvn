@@ -13,5 +13,11 @@ public class FlightIssueReq {
 
     @JsonProperty("booking_code")
     private String bookingCode;
+
+    @JsonProperty("api_source")
+    private String apiSource;
+
+    @JsonProperty("callback_uri")
+    private String callbackUri;
 }
 

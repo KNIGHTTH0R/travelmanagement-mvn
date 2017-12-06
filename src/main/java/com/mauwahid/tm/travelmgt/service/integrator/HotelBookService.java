@@ -1,11 +1,17 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
-import com.mauwahid.tm.travelmgt.domain.api.response.HotelBookResponse;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelBookInfo;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelBookResult;
+import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
+import com.mauwahid.tm.travelmgt.domain.api.response.HotelBookResponse;
+import com.mauwahid.tm.travelmgt.entity.log.LogHotelBook;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelBook;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelBookInterface;
 import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelBook;
+import com.mauwahid.tm.travelmgt.repository.database.log.LogHotelBookRepository;
+import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +21,25 @@ import java.util.Map;
 public class HotelBookService {
 
 
-    @Autowired
-    private TrevoHotelBook trevoHotelBook;
+
+    private HotelBookInterface hotelBookInterface;
 
     @Autowired
-    private AstriHotelBook astriHotelBook;
+    private LogHotelBookRepository logHotelBookRepository;
 
 
-    public HotelBookResponse bookHotel(HotelBookReq hotelBookReq){
+    public HotelBookResponse bookHotel(long userId, HotelBookReq hotelBookReq){
 
         HotelBookResponse hotelBookResponse = new HotelBookResponse();
-        hotelBookResponse.setStatus("2");
-        hotelBookResponse.setMessage("Not Implemented");
+        hotelBookResponse.setStatus(StatusCode.NOT_IMPLEMENTED);
+        hotelBookResponse.setMessage(StatusCode.S_NOT_IMPLEMENTED);
 
-
-
-
-        if(hotelBookReq.getApiSource().equalsIgnoreCase("astrindo")){
+        if(hotelBookReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelBookResult hotelBookResult = bookAstri(hotelBookReq);
-            return translateResponse(hotelBookResult);
-
+            hotelBookResponse = translateResponse(hotelBookResult);
         }
 
+        saveToLog(userId, hotelBookResponse);
 
         return hotelBookResponse;
 
@@ -46,11 +49,13 @@ public class HotelBookService {
 
         Map param = TrevoHotelBook.translateToParam(hotelBookReq);
 
+       // hotelBookInterface = new TrevoHotelBook();
 
-        HotelBookInfo hotelBookInfo = trevoHotelBook.bookHotel(param);
+      //  HotelBookInfo hotelBookInfo = hotelBookInterface.bookHotel(param);
 
 
-        return hotelBookInfo;
+
+        return null;
 
     }
 
@@ -58,8 +63,10 @@ public class HotelBookService {
 
         Map param = AstriHotelBook.translateToParam(hotelBookReq);
 
+        hotelBookInterface = new AstriHotelBook();
 
-        HotelBookResult hotelBookResult = astriHotelBook.bookHotel(param);
+
+        HotelBookResult hotelBookResult = hotelBookInterface.bookHotel(param);
 
 
         return hotelBookResult;
@@ -70,8 +77,26 @@ public class HotelBookService {
     private HotelBookResponse translateResponse(HotelBookResult hotelBookResult){
         HotelBookResponse hotelBookResponse = new HotelBookResponse();
 
+        hotelBookResponse.setStatus(StatusCode.SUCCESS);
+        hotelBookResponse.setMessage(StatusCode.S_SUCCESS);
+
         hotelBookResponse.setBookResult(hotelBookResult);
 
         return hotelBookResponse;
+    }
+
+    private void saveToLog(long userId, HotelBookResponse hotelBookResponse){
+
+        //todo : log save -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+
+        String jsonData = Common.generateJSONFromObject(hotelBookResponse);
+
+        LogHotelBook logHotelBook = new LogHotelBook();
+        logHotelBook.setUserId(userId);
+        logHotelBook.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logHotelBook.setMessage(hotelBookResponse.getMessage());
+      //  logHotelBook.setApiSessionKey(hotelBookResponse.get());
+
+        logHotelBookRepository.save(logHotelBook);
     }
 }

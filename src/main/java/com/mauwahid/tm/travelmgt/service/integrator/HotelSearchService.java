@@ -8,6 +8,7 @@ import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelAvailability;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.database.log.LogHotelSearchRepo;
 import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,15 +87,16 @@ public class HotelSearchService {
 
     private void saveToLog(long userId, HotelSearchResponse hotelSearchResponse){
 
-
-        //todo : log_hotel_search -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+         //todo : log_save -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
 
         String jsonData = Common.generateJSONFromObject(hotelSearchResponse);
 
         LogHotelSearch logHotelSearch = new LogHotelSearch();
         logHotelSearch.setUserId(userId);
-        logHotelSearch.setJsonData(jsonData);
+        logHotelSearch.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
         logHotelSearch.setMessage(hotelSearchResponse.getMessage());
+        logHotelSearch.setStatusCode(hotelSearchResponse.getStatus());
+        logHotelSearch.setApiSessionKey(hotelSearchResponse.getSessionKey());
 
         logHotelSearchRepo.save(logHotelSearch);
     }

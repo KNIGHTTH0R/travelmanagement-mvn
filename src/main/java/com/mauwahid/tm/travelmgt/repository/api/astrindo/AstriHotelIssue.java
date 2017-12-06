@@ -4,6 +4,9 @@ import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelIssueResult;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelIssueInterface;
+import com.mauwahid.tm.travelmgt.utils.ApiStatic;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +33,13 @@ public class AstriHotelIssue implements HotelIssueInterface{
     @Autowired
     private AstriApiCaller astriApiCaller;
 
+    @Autowired
+    private LogErrorHelper logErrorHelper;
+
 
     public HotelIssueResult issueHotel(Map params) {
 
-        String jsonData;
+        String jsonData = "";
 
         url = AstriApiCaller.uri+"HotelIssued.aspx";
         log.debug("params : "+params);
@@ -43,7 +49,7 @@ public class AstriHotelIssue implements HotelIssueInterface{
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex);
+            return exceptionHandling(ex,params.toString(), jsonData);
         }
 
         try{
@@ -51,14 +57,23 @@ public class AstriHotelIssue implements HotelIssueInterface{
         }catch (Exception ex) {
             log.error("searchHotel translateToObj : "+ex.toString());
 
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
     }
 
 
-    private HotelIssueResult exceptionHandling(Exception ex){
+    private HotelIssueResult exceptionHandling(Exception ex, String params, String jsonData){
 
-        return null;
+        HotelIssueResult hotelIssueResult = new HotelIssueResult();
+        hotelIssueResult.setStatusCode(StatusCode.STATUS_ERROR_FROM_SERVER);
+        hotelIssueResult.setMessageCode(StatusCode.STATUS_ERROR_FROM_SERVER);
+        hotelIssueResult.setMessageDesc(StatusCode.S_STATUS_ERROR_FROM_SERVER + ": "+ex.toString());
+
+        //todo : add error log
+
+        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_ISSUE, ex.toString(), params, jsonData);
+
+        return hotelIssueResult;
     };
 
     //Translator From JSON

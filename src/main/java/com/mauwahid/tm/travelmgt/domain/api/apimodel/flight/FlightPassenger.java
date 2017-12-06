@@ -15,8 +15,6 @@ public class FlightPassenger {
     @JsonProperty("passenger_type")
     private String passengerType;
 
-    @JsonProperty("full_name")
-    private String fullName;
 
     @JsonProperty("ticket_no")
     private String ticketNo;

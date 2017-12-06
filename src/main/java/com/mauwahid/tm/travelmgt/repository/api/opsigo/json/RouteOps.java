@@ -1,5 +1,5 @@
 
-package com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv;
+package com.mauwahid.tm.travelmgt.repository.api.opsigo.json;
 
 import java.util.HashMap;
 import java.util.Map;

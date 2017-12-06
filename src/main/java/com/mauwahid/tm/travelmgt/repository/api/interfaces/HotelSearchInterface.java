@@ -7,6 +7,5 @@ import java.util.Set;
 
 public interface HotelSearchInterface {
 
-
-    public Set<HotelHotel> searchHotel(Map param);
+    Set<HotelHotel> searchHotel(Map param);
 }

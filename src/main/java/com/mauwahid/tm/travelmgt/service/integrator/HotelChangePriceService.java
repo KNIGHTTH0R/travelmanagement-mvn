@@ -1,10 +1,15 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelChangePriceResult;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelChangePriceReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelChangePriceResponse;
-import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelChangePriceResult;
+import com.mauwahid.tm.travelmgt.entity.log.LogHotelChangePrice;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelChangePrice;
-import com.mauwahid.tm.travelmgt.repository.api.trevohub.TrevoHotelBook;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelChangePriceInterface;
+import com.mauwahid.tm.travelmgt.repository.database.log.LogHotelChangePriceRepository;
+import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,27 +20,28 @@ import java.util.Map;
 @Slf4j
 public class HotelChangePriceService {
 
+
+    private HotelChangePriceInterface hotelChangePriceInterface;
+
+
     @Autowired
-    private TrevoHotelBook trevoHotelBook;
-
-    @Autowired
-    private AstriHotelChangePrice astriHotelChangePrice;
+    private LogHotelChangePriceRepository logHotelChangePriceRepository;
 
 
-    public HotelChangePriceResponse changePrice(HotelChangePriceReq hotelCancelReq){
+    public HotelChangePriceResponse changePrice(long userId, HotelChangePriceReq hotelCancelReq){
 
-        HotelChangePriceResponse hotelCancelResponse = new HotelChangePriceResponse();
-        hotelCancelResponse.setStatus("2");
-        hotelCancelResponse.setMessage("Not Implemented");
+        HotelChangePriceResponse hotelChangePriceResponse = new HotelChangePriceResponse();
+        hotelChangePriceResponse.setStatus(StatusCode.NOT_IMPLEMENTED);
+        hotelChangePriceResponse.setMessage(StatusCode.S_NOT_IMPLEMENTED);
 
-        if(hotelCancelReq.getApiSource().equalsIgnoreCase("astrindo")){
+        if(hotelCancelReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelChangePriceResult hotelChangePriceResult = changePriceAstri(hotelCancelReq);
             return translateResponse(hotelChangePriceResult);
 
         }
 
-
-        return hotelCancelResponse;
+        saveToLog(userId, hotelChangePriceResponse);
+        return hotelChangePriceResponse;
 
     }
 
@@ -45,8 +51,11 @@ public class HotelChangePriceService {
 
         Map param = AstriHotelChangePrice.translateToParam(hotelChangePriceReq);
 
+        hotelChangePriceInterface = new AstriHotelChangePrice();
 
-        return astriHotelChangePrice.changePrice(param);
+        HotelChangePriceResult hotelChangePriceResult = hotelChangePriceInterface.changePrice(param);
+
+        return hotelChangePriceResult;
 
     }
 
@@ -57,5 +66,20 @@ public class HotelChangePriceService {
         hotelChangePriceResponse.setHotelChangePriceResult(hotelChangePriceResult);
 
         return hotelChangePriceResponse;
+    }
+
+    private void saveToLog(long userId, HotelChangePriceResponse hotelChangePriceResponse){
+
+        //todo : log save -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
+
+        String jsonData = Common.generateJSONFromObject(hotelChangePriceResponse);
+
+        LogHotelChangePrice logData = new LogHotelChangePrice();
+        logData.setUserId(userId);
+        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setMessage(hotelChangePriceResponse.getMessage());
+        // logData.setApiSessionKey(hotelCancelResponse.getS);
+
+        logHotelChangePriceRepository.save(logData);
     }
 }

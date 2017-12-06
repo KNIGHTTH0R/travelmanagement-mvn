@@ -8,10 +8,10 @@ import lombok.Data;
 public class DefaultResponse implements ResponseInterface {
 
     @JsonProperty("status")
-    private int status = StatusCode.SUCCESS;
+    private int status = StatusCode.NOT_IMPLEMENTED;
 
     @JsonProperty("message")
-    private String message = StatusCode.S_SUCCESS;
+    private String message = StatusCode.S_NOT_IMPLEMENTED;
 
 
     public DefaultResponse() {

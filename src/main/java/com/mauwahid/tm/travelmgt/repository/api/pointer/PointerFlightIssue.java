@@ -1,14 +1,14 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPassenger;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightIssueInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +19,11 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class PointerFlightIssue {
-
-    private Map params = new HashMap<String,String>();
+@Slf4j
+public class PointerFlightIssue implements FlightIssueInterface {
 
     private String url;
 
-    private Logger logger = LoggerFactory.getLogger(PointerFlightIssue.class);
 
     @Autowired
     private PointerApiCaller pointerApiCaller;
@@ -40,17 +38,17 @@ public class PointerFlightIssue {
 
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);
-            logger.debug("JSON RES : "+jsonData);
+            log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
-            logger.error("searchTravel : "+ex.toString());
+            log.error("searchTravel : "+ex.toString());
             return exceptionHandling(ex);
         }
 
         try{
-            logger.debug("try to run translate");
+            log.debug("try to run translate");
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            logger.error("searchTravel translateToObj : "+ex.toString());
+            log.error("searchTravel translateToObj : "+ex.toString());
 
             return exceptionHandling(ex);
         }
@@ -69,11 +67,23 @@ public class PointerFlightIssue {
         FlightIssue flightIssue = new FlightIssue();
 
         JSONObject objData = new JSONObject(jsonData);
-        flightIssue.setStatusCode(objData.optString("code"));
 
-        if(!flightIssue.getStatusCode().equalsIgnoreCase("200")){
-            return flightIssue;
+
+        int code = Integer.parseInt(objData.optString("code"));
+
+        try{
+
+            if(code!=200){
+                return flightIssue;
+            }
+
+            flightIssue.setStatusCode(code);
+
+
+        }catch (Exception ex){
+            log.debug("exc "+ex.toString());
         }
+        
 
         JSONObject objResult = objData.optJSONObject("results");
         flightIssue.setTimeLimit(objResult.optString("time_limit"));
@@ -107,7 +117,30 @@ public class PointerFlightIssue {
             passenger.setPassengerType(objPassenger.optString("passenger_type"));
             passenger.setBirthDate(objPassenger.optString("birth_date"));
             passenger.setTicketNo(objPassenger.optString("ticket_no"));
-            passenger.setFullName(objPassenger.optString("name"));
+           // passenger.setFullName(objPassenger.optString("name"));
+
+            String fullName = objPassenger.optString("full_name");
+
+            if(!fullName.equalsIgnoreCase("")){
+
+                String[] data = fullName.split(" ");
+
+                if(data.length>1){
+                    passenger.setFirstName(data[0]);
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for(int x=1;x<data.length;x++){
+                        builder.append(x);
+                    }
+
+                    passenger.setLastName(builder.toString());
+
+                }else {
+                    passenger.setFirstName(data[0]);
+                }
+            }
+
 
             passengers.add(passenger);
         }

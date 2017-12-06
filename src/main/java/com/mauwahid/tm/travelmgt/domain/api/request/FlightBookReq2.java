@@ -23,10 +23,11 @@ public class FlightBookReq2 {
     @JsonProperty("flight_type")
     private String flightType;
 
-    @JsonProperty("callBackUri")
+    @JsonProperty("call_back_uri")
     private String callBackUri;
 
     @JsonProperty("api_source")
     private String apiSource;
+
 
 }

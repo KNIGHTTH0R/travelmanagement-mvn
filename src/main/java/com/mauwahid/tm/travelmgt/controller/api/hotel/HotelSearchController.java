@@ -5,7 +5,6 @@ import com.mauwahid.tm.travelmgt.domain.api.response.HotelSearchResponse;
 import com.mauwahid.tm.travelmgt.service.AuthService;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelSearchService;
 import com.mauwahid.tm.travelmgt.utils.ApiStatic;
-import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +32,10 @@ public class HotelSearchController {
                                  @RequestHeader(name = "api-key") String apiKey,
                                        @RequestBody HotelSearchReq hotelSearchReq){
 
-        long userId = authService.authKey(apiKey,request.getRemoteAddr(),ApiStatic.API_HOTEL_SEARCH);
+        long userId = authService.authKey(apiKey, ApiStatic.API_HOTEL, ApiStatic.API_HOTEL_SEARCH, hotelSearchReq.toString(), request.getRemoteAddr());
 
         if( userId == 0L){
-
-
-            LogErrorHelper.getInstance().saveAuthError(apiKey);
-
-            return new ResponseEntity(authService.respAuthFailed(),HttpStatus.FORBIDDEN);
-
+            return new ResponseEntity(authService.respAuthFailed(),HttpStatus.UNAUTHORIZED);
         }
 
         HotelSearchResponse response = hotelSearchService.searchHotel(userId,hotelSearchReq);

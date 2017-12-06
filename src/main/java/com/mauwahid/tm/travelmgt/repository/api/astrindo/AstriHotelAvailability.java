@@ -3,12 +3,15 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelSearchReq;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelSearchInterface;
+import com.mauwahid.tm.travelmgt.utils.ApiStatic;
 import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,8 +26,10 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
     private String url;
 
-
     private AstriApiCaller astriApiCaller;
+
+    @Autowired
+    private LogErrorHelper logErrorHelper;
 
   //TODO : Should be async task
   //  @Async
@@ -56,8 +61,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
         hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
 
-        //todo : set log error api here
-
+        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_SEARCH, ex.toString(), param, jsonData);
 
         return hotelHotels;
     }

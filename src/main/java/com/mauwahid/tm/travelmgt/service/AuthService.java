@@ -4,10 +4,13 @@ import com.mauwahid.tm.travelmgt.domain.api.response.DefaultResponse;
 import com.mauwahid.tm.travelmgt.entity.User;
 import com.mauwahid.tm.travelmgt.repository.database.UserRepository;
 import com.mauwahid.tm.travelmgt.repository.database.log.error.LogErrorAuthRepository;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
+@Service
 public class AuthService {
 
     @Autowired
@@ -16,19 +19,19 @@ public class AuthService {
     @Autowired
     LogErrorAuthRepository logErrorAuthRepository;
 
+    @Autowired
+    private LogErrorHelper logErrorHelper;
+
 
     public AuthService getInstance() {
         return new AuthService();
     }
 
-    public Long authKey(String apiKey,String ipAddress, String apiName){
-       // int id = 0;
-        //List<User> users = userRepository.findByApiKey(apiKey);
+    public Long authKey(String apiKey,String apiName, String apiType, String description, String ipAddress){
         User user = userRepository.findByApiKey(apiKey);
 
         if(user==null){
-            logError(apiKey,ipAddress,StatusCode.S_FORBIDDEN, apiName,StatusCode.S_FORBIDDEN);
-
+            logErrorHelper.saveAuthError(apiKey, apiName,apiType,description,ipAddress);
             return 0L;
         }
 
@@ -36,13 +39,8 @@ public class AuthService {
     }
 
 
-    public void logError(String apiKey, String ipAddress, String apiType, String apiName, String description){
-      //  LogErrorAuth logErrorAuth = new LogErrorAuth(apiKey,ipAddress, apiType, apiName,description);
-      //  logErrorAuthRepository.save(logErrorAuth);
-    }
-
     public DefaultResponse respAuthFailed(){
-        return new DefaultResponse(StatusCode.FORBIDDEN,StatusCode.S_FORBIDDEN);
+        return new DefaultResponse(StatusCode.UNAUTORIZED,StatusCode.S_UNAUTHORIZED);
     }
 
 

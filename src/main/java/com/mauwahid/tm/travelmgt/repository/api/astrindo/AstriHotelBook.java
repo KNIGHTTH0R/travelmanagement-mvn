@@ -11,6 +11,9 @@ import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.reservation.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelBookInterface;
 import com.mauwahid.tm.travelmgt.service.integrator.HotelCancelPolicyService;
+import com.mauwahid.tm.travelmgt.utils.ApiStatic;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,9 +33,10 @@ import java.util.Set;
 @Qualifier("astri_hotel_book")
 public class AstriHotelBook  implements HotelBookInterface{
 
-    private Map params = new HashMap<String,String>();
-
     private String url;
+
+    @Autowired
+    private LogErrorHelper logErrorHelper;
 
 
     @Autowired
@@ -44,13 +48,13 @@ public class AstriHotelBook  implements HotelBookInterface{
 
     public HotelBookResult bookHotel(Map params) {
 
-        String jsonData;
+        String jsonData = "";
 
 
         if(!isCanbeBooked(params)){
             HotelBookResult hotelBookResult = new HotelBookResult();
-            hotelBookResult.setStatusCode("02");
-            hotelBookResult.setMessageDesc("Cannot be booked");
+            hotelBookResult.setStatusCode(StatusCode.STATUS_BOOK_ERROR_NULL_OR_FAILED_POLICY);
+            hotelBookResult.setMessageDesc(StatusCode.S_STATUS_BOOK_ERROR_NULL_OR_FAILED_POLICY);
 
             return hotelBookResult;
         }
@@ -64,7 +68,7 @@ public class AstriHotelBook  implements HotelBookInterface{
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
 
         try{
@@ -72,14 +76,20 @@ public class AstriHotelBook  implements HotelBookInterface{
         }catch (Exception ex) {
             log.error("searchHotel translateToObj : "+ex.toString());
 
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
     }
 
 
-    private HotelBookResult exceptionHandling(Exception ex){
+    private HotelBookResult exceptionHandling(Exception ex, String params, String jsonData){
 
-        return null;
+        HotelBookResult hotelBookResult = new HotelBookResult();
+        hotelBookResult.setStatusCode(StatusCode.STATUS_ERROR_FROM_SERVER);
+        hotelBookResult.setMessageDesc(StatusCode.S_STATUS_ERROR_FROM_SERVER);
+
+        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_BOOK,ex.toString(),params,jsonData);
+
+        return hotelBookResult;
     }
 
     //Translator From JSON

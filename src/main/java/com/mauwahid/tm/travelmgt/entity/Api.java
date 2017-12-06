@@ -10,7 +10,7 @@ public class Api extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, length = 25)
     private String apiName;

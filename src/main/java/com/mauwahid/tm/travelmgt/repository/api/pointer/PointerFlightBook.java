@@ -97,7 +97,29 @@ public class PointerFlightBook implements FlightBookInterface {
             objPassenger = arrPassenger.optJSONObject(y);
             passenger = new FlightPassenger();
             passenger.setBirthDate(objPassenger.optString("birth_date"));
-            passenger.setFullName(objPassenger.optString("full_name"));
+           // passenger.setFullName(objPassenger.optString("full_name"));
+            String fullName = objPassenger.optString("full_name");
+
+            if(!fullName.equalsIgnoreCase("")){
+
+                String[] data = fullName.split(" ");
+
+                if(data.length>1){
+                    passenger.setFirstName(data[0]);
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for(int i=1;i<data.length;i++){
+                        builder.append(i);
+                    }
+
+                    passenger.setLastName(builder.toString());
+
+                }else {
+                    passenger.setFirstName(data[0]);
+                }
+            }
+
             passenger.setPassengerType(objPassenger.optString("passenger_type"));
             passengers.add(passenger);
 
@@ -110,7 +132,7 @@ public class PointerFlightBook implements FlightBookInterface {
         flightContact = new FlightContact();
        // flightContact.setEmail(objContact.optString(""));
         flightContact.setPhone(objContact.optString("phone"));
-        flightContact.setFullName(objContact.optString("nama"));
+        //flightContact.setFullName(objContact.optString("nama"));
 
         flightBook.setFlightContact(flightContact);
 

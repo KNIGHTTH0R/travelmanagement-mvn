@@ -26,6 +26,14 @@ public class Common {
     public static final String FLIGHT_INTERNATIONAL = "international";
 
 
+    public static final String CALLBACK_BOOK = "/flight/book-callback";
+
+    public static final String CALLBACK_ISSUE = "/flight/issue-callback";
+
+    public static final String CALLBACK_CANCEL = "/flight/cancel-callback";
+
+
+
     //dd-MM-yyyy
     public static String toPointerStandar(String dateWindoFormat) throws ParseException{
         String NEW_FORMAT = "dd-MM-yyy";

@@ -1,4 +1,4 @@
-package com.mauwahid.tm.travelmgt.repository.api.opsigo.json.flightAv;
+package com.mauwahid.tm.travelmgt.repository.api.opsigo.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

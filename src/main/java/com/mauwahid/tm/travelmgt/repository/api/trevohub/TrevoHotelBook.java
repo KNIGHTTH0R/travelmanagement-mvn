@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.domain.api.request.HotelBookReq;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class TrevoHotelBook {
+public class TrevoHotelBook{
 
     private Map params = new HashMap<String,String>();
 

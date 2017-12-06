@@ -3,6 +3,9 @@ package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelDetailReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelDetailInterface;
+import com.mauwahid.tm.travelmgt.utils.ApiStatic;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,8 +24,6 @@ import java.util.Set;
 public class AstriHotelDetail implements HotelDetailInterface {
 
 
-    private Map params = new HashMap<String,String>();
-
     private String url;
 
 
@@ -33,7 +34,7 @@ public class AstriHotelDetail implements HotelDetailInterface {
     //  @Async
     public HotelHotel getDetailHotel(Map params) {
 
-        String jsonData;
+        String jsonData = "";
 
         url = AstriApiCaller.uri + "HotelDetails.aspx";
         log.debug("params : "+params);
@@ -43,7 +44,7 @@ public class AstriHotelDetail implements HotelDetailInterface {
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex);
+            return exceptionHandling(ex,params.toString(), jsonData);
         }
 
         try{
@@ -51,14 +52,22 @@ public class AstriHotelDetail implements HotelDetailInterface {
         }catch (Exception ex) {
             log.error("translateToObj : "+ex.getMessage());
 
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
     }
 
 
-    private HotelHotel exceptionHandling(Exception ex){
+    private HotelHotel exceptionHandling(Exception ex, String params, String jsonData){
 
-        return null;
+        HotelHotel hotelHotel = new HotelHotel();
+        hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
+        hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
+
+        //todo : set log error api here
+
+        LogErrorHelper.getInstance().saveErrorExc(ApiStatic.API_HOTEL_DETAIL, ex.toString(), params, jsonData);
+
+        return hotelHotel;
     }
 
 

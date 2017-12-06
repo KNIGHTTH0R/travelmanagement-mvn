@@ -1,10 +1,12 @@
 package com.mauwahid.tm.travelmgt.service.integrator;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelPolicyReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.HotelCancelPolicyResponse;
-import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelPolicyInterface;
+import com.mauwahid.tm.travelmgt.repository.database.LogHotelCancellationPolicyRepository;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,15 @@ public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
     @Autowired
     private AstriHotelCancelPolicy astriHotelCancelPolicy;
 
+    @Autowired
+    private LogHotelCancellationPolicyRepository logHotelCancellationPolicyRepository;
+
 
     public HotelCancelPolicyResponse getPolicyResponse(HotelCancelPolicyReq hotelCancelPolicyReq){
 
         HotelCancelPolicyResponse response = new HotelCancelPolicyResponse();
-        response.setStatus("2");
-        response.setMessage("not implemented");
+        response.setStatus(StatusCode.NOT_IMPLEMENTED);
+        response.setMessage(StatusCode.S_NOT_IMPLEMENTED);
 
         response = translateResponse(getPolicy(hotelCancelPolicyReq));
 
@@ -50,4 +55,6 @@ public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
 
         return response;
     }
+
+
 }

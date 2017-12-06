@@ -8,8 +8,8 @@ public class FlightContact {
 
     private String phone;
 
-    @JsonProperty("full_name")
-    private String fullName;
+  //  @JsonProperty("full_name")
+  //  private String fullName;
 
     private String email;
 
@@ -17,7 +17,7 @@ public class FlightContact {
 
     private String title;
 
-    @JsonProperty("fist_name")
+    @JsonProperty("first_name")
     private String firstName;
 
     @JsonProperty("last_name")

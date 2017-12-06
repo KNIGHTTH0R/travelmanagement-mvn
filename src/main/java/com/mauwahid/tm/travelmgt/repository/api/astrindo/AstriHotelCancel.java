@@ -1,9 +1,12 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelCancelResult;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.reservation.*;
+import com.mauwahid.tm.travelmgt.domain.api.request.HotelCancelReq;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelInterface;
+import com.mauwahid.tm.travelmgt.utils.ApiStatic;
+import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,14 +29,16 @@ public class AstriHotelCancel implements HotelCancelInterface {
 
     private String url;
 
-
     @Autowired
     private AstriApiCaller astriApiCaller;
+
+    @Autowired
+    private LogErrorHelper logErrorHelper;
 
 
     public HotelCancelResult cancelHotel(Map params) {
 
-        String jsonData;
+        String jsonData = "";
 
         url = AstriApiCaller.uri+"HotelCancel.aspx";
 
@@ -44,22 +49,28 @@ public class AstriHotelCancel implements HotelCancelInterface {
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
 
         try{
             return translateToObject(jsonData);
         }catch (Exception ex) {
             log.error("searchHotel translateToObj : "+ex.toString());
-
-            return exceptionHandling(ex);
+            return exceptionHandling(ex, params.toString(), jsonData);
         }
     }
 
 
-    private HotelCancelResult exceptionHandling(Exception ex){
+    private HotelCancelResult exceptionHandling(Exception ex,String params, String jsonData){
 
-        return null;
+        HotelCancelResult hotelCancelResult = new HotelCancelResult();
+        hotelCancelResult.setStatusCode(StatusCode.STATUS_ERROR_FROM_SERVER);
+        hotelCancelResult.setMessageDesc(StatusCode.S_STATUS_ERROR_FROM_SERVER+ " : "+ex.toString());
+
+
+        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_CANCEL,ex.toString(), params, jsonData);
+
+        return hotelCancelResult;
     };
 
     //Translator From JSON

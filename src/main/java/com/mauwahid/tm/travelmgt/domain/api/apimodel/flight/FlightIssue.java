@@ -9,7 +9,7 @@ import java.util.Set;
 public class FlightIssue {
 
    @JsonProperty("status_code")
-   private String statusCode;
+   private int statusCode;
 
    @JsonProperty("status_desc")
    private String statusDesc;
