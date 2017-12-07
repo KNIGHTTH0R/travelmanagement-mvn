@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Component
 @Slf4j
-@Qualifier("astri_hotel_cancel_policy")
 public class AstriHotelCancelPolicy implements HotelCancelPolicyInterface{
 
 

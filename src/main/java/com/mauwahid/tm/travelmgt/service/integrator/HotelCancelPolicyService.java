@@ -7,12 +7,14 @@ import com.mauwahid.tm.travelmgt.repository.api.astrindo.AstriHotelCancelPolicy;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.HotelCancelPolicyInterface;
 import com.mauwahid.tm.travelmgt.repository.database.LogHotelCancellationPolicyRepository;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@Slf4j
 public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
 
     @Autowired
@@ -40,6 +42,10 @@ public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
         Map param = AstriHotelCancelPolicy.translateToParam(hotelCancelPolicyReq);
 
         astriHotelCancelPolicy = new AstriHotelCancelPolicy();
+
+        if(astriHotelCancelPolicy == null){
+            log.debug("Astri Hotel Cancel Policy is "+astriHotelCancelPolicy);
+        }
 
         HotelCancelPolicy hotelCancelPolicy = astriHotelCancelPolicy.cancelPolicy(param);
 
