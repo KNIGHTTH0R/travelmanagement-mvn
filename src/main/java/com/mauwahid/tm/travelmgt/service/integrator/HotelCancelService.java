@@ -62,6 +62,9 @@ public class HotelCancelService {
     private HotelCancelResponse translateResponse(HotelCancelResult hotelCancelResult){
         HotelCancelResponse hotelCancelResponse = new HotelCancelResponse();
 
+        hotelCancelResponse.setStatus(StatusCode.SUCCESS);
+        hotelCancelResponse.setMessage(StatusCode.S_SUCCESS);
+
         hotelCancelResponse.setHotelCancelResult(hotelCancelResult);
 
         return hotelCancelResponse;
