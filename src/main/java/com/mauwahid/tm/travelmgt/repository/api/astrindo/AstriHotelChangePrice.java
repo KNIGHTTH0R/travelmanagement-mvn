@@ -26,8 +26,8 @@ public class AstriHotelChangePrice implements HotelChangePriceInterface {
     private String url;
 
 
-    @Autowired
-    private AstriApiCaller astriApiCaller;
+   // @Autowired
+   // private AstriApiCaller astriApiCaller;
 
 
     public HotelChangePriceResult changePrice(Map params) {
@@ -38,7 +38,7 @@ public class AstriHotelChangePrice implements HotelChangePriceInterface {
         log.debug("params : "+params);
 
         try{
-            jsonData = astriApiCaller.callApiGet(url,params);
+            jsonData = AstriApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());

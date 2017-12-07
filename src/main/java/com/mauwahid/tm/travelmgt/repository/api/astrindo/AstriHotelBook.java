@@ -39,7 +39,7 @@ public class AstriHotelBook  implements HotelBookInterface{
     private LogErrorHelper logErrorHelper;
 
 
-    @Autowired
+  //  @Autowired
     private AstriApiCaller astriApiCaller;
 
     @Autowired
@@ -62,6 +62,7 @@ public class AstriHotelBook  implements HotelBookInterface{
 
         url = AstriApiCaller.uri+"HotelBooking.aspx";
         log.debug("params : "+params);
+
 
         try{
             jsonData = astriApiCaller.callApiGet(url,params);

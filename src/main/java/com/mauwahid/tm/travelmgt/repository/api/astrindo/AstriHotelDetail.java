@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Component
+
 @Slf4j
 public class AstriHotelDetail implements HotelDetailInterface {
 
@@ -27,8 +27,10 @@ public class AstriHotelDetail implements HotelDetailInterface {
     private String url;
 
 
-    @Autowired
-    private AstriApiCaller astriApiCaller;
+  //  @Autowired
+  //  private AstriApiCaller astriApiCaller;
+
+
 
     //TODO : Should be async task
     //  @Async
@@ -40,7 +42,7 @@ public class AstriHotelDetail implements HotelDetailInterface {
         log.debug("params : "+params);
 
         try{
-            jsonData = astriApiCaller.callApiGet(url,params);
+            jsonData = AstriApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());

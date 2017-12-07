@@ -26,8 +26,6 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
     private String url;
 
-    private AstriApiCaller astriApiCaller;
-
     @Autowired
     private LogErrorHelper logErrorHelper;
 
@@ -37,11 +35,10 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
         String jsonData = "";
 
-        astriApiCaller = new AstriApiCaller();
         url = AstriApiCaller.uri + "HotelAvailability.aspx";
 
         try{
-            jsonData = astriApiCaller.callApiGet(url,params);
+            jsonData = AstriApiCaller.callApiGet(url,params);
 
             log.debug("JSON DATA "+jsonData);
         }catch (IOException ex){
@@ -64,7 +61,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
 
 //        logErrorHelper = new LogErrorHelper();
-//        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_SEARCH, ex.toString(), param, jsonData);
+        logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_SEARCH, ex.toString(), param, jsonData);
 
         return hotelHotels;
     }

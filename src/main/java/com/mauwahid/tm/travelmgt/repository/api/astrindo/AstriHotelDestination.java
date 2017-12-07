@@ -27,8 +27,8 @@ public class AstriHotelDestination implements HotelDestinationInterface {
     private String url;
 
 
-    @Autowired
-    private AstriApiCaller astriApiCaller;
+   // @Autowired
+   // private AstriApiCaller astriApiCaller;
 
 
     public Set<HotelDestination> getDestination(Map params) {
@@ -39,7 +39,7 @@ public class AstriHotelDestination implements HotelDestinationInterface {
         log.debug("params : "+params);
 
         try{
-            jsonData = astriApiCaller.callApiGet(url,params);
+            jsonData = AstriApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());

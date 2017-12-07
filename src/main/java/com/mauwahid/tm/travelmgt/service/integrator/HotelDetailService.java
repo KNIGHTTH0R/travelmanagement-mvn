@@ -19,8 +19,6 @@ import java.util.Map;
 @Service
 public class HotelDetailService {
 
-    private HotelDetailResponse hotelDetailResponse;
-
 
     private HotelDetailInterface hotelDetailInterface;
 
@@ -46,7 +44,7 @@ public class HotelDetailService {
             response = translateResponse(hotel);
         }
 
-        saveToLog(userId,hotelDetailResponse);
+        saveToLog(userId,response);
 
         return response;
 
@@ -81,6 +79,9 @@ public class HotelDetailService {
         HotelDetailResponse hotelDetailResponse = new HotelDetailResponse();
 
         String sessionId = Common.generateSessionID();
+
+        hotelDetailResponse.setStatus(StatusCode.SUCCESS);
+        hotelDetailResponse.setMessage(StatusCode.S_SUCCESS);
 
         hotelDetailResponse.setSessionKey(sessionId);
         hotelDetailResponse.setHotelResult(hotel);

@@ -1,18 +1,14 @@
 package com.mauwahid.tm.travelmgt.repository.api.astrindo;
 
-import com.mauwahid.tm.travelmgt.repository.api.interfaces.ApiCallerInterface;
 import com.mauwahid.tm.travelmgt.repository.api.resthub.GetWithHeaderRequester;
 import com.mauwahid.tm.travelmgt.repository.api.resthub.PostStdRequester;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 @Component
-@Qualifier("astri_api_caller")
-public class AstriApiCaller implements ApiCallerInterface {
+public class AstriApiCaller {
 
 
     public static String BASE_URI = "http://202.129.226.202:10007/";
@@ -29,15 +25,12 @@ public class AstriApiCaller implements ApiCallerInterface {
 
     public static String PASSWORD = "hszlQuXQgZJvVJpHtGLMBg==";
 
-  //  @Value("${trevohub.ip}")
-    public String authToken = "127.0.0.1";
-
-    public String callApiPost(String uri, Map<String, String> params) throws IOException {
+    public static String callApiPost(String uri, Map<String, String> params) throws IOException {
         PostStdRequester postStdRequester = new PostStdRequester();
         return postStdRequester.sendRequest(uri,params);
     }
 
-    public String callApiGet(String uri, Map<String, String> params) throws IOException{
+    public static String callApiGet(String uri, Map<String, String> params) throws IOException{
         GetWithHeaderRequester getWithHeaderRequester = new GetWithHeaderRequester();
 
         return  getWithHeaderRequester.sendRequest(uri,params);
