@@ -39,6 +39,7 @@ public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
 
         Map param = AstriHotelCancelPolicy.translateToParam(hotelCancelPolicyReq);
 
+        astriHotelCancelPolicy = new AstriHotelCancelPolicy();
 
         HotelCancelPolicy hotelCancelPolicy = astriHotelCancelPolicy.cancelPolicy(param);
 
