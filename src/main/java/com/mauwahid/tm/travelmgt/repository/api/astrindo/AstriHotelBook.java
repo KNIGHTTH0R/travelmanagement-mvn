@@ -30,7 +30,6 @@ import java.util.Set;
 
 @Component
 @Slf4j
-@Qualifier("astri_hotel_book")
 public class AstriHotelBook  implements HotelBookInterface{
 
     private String url;
@@ -103,6 +102,7 @@ public class AstriHotelBook  implements HotelBookInterface{
         hotelCancelPolicyReq.setSessionID(params.get("sessionID").toString());
         hotelCancelPolicyReq.setRoomID(params.get("roomID").toString());
 
+        hotelCancelPolicyService = new HotelCancelPolicyService();
         HotelCancelPolicyResponse response = hotelCancelPolicyService.getPolicyResponse(hotelCancelPolicyReq);
 
         log.debug("Response policy : "+response.toString());
