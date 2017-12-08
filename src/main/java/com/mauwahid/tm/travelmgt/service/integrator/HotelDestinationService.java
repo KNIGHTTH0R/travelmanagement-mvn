@@ -21,12 +21,12 @@ public class HotelDestinationService {
     public HotelDestinationResponse getDestination(HotelDestinationReq hotelDestinationReq){
 
         HotelDestinationResponse response = new HotelDestinationResponse();
-        response.setStatus(StatusCode.SUCCESS);
-        response.setMessage(StatusCode.S_SUCCESS);
+        response.setStatus(StatusCode.NOT_IMPLEMENTED);
+        response.setMessage(StatusCode.S_NOT_IMPLEMENTED);
 
         if(hotelDestinationReq.getApiSource().equalsIgnoreCase("astrindo")){
             Set<HotelDestination> hotelDestinations = fetchHotelDestination(hotelDestinationReq);
-            return translateResponse(hotelDestinations);
+            response = translateResponse(hotelDestinations);
 
         }
 
@@ -50,6 +50,9 @@ public class HotelDestinationService {
 
     private HotelDestinationResponse translateResponse(Set<HotelDestination> hotelDestinationSet){
         HotelDestinationResponse response = new HotelDestinationResponse();
+
+        response.setStatus(StatusCode.SUCCESS);
+        response.setMessage(StatusCode.S_SUCCESS);
 
         response.setHotelDestination(hotelDestinationSet);
 
