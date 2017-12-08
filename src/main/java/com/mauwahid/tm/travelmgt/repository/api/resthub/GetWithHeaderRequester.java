@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -19,10 +21,16 @@ public class GetWithHeaderRequester {
     public  String sendRequest(String uri, Map<String, String> headerParam, Map<String, String> params)
     throws IOException{
 
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
 
-       // uri = uri+"lion/search/best_price";
+        // uri = uri+"lion/search/best_price";
 
 
         log.debug("data uri : "+uri);
@@ -61,10 +69,15 @@ public class GetWithHeaderRequester {
     public  String sendRequest(String uri, Map<String, String> params)
             throws IOException{
 
-        OkHttpClient client = new OkHttpClient();
+      //  OkHttpClient client = new OkHttpClient();
 
 
         // uri = uri+"lion/search/best_price";
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
 
 

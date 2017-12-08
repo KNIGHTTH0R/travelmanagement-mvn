@@ -27,7 +27,9 @@ public class PostStdRequester implements IHttpRequester {
         );
 
         log.debug("URI "+uri);
-        Request request = new Request.Builder().url(uri).post(formBuilder.build()).build();
+
+        Request request = new Request.Builder().url(uri).
+                post(formBuilder.build()).build();
 
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();
