@@ -6,6 +6,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class PostStdRequester implements IHttpRequester {
@@ -15,7 +16,13 @@ public class PostStdRequester implements IHttpRequester {
     @Override
     public String sendRequest(String uri, Map<String,String> params) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
         FormBody.Builder formBuilder = new FormBody.Builder();
 
@@ -38,7 +45,13 @@ public class PostStdRequester implements IHttpRequester {
 
     public String sendRequest(String uri, Map<String,String> headerParam,Map<String,String> params) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
 
         Headers.Builder headerBuilder = new Headers.Builder();
@@ -84,7 +97,13 @@ public class PostStdRequester implements IHttpRequester {
 
     public String sendRequest(String uri, Map<String,String> headerParam,String jSONparams) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
 
         Headers.Builder headerBuilder = new Headers.Builder();
@@ -114,7 +133,14 @@ public class PostStdRequester implements IHttpRequester {
 
     public Map sendRequestMap(String uri, Map<String,String> params) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+//        OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
+
 
         FormBody.Builder formBuilder = new FormBody.Builder();
 
@@ -144,7 +170,13 @@ public class PostStdRequester implements IHttpRequester {
 
     public Map sendRequestJsonMap(String uri, Map<String,String> headerParam,String jSONparams) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
+       // OkHttpClient client = new OkHttpClient();
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
 
 
         Headers.Builder headerBuilder = new Headers.Builder();
@@ -178,7 +210,6 @@ public class PostStdRequester implements IHttpRequester {
 
         }
     }
-
 
 
 }
