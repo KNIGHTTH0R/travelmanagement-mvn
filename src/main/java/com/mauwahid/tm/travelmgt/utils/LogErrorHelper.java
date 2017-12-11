@@ -53,7 +53,7 @@ public class LogErrorHelper {
                 LogErrorHotelSearch logErrorHotelSearch = new LogErrorHotelSearch();
                 logErrorHotelSearch.setExceptionData(ex);
                 logErrorHotelSearch.setJsonData(convertStringToBlob(jsonData));
-                logErrorHotelSearch.setParams(params);
+                logErrorHotelSearch.setParams(convertStringToBlob(params));
 
                 logErrorHotelSearchRepository.save(logErrorHotelSearch);
                 break;
@@ -62,7 +62,7 @@ public class LogErrorHelper {
                 LogErrorHotelDetail logErrorHotelDetail = new LogErrorHotelDetail();
                 logErrorHotelDetail.setExceptionData(ex);
                 logErrorHotelDetail.setJsonData(convertStringToBlob(jsonData));
-                logErrorHotelDetail.setParams(params);
+                logErrorHotelDetail.setParams(convertStringToBlob(params));
 
                 logErrorHotelDetailRepository.save(logErrorHotelDetail);
                 break;
@@ -72,7 +72,7 @@ public class LogErrorHelper {
                 LogErrorHotelBook logErrorHotelBook = new LogErrorHotelBook();
                 logErrorHotelBook.setExceptionData(ex);
                 logErrorHotelBook.setJsonData(convertStringToBlob(jsonData));
-                logErrorHotelBook.setParams(params);
+                logErrorHotelBook.setParams(convertStringToBlob(params));
 
                 logErrorHotelBookRepository.save(logErrorHotelBook);
                 break;
@@ -82,7 +82,7 @@ public class LogErrorHelper {
                 LogErrorHotelCancel logErrorHotelCancel = new LogErrorHotelCancel();
                 logErrorHotelCancel.setExceptionData(ex);
                 logErrorHotelCancel.setJsonData(convertStringToBlob(jsonData));
-                logErrorHotelCancel.setParams(params);
+                logErrorHotelCancel.setParams(convertStringToBlob(params));
 
                 logErrorHotelCancelRepository.save(logErrorHotelCancel);
                 break;

@@ -26,10 +26,14 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
     private String url;
 
-    @Autowired
     private LogErrorHelper logErrorHelper;
 
-  //TODO : Should be async task
+    @Autowired
+    public AstriHotelAvailability(LogErrorHelper logErrorHelper) {
+        this.logErrorHelper = logErrorHelper;
+    }
+
+    //TODO : Should be async task
   //  @Async
     public Set<HotelHotel> searchHotel(Map params) {
 
@@ -60,7 +64,9 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
         hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
 
-//        logErrorHelper = new LogErrorHelper();
+        hotelHotels.add(hotelHotel);
+
+       // logErrorHelper = new LogErrorHelper();
         logErrorHelper.saveErrorExc(ApiStatic.API_HOTEL_SEARCH, ex.toString(), param, jsonData);
 
         return hotelHotels;

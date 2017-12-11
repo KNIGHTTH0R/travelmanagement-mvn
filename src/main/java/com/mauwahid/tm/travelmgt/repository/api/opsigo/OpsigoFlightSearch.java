@@ -171,7 +171,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                         flightSeat.setFlightPrice(flightPrice);
                         flightSeat.setCode(objClass.optString("Code"));
                         flightSeat.setSeatClass(objClass.optString("Category"));
-
+                        flightSeat.setFlightKey(flight.getFlightId());
 
 
                         flightSeats.add(flightSeat);

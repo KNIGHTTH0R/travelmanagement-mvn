@@ -12,6 +12,7 @@ import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -31,13 +32,27 @@ public class HotelSearchService {
 
     private HotelSearchInterface hotelSearchInterface;
 
+    @Autowired
+    private ApplicationContext context;
+
 
 
     public HotelSearchResponse searchHotel(long userId, HotelSearchReq hotelSearchReq){
 
+        HotelSearchResponse response = new HotelSearchResponse();
+
+        if(!Common.isApiListChecked(hotelSearchReq.getApiSource())){
+            response.setStatus(StatusCode.BAD_REQUEST);
+            response.setMessage(StatusCode.S_API_NOT_FOUND);
+
+            saveToLog(userId,response);
+
+            return response;
+        }
+
         Set<HotelHotel> hotels = agregate(hotelSearchReq);
 
-        HotelSearchResponse response = translateResponse(hotels);
+        response = translateResponse(response, hotels);
 
         saveToLog(userId,response);
 
@@ -53,8 +68,11 @@ public class HotelSearchService {
 
         Set<HotelHotel> hotels = new HashSet<>();
 
+
+
         if(apiSources.contains(Common.API_ASTRINDO)){
-            hotelSearchInterface = new AstriHotelAvailability();
+           // hotelSearchInterface = new AstriHotelAvailability();
+            hotelSearchInterface = context.getBean(AstriHotelAvailability.class);
             param = AstriHotelAvailability.translateToParam(hotelSearchReq);
             hotels = hotelSearchInterface.searchHotel(param);
         }
@@ -66,8 +84,7 @@ public class HotelSearchService {
 
 
 
-    private HotelSearchResponse translateResponse(Set<HotelHotel> hotels){
-        HotelSearchResponse hotelSearchResponse = new HotelSearchResponse();
+    private HotelSearchResponse translateResponse(HotelSearchResponse hotelSearchResponse, Set<HotelHotel> hotels){
         String sessionId = Common.generateSessionID();
 
         hotelSearchResponse.setSessionKey(sessionId);

@@ -18,5 +18,5 @@ public class LogErrorApi extends AbstractEntity {
     private Blob jsonData;
 
     @Column
-    private String params;
+    private Blob params;
 }

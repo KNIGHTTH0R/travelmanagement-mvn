@@ -91,4 +91,22 @@ public class Common {
         return jsonData;
     }
 
+
+    public static boolean isApiListChecked(String... params){
+
+        int count = 0;
+
+        for(String api : params){
+
+            if(api.equalsIgnoreCase(Common.API_ASTRINDO)){
+                count++;
+            }
+
+        }
+
+        if(count>0)
+            return true;
+
+        return false;
+    }
 }

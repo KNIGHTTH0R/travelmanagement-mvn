@@ -40,7 +40,7 @@ public class AuthService {
 
 
     public DefaultResponse respAuthFailed(){
-        return new DefaultResponse(StatusCode.UNAUTORIZED,StatusCode.S_UNAUTHORIZED);
+        return new DefaultResponse(StatusCode.UNAUTHORIZED,StatusCode.S_UNAUTHORIZED);
     }
 
 
