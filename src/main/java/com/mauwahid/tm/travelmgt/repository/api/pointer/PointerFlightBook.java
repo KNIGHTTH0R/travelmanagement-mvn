@@ -3,12 +3,10 @@ package com.mauwahid.tm.travelmgt.repository.api.pointer;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,12 +16,12 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class PointerFlightBook implements FlightBookInterface {
 
     private String url;
 
-    private Logger logger = LoggerFactory.getLogger(PointerFlightBook.class);
-
+   
    // @Autowired
     private PointerApiCaller pointerApiCaller;
 
@@ -37,21 +35,21 @@ public class PointerFlightBook implements FlightBookInterface {
 
         String jsonData;
 
-        logger.debug("params : "+params);
+        log.debug("params : "+params);
 
         pointerApiCaller = new PointerApiCaller();
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);
-            logger.debug("JSON RES : "+jsonData);
+            log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
-            logger.error("searchTravel : "+ex.toString());
+            log.error("searchTravel : "+ex.toString());
             return exceptionHandling(ex);
         }
 
         try{
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            logger.error("searchTravel translateToObj : "+ex.toString());
+            log.error("searchTravel translateToObj : "+ex.toString());
 
             return exceptionHandling(ex);
         }

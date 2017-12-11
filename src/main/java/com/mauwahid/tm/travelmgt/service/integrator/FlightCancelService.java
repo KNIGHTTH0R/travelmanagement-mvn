@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightCancelResponse;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightCancel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightCancelInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightCancel;
+import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightCancel;
 import com.mauwahid.tm.travelmgt.repository.database.log.LogFlightCancelRepository;
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
@@ -52,9 +53,6 @@ public class FlightCancelService {
 
           //  flightIssueInterface = new PointerFlightIssue();
           //  flightIssue = flightIssueInterface.issueFlight(param);
-        }
-
-        if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
             Map param = OpsigoFlightCancel.translateToParam(flightCancelReq);
 
             flightCancelInterface = new OpsigoFlightCancel();
@@ -62,6 +60,13 @@ public class FlightCancelService {
 
         }
 
+        if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
+            Map param = PointerFlightCancel.translateToParam(flightCancelReq);
+
+            flightCancelInterface = new PointerFlightCancel();
+            flightCancel = flightCancelInterface.cancelFlight(param);
+
+        }
 
         //api pointer
 
