@@ -23,7 +23,6 @@ import java.util.Set;
 
 @Component
 @Slf4j
-@Qualifier("astri_hotel_issue")
 public class AstriHotelIssue implements HotelIssueInterface{
 
 

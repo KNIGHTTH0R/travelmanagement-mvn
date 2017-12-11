@@ -13,6 +13,7 @@ import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -23,9 +24,11 @@ public class HotelIssueService {
 
     private HotelIssueInterface hotelIssueInterface;
 
-
     @Autowired
     private LogHotelIssueRepository logHotelIssueRepository;
+
+    @Autowired
+    private ApplicationContext context;
 
 
     public HotelIssueResponse issueHotel(long userId, HotelIssueReq hotelIssueReq){
@@ -36,9 +39,7 @@ public class HotelIssueService {
 
         if(hotelIssueReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelIssueResult hotelIssue = issueAstri(hotelIssueReq);
-
             response = translateResponse(response, hotelIssue);
-
         }
 
         saveToLog(userId, response);
@@ -58,11 +59,8 @@ public class HotelIssueService {
     }
 
     private HotelIssueResult issueAstri(HotelIssueReq hotelIssueReq){
-
         Map param = AstriHotelIssue.translateToParam(hotelIssueReq);
-
-        hotelIssueInterface = new AstriHotelIssue();
-
+        hotelIssueInterface = context.getBean(AstriHotelIssue.class);
         HotelIssueResult hotelIssueResult = hotelIssueInterface.issueHotel(param);
         return hotelIssueResult;
 
@@ -72,6 +70,7 @@ public class HotelIssueService {
     private HotelIssueResponse translateResponse(HotelIssueResponse response, HotelIssueResult hotelIssue){
         response.setStatus(StatusCode.SUCCESS);
         response.setMessage(StatusCode.S_SUCCESS);
+
         response.setHotelIssue(hotelIssue);
         return response;
     }

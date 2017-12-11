@@ -63,6 +63,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
         HotelHotel hotelHotel = new HotelHotel();
         hotelHotel.setStatusCode(StatusCode.ERROR_API+"");
         hotelHotel.setStatusDesc(StatusCode.S_ERROR_API+" : "+ex.toString());
+        hotelHotel.setHotelAPI(Common.API_ASTRINDO);
 
         hotelHotels.add(hotelHotel);
 

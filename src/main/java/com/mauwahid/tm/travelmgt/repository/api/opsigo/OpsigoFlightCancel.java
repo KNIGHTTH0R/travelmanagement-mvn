@@ -9,13 +9,13 @@ import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Component
 @Slf4j
 public class OpsigoFlightCancel implements FlightCancelInterface{
 
@@ -23,12 +23,12 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
 
     private OpsigoApiCaller opsigoApiCaller;
 
-    public FlightCancel cancelFlight(Map params) {
+    public FlightCancel cancelFlight(FlightCancelReq flightCancelReq) {
 
         url = OpsigoApiCaller.uri;
         url = url+"/apiv3/CancelFlight";
 
-        FlightCancelOpsReq flightCancelOpsReq = translateToParam(params);
+        FlightCancelOpsReq flightCancelOpsReq = translateToObjJSON(flightCancelReq);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonParam = "";
@@ -38,7 +38,7 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
         }catch (Exception ex){
             jsonParam = "";
             log.error("ex "+ex.toString());
-            return exceptionHandling(ex, params.toString(), params);
+            return exceptionHandling(ex, flightCancelReq.toString(), jsonParam);
         }
 
         Map responseMap = new HashMap();
@@ -51,7 +51,7 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
             log.debug("JSON RES : "+responseMap.toString());
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
-            return exceptionHandling(ex, params.toString(), responseMap);
+            return exceptionHandling(ex, flightCancelReq.toString(), jsonParam);
         }
 
         try{
@@ -59,7 +59,7 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
         }catch (Exception ex) {
             log.error("searchTravel translateToObj : "+ex.toString());
 
-            return exceptionHandling(ex, params.toString(), responseMap);
+            return exceptionHandling(ex, flightCancelReq.toString(), jsonParam);
         }
     }
 
@@ -84,7 +84,7 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
     }
 
 
-    private FlightCancel exceptionHandling(Exception ex, String params, Map response){
+    private FlightCancel exceptionHandling(Exception ex, String params, String response){
 
 
         FlightCancel flightCancel = new FlightCancel();
@@ -96,17 +96,21 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
 
 
     //static method
-    public static FlightCancelOpsReq translateToParam(Map map){
+    public static FlightCancelOpsReq translateToObjJSON(FlightCancelReq flightCancelReq){
+
 
         FlightCancelOpsReq flightCancelOpsReq = new FlightCancelOpsReq();
-        flightCancelOpsReq.setCallbackUri(Common.CALLBACK_ISSUE);
-        flightCancelOpsReq.setPnrId(map.get("pnrId").toString());
+       // flightCancelOpsReq.setCallbackUri(Common.CALLBACK_ISSUE);
+      //  flightCancelOpsReq.setPnrId(map.get("pnrId").toString());
+
+        flightCancelOpsReq.setCallbackUri(flightCancelReq.getCallbackUri());
+        flightCancelOpsReq.setPnrId(flightCancelReq.getBookingCode());
 
         return flightCancelOpsReq;
     }
 
 
-    public static Map translateToParam(FlightCancelReq flightCancelReq){
+    public static Map translateToMap(FlightCancelReq flightCancelReq){
         Map param = new HashMap();
 
         param.put("pnrId",flightCancelReq.getBookingCode());

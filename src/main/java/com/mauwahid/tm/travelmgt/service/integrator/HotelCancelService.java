@@ -12,6 +12,7 @@ import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,6 +26,9 @@ public class HotelCancelService {
     @Autowired
     private LogHotelCancelRepository logHotelCancelRepository;
 
+    @Autowired
+    private ApplicationContext context;
+
     public HotelCancelResponse cancelHotel(long userId, HotelCancelReq hotelCancelReq){
 
         HotelCancelResponse hotelCancelResponse = new HotelCancelResponse();
@@ -33,7 +37,7 @@ public class HotelCancelService {
 
         if(hotelCancelReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelCancelResult hotelCancelResult = cancelAsri(hotelCancelReq);
-            return translateResponse(hotelCancelResult);
+            hotelCancelResponse = translateResponse(hotelCancelResponse, hotelCancelResult);
         }
 
         saveToLog(userId, hotelCancelResponse);
@@ -49,7 +53,7 @@ public class HotelCancelService {
 
         Map param = AstriHotelCancel.translateToParam(hotelCancelReq);
 
-        hotelCancelInterface = new AstriHotelCancel();
+        hotelCancelInterface = context.getBean(AstriHotelCancel.class);
 
         HotelCancelResult hotelCancelResult = hotelCancelInterface.cancelHotel(param);
 
@@ -59,15 +63,14 @@ public class HotelCancelService {
     }
 
 
-    private HotelCancelResponse translateResponse(HotelCancelResult hotelCancelResult){
-        HotelCancelResponse hotelCancelResponse = new HotelCancelResponse();
+    private HotelCancelResponse translateResponse(HotelCancelResponse response, HotelCancelResult hotelCancelResult){
 
-        hotelCancelResponse.setStatus(StatusCode.SUCCESS);
-        hotelCancelResponse.setMessage(StatusCode.S_SUCCESS);
+        response.setStatus(StatusCode.SUCCESS);
+        response.setMessage(StatusCode.S_SUCCESS);
 
-        hotelCancelResponse.setHotelCancelResult(hotelCancelResult);
+        response.setHotelCancelResult(hotelCancelResult);
 
-        return hotelCancelResponse;
+        return response;
     }
 
     private void saveToLog(long userId, HotelCancelResponse hotelCancelResponse){

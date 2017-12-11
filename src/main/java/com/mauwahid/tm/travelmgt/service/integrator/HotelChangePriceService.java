@@ -10,8 +10,10 @@ import com.mauwahid.tm.travelmgt.repository.database.log.LogHotelChangePriceRepo
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
+import javafx.application.Application;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -26,6 +28,9 @@ public class HotelChangePriceService {
 
     @Autowired
     private LogHotelChangePriceRepository logHotelChangePriceRepository;
+
+    @Autowired
+    private ApplicationContext context;
 
 
     public HotelChangePriceResponse changePrice(long userId, HotelChangePriceReq hotelCancelReq){
@@ -51,8 +56,7 @@ public class HotelChangePriceService {
 
         Map param = AstriHotelChangePrice.translateToParam(hotelChangePriceReq);
 
-        hotelChangePriceInterface = new AstriHotelChangePrice();
-
+        hotelChangePriceInterface = context.getBean(AstriHotelChangePrice.class);
         HotelChangePriceResult hotelChangePriceResult = hotelChangePriceInterface.changePrice(param);
 
         return hotelChangePriceResult;

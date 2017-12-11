@@ -7,11 +7,13 @@ import com.mauwahid.tm.travelmgt.entity.log.LogFlightBook;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightBook;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
+import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.database.log.LogFlightBookRepository;
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +21,8 @@ public class FlightBookService {
 
     private FlightBookInterface flightBookInterface;
 
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     private LogFlightBookRepository logFlightBookRepository;
@@ -40,18 +44,20 @@ public class FlightBookService {
         //api pointer
 
         FlightBook flightBook = null;
-        switch (flightBookReq.getApiSource()){
-            case Common.API_OPSIGO :
-                flightBookInterface = new OpsigoFlightBook();
-                break;
-            case Common.API_POINTER :
-                flightBookInterface = new PointerFlightBook();
-                break;
-            default:
-                flightBookInterface = new PointerFlightBook();
+        if(flightBookReq.getApiSource().equalsIgnoreCase(Common.API_OPSIGO)) {
+            flightBookInterface = context.getBean(OpsigoFlightBook.class);
         }
 
-        flightBook = flightBookInterface.bookFlight(flightBookReq);
+        if(flightBookReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)) {
+            flightBookInterface = context.getBean(PointerFlightBook.class);
+        }
+
+        try {
+            flightBook = flightBookInterface.bookFlight(flightBookReq);
+        }catch (Exception ex){
+            flightBook = null;
+        }
+
         return flightBook;
 
     }
@@ -61,8 +67,14 @@ public class FlightBookService {
     private FlightBookResponse translateResponse(FlightBook flightBook){
         FlightBookResponse flightBookResponse = new FlightBookResponse();
         flightBookResponse.setSessionKey(Common.generateSessionID());
-        flightBookResponse.setStatus(StatusCode.SUCCESS);
-        flightBookResponse.setMessage(StatusCode.S_SUCCESS);
+
+        if(flightBook==null){
+            flightBookResponse.setStatus(StatusCode.NOT_IMPLEMENTED);
+            flightBookResponse.setMessage(StatusCode.S_NOT_IMPLEMENTED);
+        }else{
+            flightBookResponse.setStatus(StatusCode.SUCCESS);
+            flightBookResponse.setMessage(StatusCode.S_SUCCESS);
+        }
 
         flightBookResponse.setFlightBook(flightBook);
 
@@ -70,8 +82,6 @@ public class FlightBookService {
     }
 
     private void saveToLog(long userId, FlightBookReq2 flightBookReq2, FlightBookResponse flightBookResponse){
-
-        //todo : log_save -> user_id, api_date, statusCode, message, jsonOf HotelSearchResponse
 
         String jsonData = Common.generateJSONFromObject(flightBookResponse);
 

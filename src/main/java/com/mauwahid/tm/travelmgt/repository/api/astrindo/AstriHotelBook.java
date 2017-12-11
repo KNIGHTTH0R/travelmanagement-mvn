@@ -37,10 +37,6 @@ public class AstriHotelBook  implements HotelBookInterface{
     @Autowired
     private LogErrorHelper logErrorHelper;
 
-
-  //  @Autowired
-    private AstriApiCaller astriApiCaller;
-
     @Autowired
     private HotelCancelPolicyService hotelCancelPolicyService;
 
@@ -64,7 +60,7 @@ public class AstriHotelBook  implements HotelBookInterface{
 
 
         try{
-            jsonData = astriApiCaller.callApiGet(url,params);
+            jsonData = AstriApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());

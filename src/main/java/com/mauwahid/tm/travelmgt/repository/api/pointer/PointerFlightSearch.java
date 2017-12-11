@@ -22,8 +22,6 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class PointerFlightSearch implements FlightSearchInterface {
 
-    private Map params = new HashMap<String,String>();
-
     private String url;
 
     private Logger logger = LoggerFactory.getLogger(PointerFlightSearch.class);

@@ -23,14 +23,10 @@ import java.util.Set;
 
 @Component
 @Slf4j
-@Qualifier("astri_hotel_cancel")
 public class AstriHotelCancel implements HotelCancelInterface {
 
 
     private String url;
-
-  //  @Autowired
-   // private AstriApiCaller astriApiCaller;
 
     @Autowired
     private LogErrorHelper logErrorHelper;

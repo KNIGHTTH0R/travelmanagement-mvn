@@ -12,6 +12,7 @@ import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,6 +26,9 @@ public class HotelDetailService {
     @Autowired
     private LogHotelDetailRepository logHotelDetailRepository;
 
+    @Autowired
+    private ApplicationContext context;
+
 
     public HotelDetailResponse getDetailHotel(long userId, HotelDetailReq hotelDetailReq){
 
@@ -33,15 +37,15 @@ public class HotelDetailService {
         response.setMessage(StatusCode.S_NOT_IMPLEMENTED);
         HotelHotel hotel;
 
-        if(hotelDetailReq.getApiSource().equalsIgnoreCase("trevohub")){
+        if(hotelDetailReq.getApiSource().equalsIgnoreCase(Common.API_TREVOHUB)){
 
             hotel = getTrevohub(hotelDetailReq);
-            response = translateResponse(hotel);
+            response = translateResponse(response, hotel);
         }
 
-        if(hotelDetailReq.getApiSource().equalsIgnoreCase("astrindo")){
+        if(hotelDetailReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             hotel = getAstrindo(hotelDetailReq);
-            response = translateResponse(hotel);
+            response = translateResponse(response, hotel);
         }
 
         saveToLog(userId,response);
@@ -54,8 +58,7 @@ public class HotelDetailService {
 
         Map param = TrevoHotelDetail.translateToParam(hotelDetailReq);
 
-        hotelDetailInterface = new TrevoHotelDetail();
-
+        hotelDetailInterface = context.getBean(TrevoHotelDetail.class);
         HotelHotel trevoHubHotel = hotelDetailInterface.getDetailHotel(param);
 
         return trevoHubHotel;
@@ -66,8 +69,7 @@ public class HotelDetailService {
 
         Map param = AstriHotelDetail.translateToParam(hotelDetailReq);
 
-        hotelDetailInterface = new AstriHotelDetail();
-
+        hotelDetailInterface =  context.getBean(AstriHotelDetail.class);
         HotelHotel astriHotel = hotelDetailInterface.getDetailHotel(param);
 
         return astriHotel;
@@ -75,9 +77,7 @@ public class HotelDetailService {
     }
 
 
-    private HotelDetailResponse translateResponse(HotelHotel hotel){
-        HotelDetailResponse hotelDetailResponse = new HotelDetailResponse();
-
+    private HotelDetailResponse translateResponse(HotelDetailResponse hotelDetailResponse, HotelHotel hotel){
         String sessionId = Common.generateSessionID();
 
         hotelDetailResponse.setStatus(StatusCode.SUCCESS);

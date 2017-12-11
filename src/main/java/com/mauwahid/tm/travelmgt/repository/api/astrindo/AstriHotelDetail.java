@@ -21,15 +21,11 @@ import java.util.Set;
 
 
 @Slf4j
+@Component
 public class AstriHotelDetail implements HotelDetailInterface {
 
 
     private String url;
-
-
-  //  @Autowired
-  //  private AstriApiCaller astriApiCaller;
-
 
 
     //TODO : Should be async task

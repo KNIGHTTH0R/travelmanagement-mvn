@@ -68,8 +68,6 @@ public class HotelSearchService {
 
         Set<HotelHotel> hotels = new HashSet<>();
 
-
-
         if(apiSources.contains(Common.API_ASTRINDO)){
            // hotelSearchInterface = new AstriHotelAvailability();
             hotelSearchInterface = context.getBean(AstriHotelAvailability.class);

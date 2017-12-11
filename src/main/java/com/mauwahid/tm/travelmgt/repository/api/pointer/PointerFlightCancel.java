@@ -8,6 +8,7 @@ import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,20 +23,21 @@ public class PointerFlightCancel implements FlightCancelInterface {
     private String url;
 
 
-    // @Autowired
+    @Autowired
     private PointerApiCaller pointerApiCaller;
 
 
-    public FlightCancel cancelFlight(Map params){
+    public FlightCancel cancelFlight(FlightCancelReq flightCancelReq){
+
+        Map params = translateToParam(flightCancelReq);
 
         url = PointerApiCaller.uri;
         url = url+params.get("airline")+"/cancel";
 
         String jsonData;
 
-        log.debug("params : "+params);
+     //   log.debug("params : "+params);
 
-        pointerApiCaller = new PointerApiCaller();
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);
             log.debug("JSON RES : "+jsonData);

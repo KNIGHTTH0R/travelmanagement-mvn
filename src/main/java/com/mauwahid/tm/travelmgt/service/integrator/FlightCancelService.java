@@ -11,14 +11,15 @@ import com.mauwahid.tm.travelmgt.repository.database.log.LogFlightCancelReposito
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@Slf4j
 public class FlightCancelService {
 
     @Autowired
@@ -26,8 +27,8 @@ public class FlightCancelService {
 
     private FlightCancelInterface flightCancelInterface;
 
-
-    Logger logger = LoggerFactory.getLogger(FlightIssueService.class);
+    @Autowired
+    private ApplicationContext context;
 
     public FlightCancelResponse cancelFlight(long userId, FlightCancelReq flightCancelReq){
 
@@ -43,35 +44,29 @@ public class FlightCancelService {
 
     private FlightCancel cancel(FlightCancelReq flightCancelReq){
 
-        FlightCancel flightCancel = new FlightCancel();
-        flightCancel.setStatusCode(StatusCode.NOT_IMPLEMENTED);
-        flightCancel.setStatusDesc(StatusCode.S_NOT_IMPLEMENTED);
-
+        FlightCancel flightCancel;
 
         if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_OPSIGO)){
-           // Map param = PointerFlightIssue.translateToParam(fl);
-
-          //  flightIssueInterface = new PointerFlightIssue();
-          //  flightIssue = flightIssueInterface.issueFlight(param);
-            Map param = OpsigoFlightCancel.translateToParam(flightCancelReq);
-
-            flightCancelInterface = new OpsigoFlightCancel();
-            flightCancel = flightCancelInterface.cancelFlight(param);
-
+            flightCancelInterface = context.getBean(OpsigoFlightCancel.class);
         }
 
         if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
-            Map param = PointerFlightCancel.translateToParam(flightCancelReq);
+            flightCancelInterface = context.getBean(PointerFlightCancel.class);
+        }
 
-            flightCancelInterface = new PointerFlightCancel();
-            flightCancel = flightCancelInterface.cancelFlight(param);
+        try {
+            flightCancel = flightCancelInterface.cancelFlight(flightCancelReq);
+
+        }catch (Exception ex){
+            flightCancel = new FlightCancel();
+            flightCancel.setStatusCode(StatusCode.NOT_IMPLEMENTED);
+            flightCancel.setStatusDesc(StatusCode.S_NOT_IMPLEMENTED);
 
         }
 
         //api pointer
 
         return flightCancel;
-
     }
 
 

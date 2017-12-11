@@ -9,13 +9,13 @@ import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Component
 @Slf4j
 public class OpsigoFlightIssue implements FlightIssueInterface {
 

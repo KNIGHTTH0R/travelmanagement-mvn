@@ -11,23 +11,25 @@ import com.mauwahid.tm.travelmgt.repository.database.log.LogFlightIssueRepositor
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@Slf4j
 public class FlightIssueService {
 
     @Autowired
     private LogFlightIssueRepository logFlightIssueRepository;
 
     private FlightIssueInterface flightIssueInterface;
+    
+    @Autowired
+    private ApplicationContext context;
 
-
-    Logger logger = LoggerFactory.getLogger(FlightIssueService.class);
 
     public FlightIssueResponse issueFlight(long userId, FlightIssueReq flightIssueReq){
 
@@ -51,14 +53,14 @@ public class FlightIssueService {
         if(flightIssueReq.getApiSource().equalsIgnoreCase(Common.API_OPSIGO)){
             Map param = PointerFlightIssue.translateToParam(flightIssueReq);
 
-            flightIssueInterface = new PointerFlightIssue();
+            flightIssueInterface = context.getBean(OpsigoFlightIssue.class);
             flightIssue = flightIssueInterface.issueFlight(param);
         }
 
         if(flightIssueReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
             Map param = PointerFlightIssue.translateToParam(flightIssueReq);
 
-            flightIssueInterface = new PointerFlightIssue();
+            flightIssueInterface = context.getBean(PointerFlightIssue.class);
             flightIssue = flightIssueInterface.issueFlight(param);
 
         }
@@ -66,7 +68,7 @@ public class FlightIssueService {
 
         //api pointer
 
-        logger.debug("fligtIssue "+flightIssue.getFullName());
+        log.debug("fligtIssue "+flightIssue.getFullName());
         return flightIssue;
 
     }

@@ -14,6 +14,7 @@ import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -31,15 +32,21 @@ public class FlightSearchService {
     @Autowired
     private LogFlightSearchRepository logFlightSearchRepository;
 
+    @Autowired
+    private ApplicationContext context;
+
 
     public FlightSearchResponse searchFlight(long userId, FlightSearchReq flightSearchReq){
 
         Set<FlightTravel> departs = null;
-        departs = departTravel(flightSearchReq);
+        departs = travelSearch(flightSearchReq);
 
         Set<FlightTravel> returns = null;
-        if(flightSearchReq.getRoundtrip().equalsIgnoreCase("1"))
-                returns = returnTravel(flightSearchReq);
+        if(flightSearchReq.getRoundtrip().equalsIgnoreCase("1")){
+            flightSearchReq = reverseFlightSchedule(flightSearchReq);
+            returns = travelSearch(flightSearchReq);
+        }
+
 
         FlightSearchResponse response = translateResponse(departs,returns);
 
@@ -49,7 +56,7 @@ public class FlightSearchService {
 
     }
 
-    private Set<FlightTravel> departTravel(FlightSearchReq flightSearchReq){
+    private Set<FlightTravel> travelSearch(FlightSearchReq flightSearchReq){
 
         long start = System.currentTimeMillis();
 
@@ -61,20 +68,21 @@ public class FlightSearchService {
         Set<CompletableFuture<Set<FlightTravel>>> completableFutures = new HashSet<>();
 
 
-        if(apis.contains("pointer")) {
-            flightSearchInterface = new PointerFlightSearch();
+        if(apis.contains(Common.API_POINTER)) {
+           // flightSearchInterface = new PointerFlightSearch();
+            flightSearchInterface = context.getBean(PointerFlightSearch.class);
             CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.departTravel(flightSearchReq);
             completableFutures.add(data);
         }
 
-        if(apis.contains("trevohub")) {
-            flightSearchInterface = new TrevoFlightSearch();
+        if(apis.contains(Common.API_TREVOHUB)) {
+            flightSearchInterface = context.getBean(TrevoFlightSearch.class);
             CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.departTravel(flightSearchReq);
             completableFutures.add(data);
         }
 
-        if(apis.contains("opsigo")) {
-            flightSearchInterface = new OpsigoFlightSearch();
+        if(apis.contains(Common.API_OPSIGO)) {
+            flightSearchInterface = context.getBean(OpsigoFlightSearch.class);
             CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.departTravel(flightSearchReq);
             completableFutures.add(data);
         }
@@ -101,99 +109,28 @@ public class FlightSearchService {
         });
 
 
-        log.info("Elapsed time w CF: " + (System.currentTimeMillis() - start));
+       // log.info("Elapsed time w CF: " + (System.currentTimeMillis() - start));
 
         return flightTravels;
 
     }
 
-    private Set<FlightTravel> returnTravel(FlightSearchReq flightSearchReq){
+    private FlightSearchReq reverseFlightSchedule(FlightSearchReq flightSearchReq){
 
-        long start = System.currentTimeMillis();
+        String to = flightSearchReq.getFrom();
+        String from = flightSearchReq.getTo();
+        String departDate = flightSearchReq.getReturnDate();
+        String returnDate = flightSearchReq.getDepartDate();
 
-        //api pointer
-        Set<FlightTravel> flightTravels = new HashSet<>();
-        Set<FlightTravel> travelsTemp = null;
+        flightSearchReq.setTo(to);
+        flightSearchReq.setFrom(from);
+        flightSearchReq.setDepartDate(departDate);
+        flightSearchReq.setReturnDate(returnDate);
 
-        Set<String> apis = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
+        return flightSearchReq;
 
-        Set<CompletableFuture<Set<FlightTravel>>> completableFutures = new HashSet<>();
-
-
-        if(apis.contains("pointer")) {
-            flightSearchInterface = new PointerFlightSearch();
-            CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.returnTravel(flightSearchReq);
-            completableFutures.add(data);
-        }
-
-        if(apis.contains("trevohub")) {
-            flightSearchInterface = new TrevoFlightSearch();
-            CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.returnTravel(flightSearchReq);
-            completableFutures.add(data);
-        }
-
-        if(apis.contains("opsigo")) {
-            flightSearchInterface = new OpsigoFlightSearch();
-            CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.returnTravel(flightSearchReq);
-            completableFutures.add(data);
-        }
-
-
-
-        CompletableFuture.allOf(completableFutures.toArray(
-                new CompletableFuture[completableFutures.size()]
-        )).join();
-
-
-        completableFutures.forEach(cf ->
-        {
-            try{
-                flightTravels.addAll(cf.get());
-
-            }catch (Exception ex){
-                log.error("ex "+ex.toString());
-            }
-        });
-
-
-        log.info("Elapsed time w CF: " + (System.currentTimeMillis() - start));
-
-        return flightTravels;
 
     }
-/*
-    private Set<FlightTravel> returnTravelNCF(FlightSearchReq flightSearchReq){
-
-        //api pointer
-        Set<FlightTravel> flightTravels = new HashSet<>();
-        Set<FlightTravel> travelsTemp = null;
-
-        Set<String> apis = new HashSet<>(Arrays.asList(flightSearchReq.getApiSource()));
-
-
-        travelsTemp = new HashSet<>();
-
-        if(apis.contains("pointer")){
-
-            travelsTemp = pointerFlightSearch.returnTravel(flightSearchReq);
-            if(travelsTemp!=null)
-                flightTravels.addAll(travelsTemp);
-        }
-
-        if(apis.contains("trevohub")){
-            travelsTemp = trevoFlightSearch.returnTravel(flightSearchReq);
-            if(travelsTemp!=null)
-                flightTravels.addAll(travelsTemp);
-
-        }
-
-        return flightTravels;
-
-    }
-*/
-
-
-
 
     private FlightSearchResponse translateResponse(Set<FlightTravel> departTravel, Set<FlightTravel> returnTravel){
         FlightSearchResponse flightSearchResponse = new FlightSearchResponse();

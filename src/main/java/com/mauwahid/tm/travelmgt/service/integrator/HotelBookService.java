@@ -13,6 +13,7 @@ import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -21,11 +22,13 @@ import java.util.Map;
 public class HotelBookService {
 
 
-
     private HotelBookInterface hotelBookInterface;
 
     @Autowired
     private LogHotelBookRepository logHotelBookRepository;
+
+    @Autowired
+    private ApplicationContext context;
 
 
     public HotelBookResponse bookHotel(long userId, HotelBookReq hotelBookReq){
@@ -36,7 +39,7 @@ public class HotelBookService {
 
         if(hotelBookReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelBookResult hotelBookResult = bookAstri(hotelBookReq);
-            hotelBookResponse = translateResponse(hotelBookResult);
+            hotelBookResponse = translateResponse(hotelBookResponse, hotelBookResult);
         }
 
         saveToLog(userId, hotelBookResponse);
@@ -53,8 +56,6 @@ public class HotelBookService {
 
       //  HotelBookInfo hotelBookInfo = hotelBookInterface.bookHotel(param);
 
-
-
         return null;
 
     }
@@ -63,19 +64,17 @@ public class HotelBookService {
 
         Map param = AstriHotelBook.translateToParam(hotelBookReq);
 
-        hotelBookInterface = new AstriHotelBook();
+       // hotelBookInterface = new AstriHotelBook();
 
-
+        hotelBookInterface = context.getBean(AstriHotelBook.class);
         HotelBookResult hotelBookResult = hotelBookInterface.bookHotel(param);
-
 
         return hotelBookResult;
 
     }
 
 
-    private HotelBookResponse translateResponse(HotelBookResult hotelBookResult){
-        HotelBookResponse hotelBookResponse = new HotelBookResponse();
+    private HotelBookResponse translateResponse(HotelBookResponse hotelBookResponse, HotelBookResult hotelBookResult){
 
         hotelBookResponse.setStatus(StatusCode.SUCCESS);
         hotelBookResponse.setMessage(StatusCode.S_SUCCESS);
