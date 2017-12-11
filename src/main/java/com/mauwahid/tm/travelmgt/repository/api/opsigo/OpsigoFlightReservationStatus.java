@@ -29,13 +29,13 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
 
     private OpsigoApiCaller opsigoApiCaller;
 
-    @Autowired
+   // @Autowired
     private LogErrorHelper logErrorHelper;
 
     public FlightReservationStatusResponse cekStatus(Map params) {
 
         url = OpsigoApiCaller.uri;
-        url = url+"/apiv3/RsvReservation";
+        url = url+"/apiv3/GetRsvById";
 
 
         String jsonData = "";
@@ -67,6 +67,7 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
         flightReservationStatusResponse.setMessage(StatusCode.S_ERROR_API + " : "+ex.toString());
 
         //todo : log
+        logErrorHelper = new LogErrorHelper();
         logErrorHelper.saveErrorExc( ApiStatic.API_FLIGHT_TRANSACTION_STATUS, ex.toString(), params, jsonData);
 
         return flightReservationStatusResponse;
