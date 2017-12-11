@@ -13,6 +13,7 @@ import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.PassengerOps;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.SegmentOps;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
 import com.mauwahid.tm.travelmgt.utils.Common;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +89,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
         FlightBook flightBook = new FlightBook();
 
-        flightBook.setStatusCode("999");
+        flightBook.setStatusCode(StatusCode.NOT_IMPLEMENTED+"");
         flightBook.setStatusDesc("Not Implemented");
 
         try{

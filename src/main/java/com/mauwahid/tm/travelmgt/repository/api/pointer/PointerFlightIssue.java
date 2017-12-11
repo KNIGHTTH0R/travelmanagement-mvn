@@ -25,7 +25,7 @@ public class PointerFlightIssue implements FlightIssueInterface {
     private String url;
 
 
-    @Autowired
+  //  @Autowired
     private PointerApiCaller pointerApiCaller;
 
 
@@ -35,6 +35,8 @@ public class PointerFlightIssue implements FlightIssueInterface {
         url = url+params.get("airline")+"/pay";
 
         String jsonData;
+
+        pointerApiCaller = new PointerApiCaller();
 
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);

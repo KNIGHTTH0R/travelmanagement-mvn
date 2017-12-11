@@ -24,7 +24,7 @@ public class PointerFlightBook implements FlightBookInterface {
 
     private Logger logger = LoggerFactory.getLogger(PointerFlightBook.class);
 
-    @Autowired
+   // @Autowired
     private PointerApiCaller pointerApiCaller;
 
 
@@ -39,6 +39,7 @@ public class PointerFlightBook implements FlightBookInterface {
 
         logger.debug("params : "+params);
 
+        pointerApiCaller = new PointerApiCaller();
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);
             logger.debug("JSON RES : "+jsonData);
@@ -172,6 +173,21 @@ public class PointerFlightBook implements FlightBookInterface {
                             .stream().findFirst().get();
 
         int idx = 1;
+
+
+        String airline = flightSegment.getAirline();
+
+        if(airline.equalsIgnoreCase("lionair")){
+            airline = "lion";
+        }
+
+        param.put("airline", airline);
+        param.put("flight_key", flightSegment.getFlightId());
+
+        param.put("contact_title", flightContact.getTitle());
+        param.put("contact_name", flightContact.getFirstName() + " "+flightContact.getLastName());
+        param.put("contact_phone", flightContact.getPhone());
+
 
         for(FlightPassenger passenger : flightBookReq.getPassengers()){
 
