@@ -36,8 +36,12 @@ public class HotelIssueService {
 
         if(hotelIssueReq.getApiSource().equalsIgnoreCase(Common.API_ASTRINDO)){
             HotelIssueResult hotelIssue = issueAstri(hotelIssueReq);
-            return translateResponse(hotelIssue);
+
+            response = translateResponse(response, hotelIssue);
+
         }
+
+        saveToLog(userId, response);
 
         return response;
 
@@ -65,8 +69,9 @@ public class HotelIssueService {
     }
 
 
-    private HotelIssueResponse translateResponse(HotelIssueResult hotelIssue){
-        HotelIssueResponse response = new HotelIssueResponse();
+    private HotelIssueResponse translateResponse(HotelIssueResponse response, HotelIssueResult hotelIssue){
+        response.setStatus(StatusCode.SUCCESS);
+        response.setMessage(StatusCode.S_SUCCESS);
         response.setHotelIssue(hotelIssue);
         return response;
     }
