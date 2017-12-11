@@ -56,9 +56,9 @@ public class FlightIssueService {
         }
 
         if(flightIssueReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
-            Map param = OpsigoFlightIssue.translateToParam(flightIssueReq);
+            Map param = PointerFlightIssue.translateToParam(flightIssueReq);
 
-            flightIssueInterface = new OpsigoFlightIssue();
+            flightIssueInterface = new PointerFlightIssue();
             flightIssue = flightIssueInterface.issueFlight(param);
 
         }
