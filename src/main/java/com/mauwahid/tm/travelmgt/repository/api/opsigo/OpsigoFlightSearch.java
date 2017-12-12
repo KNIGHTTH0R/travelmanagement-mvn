@@ -150,6 +150,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     flight.setEtdDate(objDetail.optString("DepartDate"));
                     flight.setArriveArea(objDetail.optString("Destination"));
                     flight.setDepartArea(objDetail.optString("Origin"));
+                    flight.setFlightId(objDetail.optString("Number"));
 
                     flights.add(flight);
 

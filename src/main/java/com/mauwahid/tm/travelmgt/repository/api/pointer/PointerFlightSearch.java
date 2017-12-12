@@ -134,7 +134,8 @@ public class PointerFlightSearch implements FlightSearchInterface {
                     flight.setEtdDate(objFlight.optString("date_depart"));
                     flight.setArriveArea(objFlight.optString("area_arrive"));
                     flight.setDepartArea(objFlight.optString("area_depart"));
-                    flight.setFlightId(objFlight.optString("flight_id"));
+                   // flight.setFlightId(objFlight.optString("flight_id"));
+                    flight.setFlightId(objDetail.optString("flight_id"));
 
                     flights.add(flight);
                 }
