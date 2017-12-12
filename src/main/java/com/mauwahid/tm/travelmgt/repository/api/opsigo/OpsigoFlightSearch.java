@@ -96,8 +96,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
         JSONArray arrDetail;
         JSONObject objDetail;
 
-
-       // airline = objData.optString("Airline");
+         // airline = objData.optString("Airline");
 
         //FlightData
         FlightTravel flightTravel = null;
@@ -124,12 +123,12 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
             for(int j=0;j<arrDetail.length();j++){
                 objDetail = arrDetail.optJSONObject(j);
 
-                flightTravel.setTravelId(objDetail.optString("Id"));
+            //    flightTravel.setTravelId(objDetail.optString("Id"));
                 flightTravel.setEtaDate(objDetail.optString("ArriveDate"));
                 flightTravel.setEtdDate(objDetail.optString("DepartDate"));
                 flightTravel.setEta(objDetail.optString("ArriveTime"));
                 flightTravel.setEtd(objDetail.optString("DepartTime"));
-                flightTravel.setFlightId(objDetail.optString("Id"));
+                flightTravel.setFlightNumber(objDetail.optString("Id"));
                 flightTravel.setArriveArea(objDetail.optString("Destination"));
                 flightTravel.setDepartArea(objDetail.optString("Origin"));
 
@@ -139,8 +138,10 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 if(transit == 0){
                     flight = new FlightFlight();
-                    flight.setFlightId(objDetail.optString("Id"));
-                    flight.setCode(objDetail.optString("Number"));
+                   // flight.setFlightId(objDetail.optString("Id"));
+                   // flight.setCode(objDetail.optString("Number"));
+
+                    flight.setFlightId(objDetail.optString("Number"));
                     flight.setEtd(objDetail.optString("DepartTime"));
                     flight.setEta(objDetail.optString("ArriveTime"));
                     flight.setEtaDate(objDetail.optString("ArriveDate"));
@@ -169,7 +170,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
 
                         flightSeat.setFlightPrice(flightPrice);
-                        flightSeat.setCode(objClass.optString("Code"));
+                      //  flightSeat.setCode(objClass.optString("Code"));
                         flightSeat.setSeatClass(objClass.optString("Category"));
                         flightSeat.setFlightKey(flight.getFlightId());
 

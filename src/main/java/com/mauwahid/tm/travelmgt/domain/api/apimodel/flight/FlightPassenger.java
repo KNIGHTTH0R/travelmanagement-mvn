@@ -16,9 +16,6 @@ public class FlightPassenger {
     private String passengerType;
 
 
-    @JsonProperty("ticket_no")
-    private String ticketNo;
-
     //for opsigo
 
     @JsonProperty("first_name")

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class PointerFlightBook implements FlightBookInterface {
     private String url;
 
    
-   // @Autowired
+   @Autowired
     private PointerApiCaller pointerApiCaller;
 
 
@@ -37,7 +38,6 @@ public class PointerFlightBook implements FlightBookInterface {
 
         log.debug("params : "+params);
 
-        pointerApiCaller = new PointerApiCaller();
         try{
             jsonData = pointerApiCaller.callApiPost(url,params);
             log.debug("JSON RES : "+jsonData);
@@ -180,7 +180,7 @@ public class PointerFlightBook implements FlightBookInterface {
         }
 
         param.put("airline", airline);
-        param.put("flight_key", flightSegment.getFlightId());
+        param.put("flight_key", flightSegment.getFlightKey());
 
         param.put("contact_title", flightContact.getTitle());
         param.put("contact_name", flightContact.getFirstName() + " "+flightContact.getLastName());
@@ -191,12 +191,12 @@ public class PointerFlightBook implements FlightBookInterface {
 
 
 
-            if(passenger.getType().equalsIgnoreCase("1")){
+            if(passenger.getType().equalsIgnoreCase("ADT")){
                 param.put("adult_title_"+idx,passenger.getTitle());
                 param.put("adult_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
                 param.put("adult_special_request_"+idx,passenger.getAdultAssoc());
 
-            }else if(passenger.getType().equalsIgnoreCase("2")){
+            }else if(passenger.getType().equalsIgnoreCase("CHD")){
                 param.put("child_title_"+idx,passenger.getTitle());
                 param.put("child_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
                 param.put("child_special_request_"+idx,passenger.getAdultAssoc());

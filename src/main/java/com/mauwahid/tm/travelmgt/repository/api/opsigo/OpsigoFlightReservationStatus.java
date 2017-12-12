@@ -135,7 +135,7 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
     public static Map translateToParam(FlightReservationStatusReq flightReservationStatusReq){
 
         Map map = new HashMap();
-        map.put("id", flightReservationStatusReq.getPnrId());
+        map.put("id", flightReservationStatusReq.getBookingCode());
 
         return map;
 

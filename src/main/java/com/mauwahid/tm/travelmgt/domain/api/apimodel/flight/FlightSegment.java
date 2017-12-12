@@ -7,8 +7,8 @@ import lombok.Data;
 public class FlightSegment {
 
 
-    @JsonProperty("class_id")
-    private String classId;
+    @JsonProperty("class_key")
+    private String classKey;
 
     @JsonProperty("airline")
     private String airline;
@@ -37,8 +37,8 @@ public class FlightSegment {
     @JsonProperty("class_code")
     private String classCode;
 
-    @JsonProperty("flight_id")
-    private String flightId;
+    @JsonProperty("flight_key")
+    private String flightKey;
 
     @JsonProperty("num")
     private String num;

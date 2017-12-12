@@ -6,6 +6,7 @@ import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPrice;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
+import com.mauwahid.tm.travelmgt.utils.Common;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,9 +102,9 @@ public class PointerFlightSearch implements FlightSearchInterface {
             objTravel = arrData.optJSONObject(i);
             flightTravel = new FlightTravel();
             flightTravel.setErrorCode("0");
-            flightTravel.setTravelAPI("pointer");
+            flightTravel.setTravelAPI(Common.API_POINTER);
 
-            flightTravel.setTravelId(objTravel.optString("id_perjalanan"));
+          //  flightTravel.setTravelId(objTravel.optString("id_perjalanan"));
             flightTravel.setFlightCount(objTravel.optString("flight_count"));
 
             arrDetail = objTravel.optJSONArray("detail");
@@ -116,7 +117,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
                 flightTravel.setEtdDate(objDetail.optString("date_depart"));
                 flightTravel.setEta(objDetail.optString("time_arrive"));
                 flightTravel.setEtd(objDetail.optString("time_depart"));
-                flightTravel.setFlightId(objDetail.optString("flight_id"));
+                flightTravel.setFlightNumber(objDetail.optString("flight_id"));
                 flightTravel.setArriveArea(objDetail.optString("area_arrive"));
                 flightTravel.setDepartArea(objDetail.optString("area_depart"));
 
@@ -126,7 +127,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
                 for (int k=0;k<arrFlight.length();k++){
                     objFlight = arrFlight.optJSONObject(k);
                     flight = new FlightFlight();
-                    flight.setCode(objFlight.optString("code"));
+                 //   flight.setCode(objFlight.optString("code"));
                     flight.setEtd(objFlight.optString("time_depart"));
                     flight.setEta(objFlight.optString("time_arrive"));
                     flight.setEtaDate(objFlight.optString("date_arrive"));
@@ -149,7 +150,8 @@ public class PointerFlightSearch implements FlightSearchInterface {
                     seat = new FlightSeat();
 
                     seat.setAvailable(objSeat.optString("available"));
-                    seat.setCode(objSeat.optString("code"));
+                   // seat.setCode(objSeat.optString("code"));
+                    seat.setClassKey(objSeat.optString("code"));
                     seat.setFlightKey(objSeat.optString("flight_key"));
                     seat.setSeatClass(objSeat.optString("class"));
 

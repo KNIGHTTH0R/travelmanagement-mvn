@@ -186,7 +186,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
             segmentOps.setAirline(Integer.parseInt(airline));
 
 
-            segmentOps.setClassId(flightSegment.getClassId());
+            segmentOps.setClassId(flightSegment.getClassKey());
             segmentOps.setFlightNumber(flightSegment.getFlightNumber());
             segmentOps.setOrigin(flightSegment.getOrigin());
             segmentOps.setDepartDate(flightSegment.getDepartDate());
@@ -195,7 +195,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
             segmentOps.setArriveDate(flightSegment.getArriveDate());
             segmentOps.setArriveTime(flightSegment.getArriveTime());
             segmentOps.setClassCode(flightSegment.getClassCode());
-            segmentOps.setFlightId(flightSegment.getFlightId());
+            segmentOps.setFlightId(flightSegment.getFlightKey());
             segmentOps.setNum(0);
             segmentOps.setSeq(0);
 

@@ -116,7 +116,7 @@ public class PointerFlightIssue implements FlightIssueInterface {
             passenger = new FlightPassenger();
             passenger.setPassengerType(objPassenger.optString("passenger_type"));
             passenger.setBirthDate(objPassenger.optString("birth_date"));
-            passenger.setTicketNo(objPassenger.optString("ticket_no"));
+         //   passenger.setTicketNo(objPassenger.optString("ticket_no"));
            // passenger.setFullName(objPassenger.optString("name"));
 
             String fullName = objPassenger.optString("full_name");

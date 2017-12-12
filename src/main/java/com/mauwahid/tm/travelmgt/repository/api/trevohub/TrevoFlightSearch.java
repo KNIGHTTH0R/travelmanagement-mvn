@@ -88,7 +88,7 @@ public class TrevoFlightSearch implements FlightSearchInterface {
             flightTravel.setEtd(objKey.optString("etd"));
             flightTravel.setEta(objKey.optString("eta"));
             flightTravel.setTravelId(sessionId);
-            flightTravel.setFlightId(objKey.optString("fno"));
+            flightTravel.setFlightNumber(objKey.optString("fno"));
             flightTravel.setEtaDate(objKey.optString("eta_date"));
             flightTravel.setEtdDate(objKey.optString("etd_date"));
             flightTravel.setDepartArea(objKey.optString("from"));

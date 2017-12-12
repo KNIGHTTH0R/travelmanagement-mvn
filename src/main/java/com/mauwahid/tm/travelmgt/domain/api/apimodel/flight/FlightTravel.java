@@ -26,8 +26,8 @@ public class FlightTravel {
     @JsonProperty("flight_count")
     private String flightCount;
 
-    @JsonProperty("flight_id")
-    private String flightId;
+    @JsonProperty("flight_number")
+    private String flightNumber;
 
     @JsonProperty("etd_date")
     private String etdDate;
