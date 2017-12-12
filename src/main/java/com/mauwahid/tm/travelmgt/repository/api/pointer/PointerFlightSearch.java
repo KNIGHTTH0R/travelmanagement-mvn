@@ -155,6 +155,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
                     seat.setClassKey(objSeat.optString("code"));
                     seat.setFlightKey(objSeat.optString("flight_key"));
                     seat.setSeatClass(objSeat.optString("class"));
+                    seat.setCode(objSeat.optString("code"));
 
 
                     objPrice = objSeat.optJSONObject("best_price");
