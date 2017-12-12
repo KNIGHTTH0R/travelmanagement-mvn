@@ -128,7 +128,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 flightTravel.setEtdDate(objDetail.optString("DepartDate"));
                 flightTravel.setEta(objDetail.optString("ArriveTime"));
                 flightTravel.setEtd(objDetail.optString("DepartTime"));
-                flightTravel.setFlightNumber(objDetail.optString("Id"));
+             //   flightTravel.setFlightNumber(objDetail.optString("Id"));
                 flightTravel.setArriveArea(objDetail.optString("Destination"));
                 flightTravel.setDepartArea(objDetail.optString("Origin"));
 
@@ -141,7 +141,9 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                    // flight.setFlightId(objDetail.optString("Id"));
                    // flight.setCode(objDetail.optString("Number"));
 
-                    flight.setFlightId(objDetail.optString("Number"));
+                    //flight.setFlightId(objDetail.optString("Number"));
+                    flightTravel.setFlightNumber(objDetail.optString("Number"));
+
                     flight.setEtd(objDetail.optString("DepartTime"));
                     flight.setEta(objDetail.optString("ArriveTime"));
                     flight.setEtaDate(objDetail.optString("ArriveDate"));
@@ -172,7 +174,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                         flightSeat.setFlightPrice(flightPrice);
                       //  flightSeat.setCode(objClass.optString("Code"));
                         flightSeat.setSeatClass(objClass.optString("Category"));
-                        flightSeat.setFlightKey(flight.getFlightId());
+
+                        flightSeat.setFlightKey(objDetail.optString("Id"));
 
 
                         flightSeats.add(flightSeat);
