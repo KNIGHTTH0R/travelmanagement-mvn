@@ -86,7 +86,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
         JSONObject objPrice;
         FlightPrice price;
 
-        airline = objData.optString("airline");
+      //  airline = objData.optString("airline");
 
 
         //FlightData
@@ -123,58 +123,150 @@ public class PointerFlightSearch implements FlightSearchInterface {
 
                 arrFlight = objDetail.optJSONArray("flight_list");
 
+                if(arrFlight.length() > 1){
+                    flightTravel.setTotalTransit(arrFlight.length() - 1);
+                    flightTravel.setConnecting(true);
+                }
+
                 flights = new HashSet<>();
-                for (int k=0;k<arrFlight.length();k++){
-                    objFlight = arrFlight.optJSONObject(k);
-                    flight = new FlightFlight();
-                 //   flight.setCode(objFlight.optString("code"));
-                    flight.setEtd(objFlight.optString("time_depart"));
-                    flight.setEta(objFlight.optString("time_arrive"));
-                    flight.setEtaDate(objFlight.optString("date_arrive"));
-                    flight.setEtdDate(objFlight.optString("date_depart"));
-                    flight.setArriveArea(objFlight.optString("area_arrive"));
-                    flight.setDepartArea(objFlight.optString("area_depart"));
-                   // flight.setFlightId(objFlight.optString("flight_id"));
-                    flight.setFlightId(objDetail.optString("flight_id"));
 
-                    flights.add(flight);
+                //Normal Case, while flight is direct/only one flight
+                if(arrFlight.length() == 1) {
+
+                    for (int k = 0; k < arrFlight.length(); k++) {
+                        objFlight = arrFlight.optJSONObject(k);
+                        flight = new FlightFlight();
+                        //   flight.setCode(objFlight.optString("code"));
+                        flight.setEtd(objFlight.optString("time_depart"));
+                        flight.setEta(objFlight.optString("time_arrive"));
+                        flight.setEtaDate(objFlight.optString("date_arrive"));
+                        flight.setEtdDate(objFlight.optString("date_depart"));
+                        flight.setArriveArea(objFlight.optString("area_arrive"));
+                        flight.setDepartArea(objFlight.optString("area_depart"));
+                        // flight.setFlightId(objFlight.optString("flight_id"));
+                        flight.setFlightId(objDetail.optString("flight_id"));
+
+                        flights.add(flight);
+                    }
+
+                    flightTravel.setFlights(flights);
+
+                    arrSeat = objDetail.optJSONArray("seat");
+
+                    seats = new HashSet<>();
+
+                    for(int m=0;m<arrSeat.length();m++){
+                        objSeat = arrSeat.optJSONObject(m);
+                        seat = new FlightSeat();
+
+                        seat.setAvailable(objSeat.optString("available"));
+                        // seat.setCode(objSeat.optString("code"));
+                        seat.setClassKey(objSeat.optString("code"));
+                        seat.setFlightKey(objSeat.optString("flight_key"));
+                        seat.setSeatClass(objSeat.optString("class"));
+                        seat.setCode(objSeat.optString("code"));
+
+
+                        objPrice = objSeat.optJSONObject("best_price");
+                        price = new FlightPrice();
+                        price.setFare(objPrice.optString("fare"));
+                        price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
+                        price.setFareChildPax(objPrice.optString("fare_child_pax"));
+                        price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
+                        price.setTax(objPrice.optString("tax"));
+                        price.setTotalPrice(objPrice.optString("total_price"));
+
+                        seat.setFlightPrice(price);
+                        seats.add(seat);
+
+                    }
+
+                    flightTravel.setSeats(seats);
+                // !-- end of one flight travel
+
+                }else{
+
+                    logger.debug("Leng arr "+arrFlight.length());
+
+                    Set<FlightTravel> connectingFlightTravel = new HashSet<>();
+                    FlightTravel flConnecting;
+
+                    arrSeat = objDetail.optJSONArray("seat");
+
+                    seats = new HashSet<>();
+
+                    for(int m=0;m<arrSeat.length();m++){
+                        objSeat = arrSeat.optJSONObject(m);
+                        seat = new FlightSeat();
+
+                        seat.setAvailable(objSeat.optString("available"));
+                        // seat.setCode(objSeat.optString("code"));
+                        seat.setClassKey(objSeat.optString("code"));
+                        seat.setFlightKey(objSeat.optString("flight_key"));
+                        seat.setSeatClass(objSeat.optString("class"));
+                        seat.setCode(objSeat.optString("code"));
+
+
+                        objPrice = objSeat.optJSONObject("best_price");
+                        price = new FlightPrice();
+                        price.setFare(objPrice.optString("fare"));
+                        price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
+                        price.setFareChildPax(objPrice.optString("fare_child_pax"));
+                        price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
+                        price.setTax(objPrice.optString("tax"));
+                        price.setTotalPrice(objPrice.optString("total_price"));
+
+                        seat.setFlightPrice(price);
+                        seats.add(seat);
+
+                    }
+
+
+
+                    for (int k = 0; k < arrFlight.length(); k++) {
+
+
+                        objFlight = arrFlight.optJSONObject(k);
+
+                        flConnecting = new FlightTravel();
+
+                        flights = new HashSet<>();
+
+                        flConnecting.setEtaDate(objFlight.optString("date_arrive"));
+                        flConnecting.setEtdDate(objFlight.optString("date_depart"));
+                        flConnecting.setEta(objFlight.optString("time_arrive"));
+                        flConnecting.setEtd(objFlight.optString("time_depart"));
+                        flConnecting.setFlightNumber(objFlight.optString("flight_id"));
+                        flConnecting.setArriveArea(objFlight.optString("area_arrive"));
+                        flConnecting.setDepartArea(objFlight.optString("area_depart"));
+
+                        flight = new FlightFlight();
+                        //   flight.setCode(objFlight.optString("code"));
+                        flight.setEtd(objFlight.optString("time_depart"));
+                        flight.setEta(objFlight.optString("time_arrive"));
+                        flight.setEtaDate(objFlight.optString("date_arrive"));
+                        flight.setEtdDate(objFlight.optString("date_depart"));
+                        flight.setArriveArea(objFlight.optString("area_arrive"));
+                        flight.setDepartArea(objFlight.optString("area_depart"));
+                        // flight.setFlightId(objFlight.optString("flight_id"));
+                        flight.setFlightId(objFlight.optString("flight_id"));
+
+                        flights.add(flight);
+
+                        flConnecting.setFlights(flights);
+
+                        flConnecting.setSeats(seats);
+
+                        connectingFlightTravel.add(flConnecting);
+
+
+                    }
+
+                    flightTravel.setConnectingTravel(connectingFlightTravel);
+
+
                 }
 
-                flightTravel.setFlights(flights);
-
-                arrSeat = objDetail.optJSONArray("seat");
-
-                seats = new HashSet<>();
-
-                for(int m=0;m<arrSeat.length();m++){
-                    objSeat = arrSeat.optJSONObject(m);
-                    seat = new FlightSeat();
-
-                    seat.setAvailable(objSeat.optString("available"));
-                   // seat.setCode(objSeat.optString("code"));
-                    seat.setClassKey(objSeat.optString("code"));
-                    seat.setFlightKey(objSeat.optString("flight_key"));
-                    seat.setSeatClass(objSeat.optString("class"));
-                    seat.setCode(objSeat.optString("code"));
-
-
-                    objPrice = objSeat.optJSONObject("best_price");
-                    price = new FlightPrice();
-                    price.setFare(objPrice.optString("fare"));
-                    price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
-                    price.setFareChildPax(objPrice.optString("fare_child_pax"));
-                    price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
-                    price.setTax(objPrice.optString("tax"));
-                    price.setTotalPrice(objPrice.optString("total_price"));
-
-                    seat.setFlightPrice(price);
-                    seats.add(seat);
-
-
-
-                }
-
-                flightTravel.setSeats(seats);
             }
 
             flightTravels.add(flightTravel);
