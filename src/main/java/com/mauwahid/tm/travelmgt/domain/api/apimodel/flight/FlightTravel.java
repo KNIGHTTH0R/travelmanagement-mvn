@@ -51,4 +51,13 @@ public class FlightTravel {
     @JsonProperty("seats")
     private Set<FlightSeat> seats;
 
+    @JsonProperty("connecting_flights")
+    private Set<FlightTravel> connectingTravel;
+
+    @JsonProperty("is_connecting")
+    private boolean isConnecting;
+
+    @JsonProperty("total_transit")
+    private int totalTransit;
+
 }

@@ -113,6 +113,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
             flightTravel.setErrorCode("0");
             flightTravel.setTravelAPI("opsigo");
 
+
+
           //  flightTravel.setTravelId(objTravel.optString("id_perjalanan"));
           //  flightTravel.setFlightCount(objTravel.optString("flight_count"));
 
@@ -123,6 +125,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
             for(int j=0;j<arrDetail.length();j++){
                 objDetail = arrDetail.optJSONObject(j);
 
+
             //    flightTravel.setTravelId(objDetail.optString("Id"));
                 flightTravel.setEtaDate(objDetail.optString("ArriveDate"));
                 flightTravel.setEtdDate(objDetail.optString("DepartDate"));
@@ -131,6 +134,11 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
              //   flightTravel.setFlightNumber(objDetail.optString("Id"));
                 flightTravel.setArriveArea(objDetail.optString("Destination"));
                 flightTravel.setDepartArea(objDetail.optString("Origin"));
+
+                flightTravel.setConnecting(objDetail.optBoolean("IsConnecting"));
+                flightTravel.setTotalTransit(objDetail.optInt("TotalTransit"));
+
+                flightTravel.setFlightNumber(objDetail.optString("Number"));
 
                 int transit = objDetail.optInt("TotalTransit");
 
@@ -142,7 +150,6 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                    // flight.setCode(objDetail.optString("Number"));
 
                     //flight.setFlightId(objDetail.optString("Number"));
-                    flightTravel.setFlightNumber(objDetail.optString("Number"));
 
                     flight.setEtd(objDetail.optString("DepartTime"));
                     flight.setEta(objDetail.optString("ArriveTime"));
@@ -189,8 +196,11 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 }else{ //if there is transit
 
+                    JSONArray jsonArray = objDetail.optJSONArray("ConnectingFlights");
 
+                    Set<FlightTravel> connectingFlights = getFlightTravel(jsonArray);
 
+                    flightTravel.setConnectingTravel(connectingFlights);
                 }
 
 
@@ -198,6 +208,129 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
             flightTravels.add(flightTravel);
         }
+        return flightTravels;
+    }
+
+
+    private Set<FlightTravel> getFlightTravel(JSONArray arrData){
+
+        String airline = "";
+
+        Set<FlightTravel> flightTravels= new HashSet<>();
+        //JSON Main
+     //   JSONObject objData = new JSONObject(jsonData);
+
+//        JSONArray arrData = objData.optJSONArray("Schedules");
+        JSONObject objTravel;
+        JSONArray arrDetail;
+        JSONObject objDetail;
+
+        // airline = objData.optString("Airline");
+
+        //FlightData
+        FlightTravel flightTravel = null;
+        FlightFlight flight = null;
+        Set<FlightFlight> flights = null;
+
+        FlightSeat seat = null;
+        Set<FlightSeat> seats = null;
+
+
+
+        for(int j=0;j<arrData.length();j++){
+
+            flightTravel = new FlightTravel();
+            flightTravel.setErrorCode("0");
+            flightTravel.setTravelAPI("opsigo");
+
+            objDetail = arrData.optJSONObject(j);
+
+            //    flightTravel.setTravelId(objDetail.optString("Id"));
+            flightTravel.setEtaDate(objDetail.optString("ArriveDate"));
+            flightTravel.setEtdDate(objDetail.optString("DepartDate"));
+            flightTravel.setEta(objDetail.optString("ArriveTime"));
+            flightTravel.setEtd(objDetail.optString("DepartTime"));
+            //   flightTravel.setFlightNumber(objDetail.optString("Id"));
+            flightTravel.setArriveArea(objDetail.optString("Destination"));
+            flightTravel.setDepartArea(objDetail.optString("Origin"));
+
+            flightTravel.setConnecting(objDetail.optBoolean("IsConnecting"));
+            flightTravel.setTotalTransit(objDetail.optInt("TotalTransit"));
+
+
+            int transit = objDetail.optInt("TotalTransit");
+
+            flights = new HashSet<>();
+
+            if(transit == 0){
+                flight = new FlightFlight();
+                // flight.setFlightId(objDetail.optString("Id"));
+                // flight.setCode(objDetail.optString("Number"));
+
+                //flight.setFlightId(objDetail.optString("Number"));
+                flightTravel.setFlightNumber(objDetail.optString("Number"));
+
+                flight.setEtd(objDetail.optString("DepartTime"));
+                flight.setEta(objDetail.optString("ArriveTime"));
+                flight.setEtaDate(objDetail.optString("ArriveDate"));
+                flight.setEtdDate(objDetail.optString("DepartDate"));
+                flight.setArriveArea(objDetail.optString("Destination"));
+                flight.setDepartArea(objDetail.optString("Origin"));
+                flight.setFlightId(objDetail.optString("Number"));
+
+                flights.add(flight);
+
+                JSONArray arrClassObj = objDetail.optJSONArray("ClassObjects");
+                JSONObject objClass;
+
+                Set<FlightSeat> flightSeats = new HashSet<>();
+
+                for(int x=0;x<arrClassObj.length();x++){
+                    objClass = arrClassObj.optJSONObject(x);
+
+                    FlightSeat flightSeat = new FlightSeat();
+                    FlightPrice flightPrice = new FlightPrice();
+
+                    if(objClass == null){
+                        objClass = new JSONObject();
+                    }
+
+                    flightSeat.setAvailable(objClass.optString("Seat"));
+                    flightSeat.setClassKey(objClass.optString("Id"));
+
+                    flightPrice.setFare(objClass.optString("Fare"));
+                    flightPrice.setTax(objClass.optString("Tax"));
+
+
+                    flightSeat.setFlightPrice(flightPrice);
+                    flightSeat.setCode(objClass.optString("Code"));
+                    flightSeat.setSeatClass(objClass.optString("Category"));
+
+                    flightSeat.setFlightKey(objDetail.optString("Id"));
+
+
+                    flightSeats.add(flightSeat);
+                }
+
+                flightTravel.setSeats(flightSeats);
+
+                flightTravel.setFlights(flights);
+
+
+            }else{ //if there is transit
+
+                JSONArray arrConn = objDetail.optJSONArray("ConnectingFlights");
+
+                Set<FlightTravel> connectingFlights = getFlightTravel(arrConn);
+
+                flightTravel.setConnectingTravel(connectingFlights);
+            }
+
+
+            flightTravels.add(flightTravel);
+        }
+
+
         return flightTravels;
     }
 
