@@ -118,20 +118,26 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             JSONObject objFacility = null;
 
             log.debug("try to open facility");
-            for(int x=0;x<arrFacilities.length();x++){
+
+            if(arrFacilities !=null){
+                for(int x=0;x<arrFacilities.length();x++){
                     objFacility = arrFacilities.getJSONObject(x);
                     hotelFacility = new HotelFacility();
 
-                //    log.debug("Hotel Facility "+x);
+                    //    log.debug("Hotel Facility "+x);
 
                     hotelFacility.setFacilityName(objFacility.optString("FacilityName"));
                     hotelFacility.setFee(objFacility.optString("Fee"));
                     hotelFacility.setText(objFacility.optString("Text"));
 
                     facilities.add(hotelFacility);
+                }
+
+                hotel.setHotelFacilities(facilities);
+
             }
 
-            hotel.setHotelFacilities(facilities);
+
 
             JSONArray arrAvailableRooms = objHotel.optJSONArray("AvailableRoomList");
             JSONObject objAvailableRoom = null;
@@ -179,21 +185,25 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             JSONArray arrHotelImages = objHotel.optJSONArray("HotelImageList");
             JSONObject objHotelImage = null;
 
-            for(int z=0;z<arrHotelImages.length();z++){
-                objHotelImage = arrHotelImages.optJSONObject(z);
-                hotelImage = new HotelImage();
+            if(arrHotelImages!= null){
+                for(int z=0;z<arrHotelImages.length();z++){
+                    objHotelImage = arrHotelImages.optJSONObject(z);
+                    hotelImage = new HotelImage();
 
-              //  log.debug("hotel image "+z);
+                    //  log.debug("hotel image "+z);
 
-                hotelImage.setHotelId(objHotelImage.optString("HotelID"));
-                hotelImage.setImageCode(objHotelImage.optString("ImageCode"));
-                hotelImage.setImageURL(objHotelImage.optString("ImageURL"));
+                    hotelImage.setHotelId(objHotelImage.optString("HotelID"));
+                    hotelImage.setImageCode(objHotelImage.optString("ImageCode"));
+                    hotelImage.setImageURL(objHotelImage.optString("ImageURL"));
 
-                hotelImages.add(hotelImage);
+                    hotelImages.add(hotelImage);
+
+                }
+
+                hotel.setImages(hotelImages);
 
             }
 
-            hotel.setImages(hotelImages);
 
 
             JSONArray arrMgRooms = objHotel.optJSONArray("MGRoomList");
@@ -202,25 +212,29 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             MGRoom mgRoom = null;
             Set<MGRoom> mgRooms = new HashSet<>();
 
-            for(int w=0;w<arrMgRooms.length();w++){
-                objMgRoom = arrMgRooms.optJSONObject(w);
+            if(arrMgRooms!=null){
+                for(int w=0;w<arrMgRooms.length();w++){
+                    objMgRoom = arrMgRooms.optJSONObject(w);
 
-                mgRoom = new MGRoom();
-                mgRoom.setRoomId(objMgRoom.optString("RoomId"));
-                mgRoom.setPaxPassport(objMgRoom.optString("PaxPassport"));
-                mgRoom.setCancelPolicyId(objMgRoom.optString("CancelPolicyID"));
-                mgRoom.setInternalCode(objMgRoom.optString("InternalCode"));
-                mgRoom.setCategoryCode(objMgRoom.optString("CategoryCode"));
-                mgRoom.setCategoryName(objMgRoom.optString("CategoryName"));
-                mgRoom.setTypeName(objMgRoom.optString("TypeName"));
-                mgRoom.setPricePerNight(objMgRoom.optString("PricePerNight"));
-                mgRoom.setTotalPrice(objMgRoom.optString("TotalPrice"));
-                mgRoom.setNumRooms(objMgRoom.optString("NumRooms"));
-                mgRoom.setBfType(objMgRoom.optString("BFType"));
+                    mgRoom = new MGRoom();
+                    mgRoom.setRoomId(objMgRoom.optString("RoomId"));
+                    mgRoom.setPaxPassport(objMgRoom.optString("PaxPassport"));
+                    mgRoom.setCancelPolicyId(objMgRoom.optString("CancelPolicyID"));
+                    mgRoom.setInternalCode(objMgRoom.optString("InternalCode"));
+                    mgRoom.setCategoryCode(objMgRoom.optString("CategoryCode"));
+                    mgRoom.setCategoryName(objMgRoom.optString("CategoryName"));
+                    mgRoom.setTypeName(objMgRoom.optString("TypeName"));
+                    mgRoom.setPricePerNight(objMgRoom.optString("PricePerNight"));
+                    mgRoom.setTotalPrice(objMgRoom.optString("TotalPrice"));
+                    mgRoom.setNumRooms(objMgRoom.optString("NumRooms"));
+                    mgRoom.setBfType(objMgRoom.optString("BFType"));
 
-                mgRooms.add(mgRoom);
+                    mgRooms.add(mgRoom);
 
+                }
             }
+
+
 
             hotel.setMgRooms(mgRooms);
 
