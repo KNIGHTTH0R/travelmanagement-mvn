@@ -2,12 +2,9 @@ package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -70,17 +67,13 @@ public class GetWithHeaderRequester {
             throws IOException{
 
       //  OkHttpClient client = new OkHttpClient();
-
-
+        log.debug("URI "+uri.toString());
         // uri = uri+"lion/search/best_price";
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(60, TimeUnit.SECONDS);
         builder.writeTimeout(60, TimeUnit.SECONDS);
 
         OkHttpClient client = builder.build();
-
-
-
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(uri).newBuilder();
 
