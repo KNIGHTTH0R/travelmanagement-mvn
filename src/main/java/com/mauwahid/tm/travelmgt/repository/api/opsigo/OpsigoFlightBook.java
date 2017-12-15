@@ -118,11 +118,12 @@ public class OpsigoFlightBook implements FlightBookInterface {
         log.debug("Flight type : "+flightBookReq.getFlightType());
 
 
-        if(flightBookReq.getFlightType().trim().equalsIgnoreCase("gds")){
-            flightBookOpsReq.setFlightType("Gds");//International
-        }else{
-            flightBookOpsReq.setFlightType("NonGds");//Local
-        }
+
+//        if(flightBookReq.getFlightType().trim().equalsIgnoreCase("gds")){
+  //          flightBookOpsReq.setFlightType("Gds");//International
+    //    }else{
+      //      flightBookOpsReq.setFlightType("NonGds");//Local
+      //  }
 
         flightBookOpsReq.setCallBackUri(flightBookReq.getCallBackUri());
       //  flightBookOpsReq.setFlightType(flightBookOpsReq.getFlightType());
@@ -186,7 +187,6 @@ public class OpsigoFlightBook implements FlightBookInterface {
             String airline = Common.opsTranslateAirline(flightSegment.getAirline());
             segmentOps.setAirline(Integer.parseInt(airline));
 
-
             segmentOps.setClassId(flightSegment.getClassKey());
             segmentOps.setFlightNumber(flightSegment.getFlightNumber());
             segmentOps.setOrigin(flightSegment.getOrigin());
@@ -206,6 +206,13 @@ public class OpsigoFlightBook implements FlightBookInterface {
             }
 
             segmentOpsSet.add(segmentOps);
+
+            //Set Gds/Non Gds
+            if(airline.equalsIgnoreCase("6")){
+                flightBookOpsReq.setFlightType("Gds");
+            }else{
+                flightBookOpsReq.setFlightType("NonGds");
+            }
         }
 
         flightBookOpsReq.setSegments(segmentOpsSet);
