@@ -221,7 +221,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
         String airline = "";
 
-        Set<FlightTravel> flightTravels= new HashSet<>();
+        Set<FlightTravel> flightTravels= new LinkedHashSet<>();
         //JSON Main
      //   JSONObject objData = new JSONObject(jsonData);
 
