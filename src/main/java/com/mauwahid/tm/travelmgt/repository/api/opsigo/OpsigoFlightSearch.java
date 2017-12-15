@@ -108,10 +108,9 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
         for(int i = 0;i<arrData.length();i++){
 
+            log.debug("Flight travel "+i);
+
             objTravel = arrData.optJSONObject(i);
-            flightTravel = new FlightTravel();
-            flightTravel.setErrorCode("0");
-            flightTravel.setTravelAPI("opsigo");
 
 
 
@@ -123,8 +122,12 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
             log.debug("after open flight");
             //iterate detail
             for(int j=0;j<arrDetail.length();j++){
-                objDetail = arrDetail.optJSONObject(j);
 
+                flightTravel = new FlightTravel();
+                flightTravel.setErrorCode("0");
+                flightTravel.setTravelAPI("opsigo");
+
+                objDetail = arrDetail.optJSONObject(j);
 
             //    flightTravel.setTravelId(objDetail.optString("Id"));
                 flightTravel.setEtaDate(objDetail.optString("ArriveDate"));
@@ -196,6 +199,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 }else{ //if there is transit
 
+                  //  flightTravel = new FlightTravel();
+
                     JSONArray jsonArray = objDetail.optJSONArray("ConnectingFlights");
 
                     Set<FlightTravel> connectingFlights = getFlightTravel(jsonArray);
@@ -203,10 +208,10 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     flightTravel.setConnectingTravel(connectingFlights);
                 }
 
+                flightTravels.add(flightTravel);
 
             }
 
-            flightTravels.add(flightTravel);
         }
         return flightTravels;
     }
@@ -308,7 +313,6 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                     flightSeat.setFlightKey(objDetail.optString("Id"));
 
-
                     flightSeats.add(flightSeat);
                 }
 
@@ -318,6 +322,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
 
             }else{ //if there is transit
+
+                flightTravel = new FlightTravel();
 
                 JSONArray arrConn = objDetail.optJSONArray("ConnectingFlights");
 
