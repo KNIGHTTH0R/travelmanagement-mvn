@@ -98,8 +98,8 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
 
             flightBook.setBookingCode(objData.optString("PnrId"));
-            flightBook.setStatusCode("01");
-            flightBook.setStatusDesc("On Progress");
+            flightBook.setStatusCode(StatusCode.ACCEPTED+"");
+            flightBook.setStatusDesc(StatusCode.S_ACCEPTED);
 
         }catch (Exception ex){
 

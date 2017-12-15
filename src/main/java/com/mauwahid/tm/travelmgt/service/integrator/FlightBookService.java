@@ -76,6 +76,15 @@ public class FlightBookService {
             flightBookResponse.setMessage(StatusCode.S_SUCCESS);
         }
 
+
+        if(flightBook.getBookingCode().equalsIgnoreCase("")){
+            flightBookResponse.setStatus(StatusCode.NO_CONTENT);
+            flightBookResponse.setMessage(StatusCode.S_NO_CONTENT);
+
+            flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
+            flightBook.setStatusDesc("Failed");
+        }
+
         flightBookResponse.setFlightBook(flightBook);
 
         return flightBookResponse;

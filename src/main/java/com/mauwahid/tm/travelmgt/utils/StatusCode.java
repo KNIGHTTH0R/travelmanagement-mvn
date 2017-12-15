@@ -6,6 +6,8 @@ public class StatusCode {
 
     //Standar HTTP Status
     public static int SUCCESS = 200;
+
+    public static int ACCEPTED = 202;
     public static int NO_CONTENT = 204;
     public static int FORBIDDEN = 403;
     public static int UNAUTHORIZED = 401;
@@ -22,6 +24,7 @@ public class StatusCode {
 
     public static String STATUS_ERROR_FROM_SERVER = "ES"; //Error from server;
     public static String S_STATUS_ERROR_FROM_SERVER = "Error from server";
+    public static String S_ACCEPTED = "Accepted/OnProgress";
 
     public static String STATUS_BOOK_ERROR_NULL_OR_FAILED_POLICY = "NHP"; //Error from server;
     public static String S_STATUS_BOOK_ERROR_NULL_OR_FAILED_POLICY = "Null or failed policy";

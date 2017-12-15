@@ -3,6 +3,7 @@ package com.mauwahid.tm.travelmgt.repository.api.pointer;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.*;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,16 +78,20 @@ public class PointerFlightBook implements FlightBookInterface {
         JSONObject objResult = objData.optJSONObject("results");
 
         flightBook = new FlightBook();
-        flightBook.setStatusCode(objData.optString("code"));
 
         if(!flightBook.getStatusCode().equalsIgnoreCase("200")){
+            flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
+            flightBook.setStatusDesc("Failed");
             return flightBook;
         }
 
-        flightBook.setTimeLimit(objResult.optString("time_limit"));
-        flightBook.setMaskapai(objResult.optString("maskapai"));
-        flightBook.setBookingCode(objResult.optString("booking_code"));
+        flightBook.setStatusCode(objData.optString("code"));
+        flightBook.setStatusDesc(StatusCode.S_SUCCESS);
 
+        flightBook.setTimeLimit(objResult.optString("time_limit"));
+   //     flightBook.setMaskapai(objResult.optString("maskapai"));
+        flightBook.setBookingCode(objResult.optString("booking_code"));
+/*
         JSONArray arrPassenger = objResult.optJSONArray("passenger");
         JSONObject objPassenger = null;
 
@@ -153,7 +158,7 @@ public class PointerFlightBook implements FlightBookInterface {
 
 
         flightBook.setFlights(flightList);
-
+*/
         return flightBook;
 
     }
