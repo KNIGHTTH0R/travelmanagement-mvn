@@ -51,6 +51,8 @@ public class Common {
 
     public static String opsTranslateAirline(String airlineName){
 
+        airlineName = airlineName.toLowerCase();
+
         switch (airlineName){
             case "lion" :
                 return "2";
@@ -61,6 +63,8 @@ public class Common {
             case "airasia":
                 return "5";
             case "intair" : //sabre
+                return "6";
+            case "sabre" : //sabre
                 return "6";
             case "garuda":
                 return "7";

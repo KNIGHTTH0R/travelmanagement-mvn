@@ -117,10 +117,11 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
         log.debug("Flight type : "+flightBookReq.getFlightType());
 
-        if(flightBookReq.getFlightType().equalsIgnoreCase(Common.FLIGHT_DOMESTIC.trim())){
-            flightBookOpsReq.setFlightType("NonGds");
+
+        if(flightBookReq.getFlightType().trim().equalsIgnoreCase("gds")){
+            flightBookOpsReq.setFlightType("Gds");//International
         }else{
-            flightBookOpsReq.setFlightType("Gds");
+            flightBookOpsReq.setFlightType("NonGds");//Local
         }
 
         flightBookOpsReq.setCallBackUri(flightBookReq.getCallBackUri());
@@ -196,8 +197,13 @@ public class OpsigoFlightBook implements FlightBookInterface {
             segmentOps.setArriveTime(flightSegment.getArriveTime());
             segmentOps.setClassCode(flightSegment.getClassCode());
             segmentOps.setFlightId(flightSegment.getFlightKey());
-            segmentOps.setNum(0);
-            segmentOps.setSeq(0);
+            try{
+                segmentOps.setNum(Integer.parseInt(flightSegment.getNum()));
+                segmentOps.setSeq(Integer.parseInt(flightSegment.getSeq()));
+            }catch (Exception ex){
+
+                log.error("Error parse num & seq");
+            }
 
             segmentOpsSet.add(segmentOps);
         }
