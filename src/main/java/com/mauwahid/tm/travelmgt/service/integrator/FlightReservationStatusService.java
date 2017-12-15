@@ -89,7 +89,8 @@ public class FlightReservationStatusService {
 
         LogFlightReservationStatus logData = new LogFlightReservationStatus();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+      //  logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(flightReservationStatusResponse.getMessage());
 
 

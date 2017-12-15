@@ -25,7 +25,7 @@ public class LogData extends AbstractEntity {
     @Column
     private String apiSessionKey;
 
-    @Column
-    private Blob jsonData;
+    @Column(columnDefinition = "TEXT")
+    private String jsonData;
 
 }

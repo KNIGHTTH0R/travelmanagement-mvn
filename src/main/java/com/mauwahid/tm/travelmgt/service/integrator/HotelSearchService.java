@@ -108,7 +108,8 @@ public class HotelSearchService {
 
         LogHotelSearch logHotelSearch = new LogHotelSearch();
         logHotelSearch.setUserId(userId);
-        logHotelSearch.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+      //  logHotelSearch.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+     //   logHotelSearch.setJsonData(jsonData);
         logHotelSearch.setMessage(hotelSearchResponse.getMessage());
         logHotelSearch.setStatusCode(hotelSearchResponse.getStatus());
         logHotelSearch.setApiSessionKey(hotelSearchResponse.getSessionKey());

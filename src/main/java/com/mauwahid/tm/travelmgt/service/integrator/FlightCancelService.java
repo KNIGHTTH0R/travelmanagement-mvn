@@ -98,7 +98,8 @@ public class FlightCancelService {
 
         LogFlightCancel logData = new LogFlightCancel();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+       // logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(flightCancelResponse.getMessage());
         logData.setStatusCode(flightCancelResponse.getStatus());
         logData.setApiSessionKey(flightCancelReq.getSessionKey());

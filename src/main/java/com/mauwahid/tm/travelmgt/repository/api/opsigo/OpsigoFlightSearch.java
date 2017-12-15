@@ -398,7 +398,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
             flightAvailReq.setInfant(0);
         }
 
-        flightAvailReq.setFareType("Default");
+        flightAvailReq.setFareType("LowestFare");
 
         int airline = Integer.parseInt(map.get("airline").toString());
 

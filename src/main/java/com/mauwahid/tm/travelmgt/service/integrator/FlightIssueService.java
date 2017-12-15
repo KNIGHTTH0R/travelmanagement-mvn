@@ -103,7 +103,8 @@ public class FlightIssueService {
 
         LogFlightIssue logData = new LogFlightIssue();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+   //     logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(flightIssueResponse.getMessage());
         logData.setStatusCode(flightIssueResponse.getStatus());
         logData.setApiSessionKey(flightIssueResponse.getSessionKey());

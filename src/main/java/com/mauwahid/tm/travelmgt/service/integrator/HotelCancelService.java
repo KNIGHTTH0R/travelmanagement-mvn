@@ -81,7 +81,8 @@ public class HotelCancelService {
 
         LogHotelCancel logData = new LogHotelCancel();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+       // logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(hotelCancelResponse.getMessage());
        // logData.setApiSessionKey(hotelCancelResponse.getS);
 

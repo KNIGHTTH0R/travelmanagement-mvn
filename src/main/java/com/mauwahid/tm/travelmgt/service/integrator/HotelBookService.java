@@ -92,7 +92,8 @@ public class HotelBookService {
 
         LogHotelBook logHotelBook = new LogHotelBook();
         logHotelBook.setUserId(userId);
-        logHotelBook.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+      //  logHotelBook.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logHotelBook.setJsonData(jsonData);
         logHotelBook.setMessage(hotelBookResponse.getMessage());
       //  logHotelBook.setApiSessionKey(hotelBookResponse.get());
 

@@ -84,7 +84,8 @@ public class HotelIssueService {
 
         LogHotelIssue logData = new LogHotelIssue();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+       // logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(hotelIssueResponse.getMessage());
         logData.setStatusCode(hotelIssueResponse.getStatus());
         //logData.setApiSessionKey(hotelSearchResponse.getSessionKey());

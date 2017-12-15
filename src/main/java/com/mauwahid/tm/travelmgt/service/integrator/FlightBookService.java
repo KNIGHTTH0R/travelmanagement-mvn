@@ -87,7 +87,8 @@ public class FlightBookService {
 
         LogFlightBook logData = new LogFlightBook();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+       // logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(flightBookResponse.getMessage());
         logData.setStatusCode(flightBookResponse.getStatus());
         logData.setApiSessionKey(flightBookResponse.getSessionKey());

@@ -79,7 +79,8 @@ public class HotelChangePriceService {
 
         LogHotelChangePrice logData = new LogHotelChangePrice();
         logData.setUserId(userId);
-        logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        //logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logData.setJsonData(jsonData);
         logData.setMessage(hotelChangePriceResponse.getMessage());
         // logData.setApiSessionKey(hotelCancelResponse.getS);
 

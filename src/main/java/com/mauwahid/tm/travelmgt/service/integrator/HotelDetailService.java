@@ -99,7 +99,8 @@ public class HotelDetailService {
 
         LogHotelDetail logHotelDetail = new LogHotelDetail();
         logHotelDetail.setUserId(userId);
-        logHotelDetail.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+       // logHotelDetail.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
+        logHotelDetail.setJsonData(jsonData);
         logHotelDetail.setMessage(hotelDetailResponse.getMessage());
         logHotelDetail.setApiSessionKey(hotelDetailResponse.getSessionKey());
 
