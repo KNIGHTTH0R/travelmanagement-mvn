@@ -1,10 +1,12 @@
 package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightCancel;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPassenger;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightIssueInterface;
+import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +50,7 @@ public class PointerFlightIssue implements FlightIssueInterface {
             log.debug("try to run translate");
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            log.error("searchTravel translateToObj : "+ex.toString());
+            log.error(" translateToObj : "+ex.toString());
 
             return exceptionHandling(ex);
         }
@@ -63,118 +65,32 @@ public class PointerFlightIssue implements FlightIssueInterface {
     //Translator From JSON
 
     private FlightIssue translateToObject(String jsonData) throws JSONException {
+        FlightIssue flightIss = new FlightIssue();
 
-        FlightIssue flightIssue = new FlightIssue();
+        flightIss.setStatusCode(StatusCode.NOT_IMPLEMENTED);
+        flightIss.setStatusDesc(StatusCode.S_NOT_IMPLEMENTED);
 
-        JSONObject objData = new JSONObject(jsonData);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        String status = jsonObject.optString("code");
 
+        if(status.equalsIgnoreCase("200")){
+            flightIss.setStatusCode(StatusCode.SUCCESS);
+            flightIss.setStatusDesc(StatusCode.S_SUCCESS);
+        }else if(status.equalsIgnoreCase("204")){
+            flightIss.setStatusCode(StatusCode.NO_CONTENT);
+            flightIss.setStatusDesc(StatusCode.S_NO_CONTENT+"/ Booking tidak tersedia");
 
-        int code = Integer.parseInt(objData.optString("code"));
+        }else if(status.equalsIgnoreCase("400")){
+            flightIss.setStatusCode(StatusCode.BAD_REQUEST);
+            flightIss.setStatusDesc("Booking Expired");
 
-        try{
-
-            if(code!=200){
-                return flightIssue;
-            }
-
-            flightIssue.setStatusCode(code);
-
-
-        }catch (Exception ex){
-            log.debug("exc "+ex.toString());
-        }
-        
-
-        JSONObject objResult = objData.optJSONObject("results");
-        flightIssue.setTimeLimit(objResult.optString("time_limit"));
-        flightIssue.setInfantPax(objResult.optString("infant"));
-        flightIssue.setTotalPrice(objResult.optString("total_price"));
-        flightIssue.setFullName(objResult.optString("name"));
-        flightIssue.setBaseFare(objResult.optString("base_fare"));
-        flightIssue.setPaymentStatus(objResult.optString("payment_status"));
-        flightIssue.setChildPax(objResult.optString("child"));
-        flightIssue.setTax(objResult.optString("tax"));
-        flightIssue.setPhone(objResult.optString("phone"));
-        flightIssue.setPaymentStatusCode(objResult.optString("payment_status_code"));
-        flightIssue.setBookingTime(objResult.optString("booking_time"));
-        flightIssue.setAdultPax(objResult.optString("adult"));
-        flightIssue.setFlightFrom(objResult.optString("flight_from"));
-        flightIssue.setAirline(objResult.optString("airline"));
-        flightIssue.setNta(objResult.optString("NTA"));
-        flightIssue.setBookingCode(objResult.optString("booking_code"));
-        flightIssue.setFlightTo(objResult.optString("flight_to"));
-        flightIssue.setApiId(objResult.optString("id"));
-
-        JSONArray arrPassenger  = objResult.getJSONArray("passenger_list");
-        JSONObject objPassenger = null;
-
-        Set<FlightPassenger> passengers = new HashSet<>();
-        FlightPassenger passenger = null;
-
-        for(int i = 0;i<arrPassenger.length();i++){
-            objPassenger = arrPassenger.getJSONObject(i);
-            passenger = new FlightPassenger();
-            passenger.setPassengerType(objPassenger.optString("passenger_type"));
-            passenger.setBirthDate(objPassenger.optString("birth_date"));
-         //   passenger.setTicketNo(objPassenger.optString("ticket_no"));
-           // passenger.setFullName(objPassenger.optString("name"));
-
-            String fullName = objPassenger.optString("full_name");
-
-            if(!fullName.equalsIgnoreCase("")){
-
-                String[] data = fullName.split(" ");
-
-                if(data.length>1){
-                    passenger.setFirstName(data[0]);
-
-                    StringBuilder builder = new StringBuilder();
-
-                    for(int x=1;x<data.length;x++){
-                        builder.append(x);
-                    }
-
-                    passenger.setLastName(builder.toString());
-
-                }else {
-                    passenger.setFirstName(data[0]);
-                }
-            }
-
-
-            passengers.add(passenger);
-        }
-
-        flightIssue.setPassengers(passengers);
-
-
-        JSONArray arrFlight = objResult.optJSONArray("flight_list");
-        JSONObject objFlight = null;
-
-        Set<FlightFlight> flights = new HashSet<>();
-        FlightFlight flight = null;
-
-        for(int j=0;j<arrFlight.length();j++){
-            objFlight = arrFlight.optJSONObject(j);
-            flight = new FlightFlight();
-
-            flight.setCode(objFlight.optString("code"));
-            flight.setEtd(objFlight.optString("time_depart"));
-            flight.setEtaDate(objFlight.optString("date_arrive"));
-            flight.setEtdDate(objFlight.optString("date_depart"));
-            flight.setArriveArea(objFlight.optString("area_arrive"));
-            flight.setDepartArea(objFlight.optString("area_depart"));
-            flight.setEta(objFlight.optString("time_arrive"));
-            flight.setFlightId(objFlight.optString("flight_id"));
-
-            flights.add(flight);
+        }else{
+            flightIss.setStatusCode(StatusCode.ERROR_API);
+            flightIss.setStatusDesc(StatusCode.S_ERROR_API);
 
         }
 
-        flightIssue.setFlights(flights);
-
-
-        return flightIssue;
+        return flightIss;
 
     }
 
