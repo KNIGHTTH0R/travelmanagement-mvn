@@ -26,7 +26,7 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
     public FlightIssue issueFlight(Map params) {
 
         url = OpsigoApiCaller.uri;
-        url = url+"/apiv3/IssueFlight";
+        url = url+"/apiv3/IssueRsvFlight";
 
         FlightIssueOpsReq flightIssueOpsReq = translateToParam(params);
 
