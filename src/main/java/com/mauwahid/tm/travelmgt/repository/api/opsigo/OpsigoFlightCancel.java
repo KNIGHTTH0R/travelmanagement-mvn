@@ -26,7 +26,7 @@ public class OpsigoFlightCancel implements FlightCancelInterface{
     public FlightCancel cancelFlight(FlightCancelReq flightCancelReq) {
 
         url = OpsigoApiCaller.uri;
-        url = url+"/apiv3/CancelFlight";
+        url = url+"/apiv3/CancelRsvFlight";
 
         FlightCancelOpsReq flightCancelOpsReq = translateToObjJSON(flightCancelReq);
 
