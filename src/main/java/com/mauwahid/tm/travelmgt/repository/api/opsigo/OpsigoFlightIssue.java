@@ -99,7 +99,8 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
     public static FlightIssueOpsReq translateToParam(Map map){
 
         FlightIssueOpsReq flightIssueOpsReq = new FlightIssueOpsReq();
-        flightIssueOpsReq.setCallbackUri(Common.CALLBACK_ISSUE);
+      //  flightIssueOpsReq.setCallbackUri(Common.CALLBACK_ISSUE);
+        flightIssueOpsReq.setCallbackUri(map.get("callbackUri").toString());
         flightIssueOpsReq.setPnrId(map.get("pnrId").toString());
 
         return flightIssueOpsReq;
