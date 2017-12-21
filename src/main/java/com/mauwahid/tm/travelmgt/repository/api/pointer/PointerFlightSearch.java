@@ -67,7 +67,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
     private Set<FlightTravel> translateToObject(String jsonData) throws JSONException{
         String airline = "";
 
-        Set<FlightTravel> flightTravels= new HashSet<>();
+        Set<FlightTravel> flightTravels= new LinkedHashSet<>();
         //JSON Main
         JSONObject objData = new JSONObject(jsonData);
         JSONObject objResult = objData.optJSONObject("results");
@@ -128,7 +128,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
                     flightTravel.setConnecting(true);
                 }
 
-                flights = new HashSet<>();
+                flights = new LinkedHashSet<>();
 
                 //Normal Case, while flight is direct/only one flight
                 if(arrFlight.length() == 1) {
@@ -188,7 +188,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
 
                     logger.debug("Leng arr "+arrFlight.length());
 
-                    Set<FlightTravel> connectingFlightTravel = new HashSet<>();
+                    Set<FlightTravel> connectingFlightTravel = new LinkedHashSet<>();
                     FlightTravel flConnecting;
 
                     arrSeat = objDetail.optJSONArray("seat");
@@ -230,7 +230,7 @@ public class PointerFlightSearch implements FlightSearchInterface {
 
                         flConnecting = new FlightTravel();
 
-                        flights = new HashSet<>();
+                        flights = new LinkedHashSet<>();
 
                         flConnecting.setEtaDate(objFlight.optString("date_arrive"));
                         flConnecting.setEtdDate(objFlight.optString("date_depart"));
