@@ -147,7 +147,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 flights = new HashSet<>();
 
-                if(transit == 0){
+                if(flightTravel.isConnecting()){
                     flight = new FlightFlight();
                    // flight.setFlightId(objDetail.optString("Id"));
                    // flight.setCode(objDetail.optString("Number"));
@@ -267,7 +267,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
             flights = new HashSet<>();
 
-            if(transit == 0){
+            if(flightTravel.isConnecting()){
                 flight = new FlightFlight();
                 // flight.setFlightId(objDetail.optString("Id"));
                 // flight.setCode(objDetail.optString("Number"));
