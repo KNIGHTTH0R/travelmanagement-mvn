@@ -89,8 +89,8 @@ public class FlightIssueService {
 
         }
 
-
-        flightIssueResponse.setFlightIssue(flightIssue);
+        if(flightIssue!=null)
+            flightIssueResponse.setFlightIssue(flightIssue);
 
         return flightIssueResponse;
     }
