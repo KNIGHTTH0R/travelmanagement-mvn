@@ -74,7 +74,7 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
         if(map.get("status").toString().equalsIgnoreCase(StatusCode.SUCCESS+"")){
             flightIssue.setStatusCode(StatusCode.SUCCESS);
             flightIssue.setStatusDesc(StatusCode.S_SUCCESS);
-            flightIssue.setBookingCode(map.get("pnrId").toString());
+          //  flightIssue.setBookingCode(map.get("pnrId").toString());
         }else{
             flightIssue.setStatusCode(StatusCode.ERROR_API);
             flightIssue.setStatusDesc(StatusCode.S_ERROR_API);
