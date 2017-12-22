@@ -89,8 +89,15 @@ public class FlightIssueService {
 
         }
 
-        if(flightIssue!=null)
+        if(flightIssue!=null){
             flightIssueResponse.setFlightIssue(flightIssue);
+
+
+            if(flightIssue.getStatusCode()==StatusCode.ERROR_API){
+                flightIssueResponse.setStatus(StatusCode.NO_CONTENT);
+                flightIssueResponse.setMessage(StatusCode.S_NO_CONTENT + ": "+flightIssue.getStatusDesc());
+            }
+        }
 
         return flightIssueResponse;
     }
