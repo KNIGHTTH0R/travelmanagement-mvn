@@ -68,6 +68,11 @@ public class HotelCancelService {
         response.setStatus(StatusCode.SUCCESS);
         response.setMessage(StatusCode.S_SUCCESS);
 
+        if(hotelCancelResult.getReservationCode()==null){
+            response.setStatus(StatusCode.NO_CONTENT);
+            response.setMessage(StatusCode.S_NO_CONTENT + ": "+hotelCancelResult.getMessageDesc());
+        }
+
         response.setHotelCancelResult(hotelCancelResult);
 
         return response;

@@ -71,8 +71,7 @@ public class HotelIssueService {
         response.setStatus(StatusCode.SUCCESS);
         response.setMessage(StatusCode.S_SUCCESS);
 
-        if(hotelIssue.getReservationCode().equalsIgnoreCase("") ||
-                hotelIssue.getReservationID().equalsIgnoreCase("")){
+        if(hotelIssue.getReservationCode()==null){
             response.setStatus(StatusCode.NO_CONTENT);
             response.setMessage(StatusCode.S_NO_CONTENT + " : "+hotelIssue.getMessageDesc());
         }
