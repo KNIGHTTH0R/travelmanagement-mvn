@@ -97,6 +97,12 @@ public class FlightIssueService {
                 flightIssueResponse.setStatus(StatusCode.NO_CONTENT);
                 flightIssueResponse.setMessage(StatusCode.S_NO_CONTENT + ": "+flightIssue.getStatusDesc());
             }
+
+            if(flightIssue.getStatusCode() == StatusCode.SERVER_ERROR){
+                flightIssueResponse.setStatus(StatusCode.SERVER_ERROR);
+                flightIssueResponse.setMessage(StatusCode.S_SERVER_ERROR + ": "+flightIssue.getStatusDesc());
+
+            }
         }
 
         return flightIssueResponse;
