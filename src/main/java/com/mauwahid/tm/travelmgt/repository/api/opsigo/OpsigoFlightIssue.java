@@ -111,7 +111,7 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
         Map param = new HashMap();
 
         param.put("pnrId",flightIssueReq.getBookingCode());
-        param.put("callbackUri", flightIssueReq.getAirline());
+        param.put("callbackUri", flightIssueReq.getCallbackUri());
 
         return param;
     }
