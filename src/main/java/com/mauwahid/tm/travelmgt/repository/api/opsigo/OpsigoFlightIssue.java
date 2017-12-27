@@ -57,7 +57,7 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
         try{
             return translateToObject(responseMap);
         }catch (Exception ex) {
-            log.error("searchTravel translateToObj : "+ex.toString());
+            log.error("flightIssue translateToObj : "+ex.toString());
 
             return exceptionHandling(ex, params.toString(), responseMap);
         }

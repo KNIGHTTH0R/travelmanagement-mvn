@@ -67,7 +67,20 @@ public class AstriHotelCancelPolicy implements HotelCancelPolicyInterface{
         hotelCancelPolicy.setSessionID(objDat.optString("SessionID"));
         hotelCancelPolicy.setMerchantID(objDat.optString("MerchantID"));
         hotelCancelPolicy.setRoomID(objDat.optString("RoomID"));
-        hotelCancelPolicy.setDescription(objDat.optString("Description"));
+
+        String description = objDat.optString("Description");
+
+        description = description.replace("[","");
+        description = description.replace("]","");
+        description = description.replaceAll("</dt>", "");
+        description = description.replaceAll("<dt>", "");
+        description = description.replaceAll("<dl>", "");
+        description = description.replaceAll("<dd>", "");
+        description = description.replaceAll("\"", "");
+        description = description.replaceAll("<\\\\/dt>","");
+        description = description.replaceAll("<\\\\/dd>","");
+        description = description.replaceAll("<\\\\/dl>","");
+        hotelCancelPolicy.setDescription(description);
 
 
 

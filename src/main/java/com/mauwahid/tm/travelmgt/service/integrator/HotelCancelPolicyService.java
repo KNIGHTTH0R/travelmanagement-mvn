@@ -58,6 +58,11 @@ public class HotelCancelPolicyService implements HotelCancelPolicyInterface{
     private HotelCancelPolicyResponse translateResponse(HotelCancelPolicy hotelCancelPolicy){
         HotelCancelPolicyResponse response = new HotelCancelPolicyResponse();
 
+        if(hotelCancelPolicy!=null){
+            response.setStatus(StatusCode.SUCCESS);
+            response.setMessage(StatusCode.S_SUCCESS);
+        }
+
         response.setHotelCancelPolicy(hotelCancelPolicy);
 
         return response;
