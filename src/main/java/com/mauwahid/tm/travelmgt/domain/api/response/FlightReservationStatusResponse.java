@@ -15,7 +15,7 @@ public class FlightReservationStatusResponse extends DefaultResponse{
     @JsonProperty("time_limit")
     private String timeLimit;
 
-    @JsonProperty("status")
+    @JsonProperty("status_reservation")
     private String statusReservation;
 
     @JsonProperty("ticketed")
