@@ -152,7 +152,7 @@ public class FlightSearchService {
         LogFlightSearch logData = new LogFlightSearch();
         logData.setUserId(userId);
        // logData.setJsonData(LogErrorHelper.convertStringToBlob(jsonData));
-        logData.setJsonData(jsonData);
+       // logData.setJsonData(jsonData);
         logData.setMessage(flightSearchResponse.getMessage());
         logData.setStatusCode(flightSearchResponse.getStatus());
         logData.setApiSessionKey(flightSearchResponse.getSessionKey());
