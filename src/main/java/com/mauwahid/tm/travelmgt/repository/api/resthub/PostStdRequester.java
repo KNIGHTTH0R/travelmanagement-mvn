@@ -204,6 +204,7 @@ public class PostStdRequester implements IHttpRequester {
         try (Response response = client.newCall(request).execute()) {
 
             log.debug("Response code "+response.code());
+            log.debug("Response body "+response.code());
             map.put("status",response.code());
             map.put("body", response.body().string());
 
