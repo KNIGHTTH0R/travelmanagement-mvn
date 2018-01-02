@@ -86,6 +86,11 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
         flightReservationStatusResponse.setBookingCode(jsonObject.optString("BookingCode"));
         flightReservationStatusResponse.setTimeLimit(jsonObject.optString("TimeLimit"));
 
+        flightReservationStatusResponse.setCreated(jsonObject.optString("Created"));
+
+        flightReservationStatusResponse.setReserved(jsonObject.optString("Reserved"));
+        flightReservationStatusResponse.setTicketed(jsonObject.optString("Ticketed"));
+        flightReservationStatusResponse.setStatusReservation(jsonObject.optString("Status"));
 
         int status = 0;
 
