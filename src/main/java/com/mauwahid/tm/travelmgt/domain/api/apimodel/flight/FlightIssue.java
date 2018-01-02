@@ -23,6 +23,9 @@ public class FlightIssue {
    @JsonProperty("booking_code")
    private String bookingCode;
 
+   @JsonProperty("ticketNumber")
+   private String ticketNumber;
+
    @JsonProperty("booking_time")
    private String bookingTime;
 

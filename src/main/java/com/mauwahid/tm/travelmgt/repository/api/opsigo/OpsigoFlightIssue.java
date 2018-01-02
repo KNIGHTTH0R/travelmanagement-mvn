@@ -44,16 +44,17 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
             flightIssue.setStatusDesc("PNR Not yet reserved");
 
             return flightIssue;
-        }else{
+        }
+        /*else{
             FlightIssue flightIssue = new FlightIssue();
             flightIssue.setStatusCode(StatusCode.SUCCESS);
             flightIssue.setStatusDesc(StatusCode.S_SUCCESS);
 
             return flightIssue;
 
-        }
+        }*/
 
-/*
+
         try{
             jsonParam = objectMapper.writeValueAsString(flightIssueOpsReq);
         }catch (Exception ex){
@@ -82,7 +83,7 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
 
             return exceptionHandling(ex, params.toString(), responseMap);
         }
-        */
+
     }
 
     private FlightIssue translateToObject(Map map) throws JSONException {
