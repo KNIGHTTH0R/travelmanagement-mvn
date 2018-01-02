@@ -32,7 +32,6 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
     private String url;
 
-    private Logger logger = LoggerFactory.getLogger(PointerFlightSearch.class);
 
     private OpsigoApiCaller opsigoApiCaller;
 
@@ -59,18 +58,18 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
         try{
             opsigoApiCaller = new OpsigoApiCaller();
 
-            logger.debug("JSON Req "+jsonParam);
+            log.debug("JSON Req "+jsonParam);
             jsonData = opsigoApiCaller.callApiPost(url,jsonParam);
-            logger.debug("JSON RES : "+jsonData);
+            log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
-            logger.error("searchTravel : "+ex.toString());
+            log.error("search flight : "+ex.toString());
             return exceptionHandling(ex);
         }
 
         try{
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            logger.error("searchTravel translateToObj : "+ex.toString());
+            log.error("faild to translateToObj : "+ex.toString());
 
             return exceptionHandling(ex);
         }
@@ -112,14 +111,11 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
             objTravel = arrData.optJSONObject(i);
 
-
-
           //  flightTravel.setTravelId(objTravel.optString("id_perjalanan"));
           //  flightTravel.setFlightCount(objTravel.optString("flight_count"));
 
             arrDetail = objTravel.optJSONArray("Flights");
 
-            log.debug("after open flight");
             //iterate detail
             for(int j=0;j<arrDetail.length();j++){
 
@@ -144,11 +140,12 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 flightTravel.setFlightNumber(objDetail.optString("Number"));
              //   log.debug("Airline name  "+objDetail.optString("AirlineName"));
 
-                flight.setAirlineImageUrl(objDetail.optString("AirlineImageUrl"));
 
-                int transit = objDetail.optInt("TotalTransit");
+            //    int transit = objDetail.optInt("TotalTransit");
 
                 flights = new HashSet<>();
+
+                log.debug("to check flight travel");
 
                 if(!flightTravel.isConnecting()){
                     flight = new FlightFlight();
@@ -166,6 +163,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     flight.setFlightId(objDetail.optString("Number"));
 
                     flight.setAirlineName(objDetail.optString("AirlineName"));
+                    flight.setAirlineImageUrl(objDetail.optString("AirlineImageUrl"));
 
                     flights.add(flight);
 
@@ -173,6 +171,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     JSONObject objClass;
 
                     Set<FlightSeat> flightSeats = new HashSet<>();
+
+                    log.debug("to check class obj");
 
                     for(int x=0;x<arrClassObj.length();x++){
                         objClass = arrClassObj.getJSONObject(x);
@@ -205,6 +205,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 }else{ //if there is transit
 
                   //  flightTravel = new FlightTravel();
+                    log.debug("to check connecting flight");
 
                     JSONArray jsonArray = objDetail.optJSONArray("ConnectingFlights");
 
