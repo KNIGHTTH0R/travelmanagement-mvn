@@ -28,4 +28,7 @@ public class FlightFlight {
     @JsonProperty("flight_type")
     private String flightType;
 
+    @JsonProperty("airline_name")
+    private String airlineName;
+
 }

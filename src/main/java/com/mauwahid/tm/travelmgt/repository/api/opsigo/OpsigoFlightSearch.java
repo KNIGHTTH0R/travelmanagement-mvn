@@ -161,6 +161,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     flight.setArriveArea(objDetail.optString("Destination"));
                     flight.setDepartArea(objDetail.optString("Origin"));
                     flight.setFlightId(objDetail.optString("Number"));
+                    flight.setAirlineName(objDetail.optString("AirlineName"));
+
 
                     flights.add(flight);
 
@@ -282,6 +284,8 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 flight.setArriveArea(objDetail.optString("Destination"));
                 flight.setDepartArea(objDetail.optString("Origin"));
                 flight.setFlightId(objDetail.optString("Number"));
+                flight.setAirlineName(objDetail.optString("AirlineName"));
+
 
                 flights.add(flight);
 
