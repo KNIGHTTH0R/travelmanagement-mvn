@@ -31,4 +31,7 @@ public class FlightFlight {
     @JsonProperty("airline_name")
     private String airlineName;
 
+    @JsonProperty("airline_image")
+    private String airlineImageUrl;
+
 }
