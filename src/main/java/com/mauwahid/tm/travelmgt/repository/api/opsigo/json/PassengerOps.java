@@ -54,4 +54,7 @@ public class PassengerOps {
     @JsonProperty("PassportOrigin")
     private String passportOrigin;
 
+    @JsonProperty("ticket_number")
+    private String ticketNumber;
+
 }

@@ -3,6 +3,8 @@ package com.mauwahid.tm.travelmgt.repository.api.opsigo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightReservationStatusReq;
+import com.mauwahid.tm.travelmgt.domain.api.response.FlightReservationStatusResponse;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightIssueInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.FlightIssueOpsReq;
 import com.mauwahid.tm.travelmgt.utils.Common;
@@ -33,6 +35,25 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonParam = "";
 
+
+        boolean reservedStatus = isReserved(flightIssueOpsReq.getPnrId());
+
+        if(!reservedStatus){
+            FlightIssue flightIssue = new FlightIssue();
+            flightIssue.setStatusCode(StatusCode.NOT_IMPLEMENTED);
+            flightIssue.setStatusDesc("PNR Not yet reserved");
+
+            return flightIssue;
+        }else{
+            FlightIssue flightIssue = new FlightIssue();
+            flightIssue.setStatusCode(StatusCode.SUCCESS);
+            flightIssue.setStatusDesc(StatusCode.S_SUCCESS);
+
+            return flightIssue;
+
+        }
+
+/*
         try{
             jsonParam = objectMapper.writeValueAsString(flightIssueOpsReq);
         }catch (Exception ex){
@@ -61,8 +82,8 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
 
             return exceptionHandling(ex, params.toString(), responseMap);
         }
+        */
     }
-
 
     private FlightIssue translateToObject(Map map) throws JSONException {
 
@@ -114,6 +135,30 @@ public class OpsigoFlightIssue implements FlightIssueInterface {
         param.put("callbackUri", flightIssueReq.getCallbackUri());
 
         return param;
+    }
+
+    public boolean isReserved(String pnrId){
+        FlightReservationStatusReq flightReservationStatusReq = new FlightReservationStatusReq();
+        flightReservationStatusReq.setBookingCode(pnrId);
+
+        try{
+            Map param = OpsigoFlightReservationStatus.translateToParam(flightReservationStatusReq);
+
+            OpsigoFlightReservationStatus opsigoFlightReservationStatus = new OpsigoFlightReservationStatus();
+            FlightReservationStatusResponse flightReservationStatusResponse = opsigoFlightReservationStatus.cekStatus(param);
+
+            if(flightReservationStatusResponse.getStatusReservation().trim().equalsIgnoreCase("reserved")){
+                return true;
+            }
+
+        }catch (NullPointerException ex){
+            log.error("error "+ex.toString());
+            return false;
+        }
+
+
+        return false;
+
     }
 
 }

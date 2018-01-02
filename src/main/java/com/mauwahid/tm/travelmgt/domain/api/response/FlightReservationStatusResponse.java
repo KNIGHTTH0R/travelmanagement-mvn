@@ -2,6 +2,7 @@ package com.mauwahid.tm.travelmgt.domain.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.FlightPayments;
+import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.PassengerOps;
 import lombok.Data;
 
 import java.util.Set;
@@ -27,6 +28,9 @@ public class FlightReservationStatusResponse extends DefaultResponse{
 
     @JsonProperty("flight_payment")
     private Set<FlightPayments> flightPayments;
+
+    @JsonProperty("flight_passengers")
+    private Set<PassengerOps> passengerOps;
 
 
 }

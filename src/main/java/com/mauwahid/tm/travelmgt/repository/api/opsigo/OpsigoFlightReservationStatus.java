@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.FlightReservationStatusReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightReservationStatusResponse;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightReservationStatusInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.FlightPayments;
+import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.PassengerOps;
 import com.mauwahid.tm.travelmgt.utils.ApiStatic;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
@@ -128,7 +129,29 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
             flightPaymentsSet.add(flightPayments);
         }
 
+        JSONArray jsonPassenger = jsonObject.getJSONArray("Passengers");
+        Set<PassengerOps> passengerOpsList = new HashSet<>();
+
+        JSONObject objPassenger = null;
+
+        PassengerOps passengerOps = null;
+
+        for(int x=0;x<jsonPassenger.length();x++){
+            objPassenger = jsonPassenger.getJSONObject(x);
+            passengerOps = new PassengerOps();
+            passengerOps.setFirstName(objPassenger.optString("FirstName"));
+            passengerOps.setLastName(objPassenger.optString("LastName"));
+            passengerOps.setBirthDate(objPassenger.optString("BirthDate"));
+            passengerOps.setNationality(objPassenger.optString("Nationality"));
+            passengerOps.setIdNumber(objPassenger.optString("IdNumber"));
+            passengerOps.setTicketNumber(objPassenger.optString("TicketNumber"));
+
+            passengerOpsList.add(passengerOps);
+
+        }
+
         flightReservationStatusResponse.setFlightPayments(flightPaymentsSet);
+        flightReservationStatusResponse.setPassengerOps(passengerOpsList);
 
         return flightReservationStatusResponse;
 
