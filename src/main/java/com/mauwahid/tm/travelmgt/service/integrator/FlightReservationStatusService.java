@@ -7,12 +7,15 @@ import com.mauwahid.tm.travelmgt.domain.api.response.FlightReservationStatusResp
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightReservationStatus;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightReservationStatusInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightReservationStatus;
+import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
+import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightReservationStatus;
 import com.mauwahid.tm.travelmgt.repository.database.log.LogFlightReservationStatusRepository;
 import com.mauwahid.tm.travelmgt.utils.Common;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,6 +28,9 @@ public class FlightReservationStatusService {
     private LogFlightReservationStatusRepository logFlightReservationStatusRepository;
 
     private FlightReservationStatusInterface flightReservationStatusInterface;
+
+    @Autowired
+    private ApplicationContext context;
 
 
 
@@ -50,7 +56,14 @@ public class FlightReservationStatusService {
 
             Map param = OpsigoFlightReservationStatus.translateToParam(flightReservationStatusReq);
 
-            flightReservationStatusInterface = new OpsigoFlightReservationStatus();
+            flightReservationStatusInterface = context.getBean(OpsigoFlightReservationStatus.class);
+            flightReservationStatusResponse = flightReservationStatusInterface.cekStatus(param);
+        }
+        if(flightReservationStatusReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
+
+            Map param = PointerFlightReservationStatus.translateToParam(flightReservationStatusReq);
+
+            flightReservationStatusInterface = context.getBean(PointerFlightReservationStatus.class);
             flightReservationStatusResponse = flightReservationStatusInterface.cekStatus(param);
         }
 

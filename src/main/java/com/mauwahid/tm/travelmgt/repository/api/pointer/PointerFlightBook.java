@@ -78,6 +78,7 @@ public class PointerFlightBook implements FlightBookInterface {
         JSONObject objResult = objData.optJSONObject("results");
 
         flightBook = new FlightBook();
+        flightBook.setStatusCode(objData.optString("code"));
 
         if(!flightBook.getStatusCode().equalsIgnoreCase("200")){
             flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
@@ -85,7 +86,6 @@ public class PointerFlightBook implements FlightBookInterface {
             return flightBook;
         }
 
-        flightBook.setStatusCode(objData.optString("code"));
         flightBook.setStatusDesc(StatusCode.S_SUCCESS);
 
         flightBook.setTimeLimit(objResult.optString("time_limit"));
@@ -196,15 +196,17 @@ public class PointerFlightBook implements FlightBookInterface {
 
 
 
-            if(passenger.getType().equalsIgnoreCase("ADT")){
+            if(passenger.getPassengerType().equalsIgnoreCase("ADT")){
                 param.put("adult_title_"+idx,passenger.getTitle());
                 param.put("adult_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
                 param.put("adult_special_request_"+idx,passenger.getAdultAssoc());
+                param.put("adult_birth_date_"+idx, passenger.getBirthDate());
 
-            }else if(passenger.getType().equalsIgnoreCase("CHD")){
+            }else if(passenger.getPassengerType().equalsIgnoreCase("CHD")){
                 param.put("child_title_"+idx,passenger.getTitle());
                 param.put("child_name_"+idx,passenger.getFirstName()+" "+passenger.getLastName());
                 param.put("child_special_request_"+idx,passenger.getAdultAssoc());
+                param.put("adult_birth_date_"+idx, passenger.getBirthDate());
 
             }else{
                 param.put("infant_title_"+idx,passenger.getTitle());

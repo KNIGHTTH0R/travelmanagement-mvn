@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/flight")
-@Api(tags = "Flight reservation",  description="Operations for flight reservation")
+@Api(tags = "Flight Reservation Status",  description="Operations for flight reservation")
 @Slf4j
 public class FlightReservationController {
 

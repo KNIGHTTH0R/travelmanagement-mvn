@@ -145,7 +145,6 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 flights = new HashSet<>();
 
-                log.debug("to check flight travel");
 
                 if(!flightTravel.isConnecting()){
                     flight = new FlightFlight();

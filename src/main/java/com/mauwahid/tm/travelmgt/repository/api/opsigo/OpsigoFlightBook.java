@@ -166,7 +166,19 @@ public class OpsigoFlightBook implements FlightBookInterface {
             passengerOps.setPassportOrigin(passenger.getPassportOrigin());
             passengerOps.setTitle(passenger.getTitle());
             try{
-                passengerOps.setType(Integer.parseInt(passenger.getType()));
+                String passengerType = passenger.getPassengerType();
+                int type  = 3;
+
+                if(passengerType.equalsIgnoreCase("ADT")){
+                    type = 1;
+                }else if(passengerType.equalsIgnoreCase("CHD")){
+                    type = 2;
+                }else if(passengerType.equalsIgnoreCase("INF")){
+                    type = 3;
+                }
+                passengerOps.setType(type);
+
+               // passengerOps.setType(Integer.parseInt(passenger.getPassengerType()));
             }catch (Exception ex){
                 passengerOps.setType(1);
             }

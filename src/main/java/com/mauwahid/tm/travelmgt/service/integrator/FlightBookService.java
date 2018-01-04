@@ -71,10 +71,11 @@ public class FlightBookService {
         if(flightBook==null){
             flightBookResponse.setStatus(StatusCode.NOT_IMPLEMENTED);
             flightBookResponse.setMessage(StatusCode.S_NOT_IMPLEMENTED);
-        }else{
-            flightBookResponse.setStatus(StatusCode.SUCCESS);
-            flightBookResponse.setMessage(StatusCode.S_SUCCESS);
+            return flightBookResponse;
         }
+
+        flightBookResponse.setStatus(StatusCode.SUCCESS);
+        flightBookResponse.setMessage(StatusCode.S_SUCCESS);
 
 
         if(flightBook.getBookingCode().equalsIgnoreCase("")){
@@ -102,7 +103,9 @@ public class FlightBookService {
         logData.setStatusCode(flightBookResponse.getStatus());
         logData.setApiSessionKey(flightBookResponse.getSessionKey());
         logData.setCallBackUri(flightBookReq2.getCallBackUri());
-        logData.setPnrId(flightBookResponse.getFlightBook().getBookingCode());
+
+        if(flightBookResponse.getFlightBook()!=null)
+            logData.setPnrId(flightBookResponse.getFlightBook().getBookingCode());
 
         logFlightBookRepository.save(logData);
     }

@@ -1,11 +1,11 @@
-package com.mauwahid.tm.travelmgt.repository.api.opsigo;
+package com.mauwahid.tm.travelmgt.repository.api.pointer;
 
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightReservationStatusReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightReservationStatusResponse;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightReservationStatusInterface;
+import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoApiCaller;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.FlightPayments;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.PassengerOps;
-import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerApiCaller;
 import com.mauwahid.tm.travelmgt.utils.ApiStatic;
 import com.mauwahid.tm.travelmgt.utils.LogErrorHelper;
 import com.mauwahid.tm.travelmgt.utils.StatusCode;
@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,28 +23,28 @@ import java.util.Set;
 
 @Slf4j
 @Component
-public class OpsigoFlightReservationStatus implements FlightReservationStatusInterface {
-
+public class PointerFlightReservationStatus implements FlightReservationStatusInterface {
 
     private String url;
 
-    private OpsigoApiCaller opsigoApiCaller;
+    private PointerApiCaller pointerApiCaller;
 
-   // @Autowired
+    // @Autowired
     private LogErrorHelper logErrorHelper;
 
     public FlightReservationStatusResponse cekStatus(Map params) {
 
         url = PointerApiCaller.uri;
-        url = url+"/apiv3/GetRsvById";
+        url = url+"manage/book";
 
+        url = url+"/"+params.get("id").toString();
 
         String jsonData = "";
 
         try{
-            opsigoApiCaller = new OpsigoApiCaller();
+            pointerApiCaller = new PointerApiCaller();
 
-            jsonData = opsigoApiCaller.callApiGet(url,params);
+            jsonData = pointerApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("searchTravel : "+ex.toString());
@@ -77,60 +76,43 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
 
     //Translator From JSON
 
-    private FlightReservationStatusResponse translateToObject(String jsonData) throws JSONException {
+    private FlightReservationStatusResponse translateToObject(String json) throws JSONException {
 
         FlightReservationStatusResponse flightReservationStatusResponse = new FlightReservationStatusResponse();
+
 
         flightReservationStatusResponse.setStatus(StatusCode.SUCCESS);
         flightReservationStatusResponse.setMessage(StatusCode.S_SUCCESS);
 
-        JSONObject jsonObject = new JSONObject(jsonData);
-        flightReservationStatusResponse.setBookingCode(jsonObject.optString("BookingCode"));
-        flightReservationStatusResponse.setTimeLimit(jsonObject.optString("TimeLimit"));
+        JSONObject jsonObject = new JSONObject(json);
 
-        flightReservationStatusResponse.setCreated(jsonObject.optString("Created"));
+        String code = jsonObject.optString("code");
 
-        flightReservationStatusResponse.setReserved(jsonObject.optString("Reserved"));
-        flightReservationStatusResponse.setTicketed(jsonObject.optString("Ticketed"));
-        flightReservationStatusResponse.setStatusReservation(jsonObject.optString("Status"));
-
-        int status = 0;
-
-        try{
-            status = Integer.parseInt(jsonObject.optString("Status"));
-            flightReservationStatusResponse.setStatus(status);
-        }catch (Exception ex){
-
-            log.debug("Exc "+toString());
+        if(!code.equalsIgnoreCase("200")){
+            flightReservationStatusResponse.setStatus(StatusCode.ERROR_API);
+            flightReservationStatusResponse.setMessage(StatusCode.S_ERROR_API);
         }
 
-        // flightReservationStatusResponse.setStatus(jsonObject.optString("Status"));
+        JSONObject jsonResult = jsonObject.optJSONObject("results");
+
+        flightReservationStatusResponse.setBookingCode(jsonResult.optString("booking_code"));
+        flightReservationStatusResponse.setTimeLimit(jsonResult.optString("time_limit"));
+
+        flightReservationStatusResponse.setStatusReservation(jsonResult.optString("payment_status"));
 
 
-        JSONArray jsonArray = jsonObject.getJSONArray("Payments");
+        //todo : payment
 
         FlightPayments flightPayments = null;
         Set<FlightPayments> flightPaymentsSet = new HashSet<>();
 
-        JSONObject objPayment = null;
-
-        for(int i=0;i<jsonArray.length();i++){
-
-            objPayment = jsonArray.optJSONObject(i);
+        flightPayments = new FlightPayments();
+        flightPayments.setAmount(jsonResult.optString("total_price"));
+        flightPaymentsSet.add(flightPayments);
 
 
-            flightPayments = new FlightPayments();
-            flightPayments.setCode(objPayment.optString("code"));
-            flightPayments.setAmount(objPayment.optString("Amount"));
-            flightPayments.setTitle(objPayment.optString("Title"));
-            flightPayments.setCurrency(objPayment.optString("Currency"));
-            flightPayments.setForeignAmount(objPayment.optString("ForeignAmount"));
-            flightPayments.setForeignCurrency(objPayment.optString("ForeignCurrency"));
 
-            flightPaymentsSet.add(flightPayments);
-        }
-
-        JSONArray jsonPassenger = jsonObject.getJSONArray("Passengers");
+        JSONArray jsonPassenger = jsonResult.getJSONArray("passenger_list");
         Set<PassengerOps> passengerOpsList = new HashSet<>();
 
         JSONObject objPassenger = null;
@@ -140,12 +122,27 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
         for(int x=0;x<jsonPassenger.length();x++){
             objPassenger = jsonPassenger.getJSONObject(x);
             passengerOps = new PassengerOps();
-            passengerOps.setFirstName(objPassenger.optString("FirstName"));
-            passengerOps.setLastName(objPassenger.optString("LastName"));
-            passengerOps.setBirthDate(objPassenger.optString("BirthDate"));
-            passengerOps.setNationality(objPassenger.optString("Nationality"));
-            passengerOps.setIdNumber(objPassenger.optString("IdNumber"));
-            passengerOps.setTicketNumber(objPassenger.optString("TicketNumber"));
+            String name = objPassenger.optString("name");
+
+            String[] names = name.split(" ");
+            String firstName = "";
+            String lastName = "";
+
+            for(int i=0;i<names.length;i++){
+                if(i==0){
+                    firstName = names[i];
+                }else if(i==1) {
+                    lastName = names[i];
+                }else{
+                    lastName = lastName + " " + names[i];
+                }
+
+            }
+
+            passengerOps.setFirstName(firstName);
+            passengerOps.setLastName(lastName);
+            passengerOps.setBirthDate(objPassenger.optString("birth_date"));
+            passengerOps.setTicketNumber(objPassenger.optString("ticket_no"));
 
             passengerOpsList.add(passengerOps);
 

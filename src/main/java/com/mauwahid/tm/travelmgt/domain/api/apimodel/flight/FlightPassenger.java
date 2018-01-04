@@ -57,5 +57,5 @@ public class FlightPassenger {
     @JsonProperty("birth_date")
     private String birthDate;
 
-    private String type; // 1 -> adult, 2->child 3->infant
+  //  private String type; // 1 -> adult, 2->child 3->infant
 }
