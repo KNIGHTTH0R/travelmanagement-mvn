@@ -221,7 +221,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
             //Set Gds/Non Gds
             if(airline.equalsIgnoreCase("6")){
-                flightBookOpsReq.setFlightType("Gds");
+                flightBookOpsReq.setFlightType("GdsBfm");
             }else{
                 flightBookOpsReq.setFlightType("NonGds");
             }

@@ -171,7 +171,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                     Set<FlightSeat> flightSeats = new HashSet<>();
 
-                    log.debug("to check class obj");
+                 //   log.debug("to check class obj");
 
                     for(int x=0;x<arrClassObj.length();x++){
                         objClass = arrClassObj.getJSONObject(x);
@@ -204,7 +204,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 }else{ //if there is transit
 
                   //  flightTravel = new FlightTravel();
-                    log.debug("to check connecting flight");
+             //       log.debug("to check connecting flight");
 
                     JSONArray jsonArray = objDetail.optJSONArray("ConnectingFlights");
 
