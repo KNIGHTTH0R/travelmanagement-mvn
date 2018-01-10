@@ -36,7 +36,7 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
 
     public FlightReservationStatusResponse cekStatus(Map params) {
 
-        url = PointerApiCaller.uri;
+        url = OpsigoApiCaller.uri;
         url = url+"/apiv3/GetRsvById";
 
 

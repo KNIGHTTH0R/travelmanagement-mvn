@@ -62,7 +62,7 @@ public class Common {
                 return "4";
             case "airasia":
                 return "5";
-            case "intair" : //sabre
+            case "international" : //sabre
                 return "6";
             case "sabre" : //sabre
                 return "6";

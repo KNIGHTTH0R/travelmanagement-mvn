@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Service
@@ -191,7 +192,7 @@ public class OpsigoFlightBook implements FlightBookInterface {
 
         //todo : add segment
         SegmentOps segmentOps;
-        Set<SegmentOps> segmentOpsSet = new HashSet<>();
+        Set<SegmentOps> segmentOpsSet = new LinkedHashSet<>();
 
         for(FlightSegment flightSegment : flightBookReq.getFlightSegments()){
             segmentOps = new SegmentOps();
