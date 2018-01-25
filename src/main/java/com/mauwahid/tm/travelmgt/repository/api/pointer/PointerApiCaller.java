@@ -13,7 +13,8 @@ import java.util.Map;
 public class PointerApiCaller  {
 
     @Value("${pointer.url}")
-    public static String uri = "http://54.169.218.195:8989/sandbox/";
+   // public static String uri = "http://54.169.218.195:8989/sandbox/";
+    public static String uri = "http://api.pointers.id/sandbox/";
 
 
     @Value("${pointer.token}")

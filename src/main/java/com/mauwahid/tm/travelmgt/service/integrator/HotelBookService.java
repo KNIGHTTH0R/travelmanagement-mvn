@@ -76,8 +76,15 @@ public class HotelBookService {
 
     private HotelBookResponse translateResponse(HotelBookResponse hotelBookResponse, HotelBookResult hotelBookResult){
 
+
+
         hotelBookResponse.setStatus(StatusCode.SUCCESS);
         hotelBookResponse.setMessage(StatusCode.S_SUCCESS);
+
+        if(hotelBookResult.getMessageCode().equalsIgnoreCase(StatusCode.STATUS_BOOK_ERROR_NULL_OR_FAILED_POLICY)){
+            hotelBookResponse.setStatus(StatusCode.ERROR_API);
+            hotelBookResponse.setMessage(StatusCode.S_ERROR_API);
+        }
 
         hotelBookResponse.setBookResult(hotelBookResult);
 

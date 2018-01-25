@@ -98,7 +98,15 @@ public class PointerFlightReservationStatus implements FlightReservationStatusIn
         flightReservationStatusResponse.setBookingCode(jsonResult.optString("booking_code"));
         flightReservationStatusResponse.setTimeLimit(jsonResult.optString("time_limit"));
 
-        flightReservationStatusResponse.setStatusReservation(jsonResult.optString("payment_status"));
+        String status = jsonResult.optString("payment_status");
+
+        if(status.equalsIgnoreCase("pending")){
+            status = "Reserved";
+        }else if(status.equalsIgnoreCase("paid")){
+            status = "Ticketed";
+        }
+
+        flightReservationStatusResponse.setStatusReservation(status);
 
 
         //todo : payment
