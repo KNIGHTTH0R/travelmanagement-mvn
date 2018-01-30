@@ -114,21 +114,25 @@ public class OpsigoFlightReservationStatus implements FlightReservationStatusInt
 
         JSONObject objPayment = null;
 
-        for(int i=0;i<jsonArray.length();i++){
+        if(jsonArray != null){
 
-            objPayment = jsonArray.optJSONObject(i);
+            for(int i=0;i<jsonArray.length();i++){
+
+                objPayment = jsonArray.optJSONObject(i);
 
 
-            flightPayments = new FlightPayments();
-            flightPayments.setCode(objPayment.optString("code"));
-            flightPayments.setAmount(objPayment.optString("Amount"));
-            flightPayments.setTitle(objPayment.optString("Title"));
-            flightPayments.setCurrency(objPayment.optString("Currency"));
-            flightPayments.setForeignAmount(objPayment.optString("ForeignAmount"));
-            flightPayments.setForeignCurrency(objPayment.optString("ForeignCurrency"));
+                flightPayments = new FlightPayments();
+                flightPayments.setCode(objPayment.optString("code"));
+                flightPayments.setAmount(objPayment.optString("Amount"));
+                flightPayments.setTitle(objPayment.optString("Title"));
+                flightPayments.setCurrency(objPayment.optString("Currency"));
+                flightPayments.setForeignAmount(objPayment.optString("ForeignAmount"));
+                flightPayments.setForeignCurrency(objPayment.optString("ForeignCurrency"));
 
-            flightPaymentsSet.add(flightPayments);
+                flightPaymentsSet.add(flightPayments);
+            }
         }
+
 
         JSONArray jsonPassenger = jsonObject.getJSONArray("Passengers");
         Set<PassengerOps> passengerOpsList = new HashSet<>();
