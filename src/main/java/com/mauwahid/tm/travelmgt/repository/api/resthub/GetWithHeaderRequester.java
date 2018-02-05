@@ -1,5 +1,6 @@
 package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
+import com.mauwahid.tm.travelmgt.utils.OkHttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,9 @@ public class GetWithHeaderRequester {
         builder.readTimeout(60, TimeUnit.SECONDS);
         builder.writeTimeout(60, TimeUnit.SECONDS);
 
-        OkHttpClient client = builder.build();
+
+
+        OkHttpClient client = OkHttpUtil.configureToIgnoreCertificate(builder).build();
 
 
         // uri = uri+"lion/search/best_price";

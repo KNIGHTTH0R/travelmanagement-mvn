@@ -1,9 +1,11 @@
 package com.mauwahid.tm.travelmgt.repository.api.resthub;
 
+import com.mauwahid.tm.travelmgt.utils.OkHttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,12 +49,23 @@ public class PostStdRequester implements IHttpRequester {
 
        // OkHttpClient client = new OkHttpClient();
 
+      /*  ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .cipherSuites(
+                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)
+                .build();
+*/
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(60, TimeUnit.SECONDS);
         builder.writeTimeout(60, TimeUnit.SECONDS);
+      //  builder.connectionSpecs(Collections.singletonList(spec));
 
-        OkHttpClient client = builder.build();
+        OkHttpUtil.configureToIgnoreCertificate(builder);
+//        OkHttpClient client = builder.build();
 
+        OkHttpClient client = OkHttpUtil.configureToIgnoreCertificate(builder).build();
 
         Headers.Builder headerBuilder = new Headers.Builder();
 
