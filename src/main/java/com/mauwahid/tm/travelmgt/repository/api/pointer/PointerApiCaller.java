@@ -14,7 +14,7 @@ public class PointerApiCaller  {
 
     @Value("${pointer.url}")
    // public static String uri = "http://54.169.218.195:8989/sandbox/";
-    public static String uri = "https://api.pointers.id";
+    public static String uri = "https://api.pointers.id/";
 
 
     @Value("${pointer.token}")
