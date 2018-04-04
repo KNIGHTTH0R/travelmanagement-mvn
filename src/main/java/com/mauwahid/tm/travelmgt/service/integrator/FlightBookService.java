@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightBook;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightBookReq2;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightBookResponse;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightBook;
+import com.mauwahid.tm.travelmgt.repository.api.antavaya.AntavayaFlightBook;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightBookInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightBook;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
@@ -50,6 +51,10 @@ public class FlightBookService {
 
         if(flightBookReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)) {
             flightBookInterface = context.getBean(PointerFlightBook.class);
+        }
+
+        if(flightBookReq.getApiSource().equalsIgnoreCase(Common.API_ANTAVAYA)) {
+            flightBookInterface = context.getBean(AntavayaFlightBook.class);
         }
 
         try {

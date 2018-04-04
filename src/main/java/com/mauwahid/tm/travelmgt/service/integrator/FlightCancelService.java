@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightCancel;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightCancelReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightCancelResponse;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightCancel;
+import com.mauwahid.tm.travelmgt.repository.api.antavaya.AntavayaFlightCancel;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightCancelInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightCancel;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightCancel;
@@ -52,6 +53,10 @@ public class FlightCancelService {
 
         if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
             flightCancelInterface = context.getBean(PointerFlightCancel.class);
+        }
+
+        if(flightCancelReq.getApiSource().equalsIgnoreCase(Common.API_ANTAVAYA)){
+            flightCancelInterface = context.getBean(AntavayaFlightCancel.class);
         }
 
         try {

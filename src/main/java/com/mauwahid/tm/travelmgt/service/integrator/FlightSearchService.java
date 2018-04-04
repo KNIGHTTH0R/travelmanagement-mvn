@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightTravel;
 import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightSearchResponse;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightSearch;
+import com.mauwahid.tm.travelmgt.repository.api.antavaya.AntavayaFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightSearch;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightSearch;
@@ -86,6 +87,14 @@ public class FlightSearchService {
             CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.departTravel(flightSearchReq);
             completableFutures.add(data);
         }
+
+        if(apis.contains(Common.API_ANTAVAYA)) {
+            flightSearchInterface = context.getBean(AntavayaFlightSearch.class);
+            CompletableFuture<Set<FlightTravel>>  data = flightSearchInterface.departTravel(flightSearchReq);
+            completableFutures.add(data);
+        }
+
+
 
 
 

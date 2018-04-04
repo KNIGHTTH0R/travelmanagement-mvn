@@ -5,6 +5,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.FlightReservationStatusReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightIssueResponse;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightReservationStatusResponse;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightReservationStatus;
+import com.mauwahid.tm.travelmgt.repository.api.antavaya.AntavayaFlightReservationStatus;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightReservationStatusInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightReservationStatus;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightBook;
@@ -59,11 +60,20 @@ public class FlightReservationStatusService {
             flightReservationStatusInterface = context.getBean(OpsigoFlightReservationStatus.class);
             flightReservationStatusResponse = flightReservationStatusInterface.cekStatus(param);
         }
+
         if(flightReservationStatusReq.getApiSource().equalsIgnoreCase(Common.API_POINTER)){
 
             Map param = PointerFlightReservationStatus.translateToParam(flightReservationStatusReq);
 
             flightReservationStatusInterface = context.getBean(PointerFlightReservationStatus.class);
+            flightReservationStatusResponse = flightReservationStatusInterface.cekStatus(param);
+        }
+
+        if(flightReservationStatusReq.getApiSource().equalsIgnoreCase(Common.API_ANTAVAYA)){
+
+            Map param = PointerFlightReservationStatus.translateToParam(flightReservationStatusReq);
+
+            flightReservationStatusInterface = context.getBean(AntavayaFlightReservationStatus.class);
             flightReservationStatusResponse = flightReservationStatusInterface.cekStatus(param);
         }
 

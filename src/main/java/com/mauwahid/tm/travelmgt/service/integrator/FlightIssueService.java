@@ -4,6 +4,7 @@ import com.mauwahid.tm.travelmgt.domain.api.request.FlightIssueReq;
 import com.mauwahid.tm.travelmgt.domain.api.response.FlightIssueResponse;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightIssue;
 import com.mauwahid.tm.travelmgt.entity.log.LogFlightIssue;
+import com.mauwahid.tm.travelmgt.repository.api.antavaya.AntavayaFlightIssue;
 import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightIssueInterface;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.OpsigoFlightIssue;
 import com.mauwahid.tm.travelmgt.repository.api.pointer.PointerFlightIssue;
@@ -61,6 +62,14 @@ public class FlightIssueService {
             Map param = PointerFlightIssue.translateToParam(flightIssueReq);
 
             flightIssueInterface = context.getBean(PointerFlightIssue.class);
+            flightIssue = flightIssueInterface.issueFlight(param);
+
+        }
+
+        if(flightIssueReq.getApiSource().equalsIgnoreCase(Common.API_ANTAVAYA)){
+            Map param = PointerFlightIssue.translateToParam(flightIssueReq);
+
+            flightIssueInterface = context.getBean(AntavayaFlightIssue.class);
             flightIssue = flightIssueInterface.issueFlight(param);
 
         }

@@ -19,7 +19,9 @@ public class Common {
 
     public static final String API_TREVOHUB = "trevohub";
 
-    public static final String API_OPSIGO = "opsigo";
+    public static final String API_OPSIGO = "goldenrama";
+
+    public static final String API_ANTAVAYA = "antavaya";
 
     public static final String FLIGHT_DOMESTIC = "domestic";
 

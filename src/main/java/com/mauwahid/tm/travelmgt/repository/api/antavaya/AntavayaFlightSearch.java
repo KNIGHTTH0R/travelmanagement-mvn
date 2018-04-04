@@ -1,14 +1,14 @@
-package com.mauwahid.tm.travelmgt.repository.api.opsigo;
+package com.mauwahid.tm.travelmgt.repository.api.antavaya;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightFlight;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightPrice;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightSeat;
 import com.mauwahid.tm.travelmgt.domain.api.apimodel.flight.FlightTravel;
-import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
+import com.mauwahid.tm.travelmgt.domain.api.request.FlightSearchReq;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.FlightAvailReq;
 import com.mauwahid.tm.travelmgt.repository.api.opsigo.json.RouteOps;
+import com.mauwahid.tm.travelmgt.repository.api.interfaces.FlightSearchInterface;
 import com.mauwahid.tm.travelmgt.utils.Common;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -23,19 +23,19 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
-public class OpsigoFlightSearch  implements FlightSearchInterface{
+public class AntavayaFlightSearch implements FlightSearchInterface{
 
     private Map params = new HashMap<String,String>();
 
     private String url;
 
 
-    private OpsigoApiCaller opsigoApiCaller;
+    private AntavayaApiCaller antavayaApiCaller;
 
 
     private Set<FlightTravel> searchTravel(Map map) {
 
-        url = OpsigoApiCaller.uri;
+        url = AntavayaApiCaller.uri;
         url = url+"/apiv4/FlightAvailability";
 
         FlightAvailReq flightAvailReq = translateToFlightRequest(map);
@@ -53,10 +53,10 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
         String jsonData;
 
         try{
-            opsigoApiCaller = new OpsigoApiCaller();
+            antavayaApiCaller = new AntavayaApiCaller();
 
             log.debug("JSON Req "+jsonParam);
-            jsonData = opsigoApiCaller.callApiPost(url,jsonParam);
+            jsonData = antavayaApiCaller.callApiPost(url,jsonParam);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
             log.error("search flight : "+ex.toString());
@@ -118,7 +118,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
                 flightTravel = new FlightTravel();
                 flightTravel.setErrorCode("0");
-                flightTravel.setTravelAPI(Common.API_OPSIGO);
+                flightTravel.setTravelAPI("opsigo");
 
                 objDetail = arrDetail.optJSONObject(j);
 
@@ -248,7 +248,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
             flightTravel = new FlightTravel();
             flightTravel.setErrorCode("0");
-            flightTravel.setTravelAPI("opsigo");
+            flightTravel.setTravelAPI(Common.API_ANTAVAYA);
 
             objDetail = arrData.optJSONObject(j);
 

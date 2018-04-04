@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "Routes",
-    "Adult",
-    "Child",
-    "Infant",
-    "FareType",
-    "PreferredAirlines"
+        "Routes",
+        "Adult",
+        "Child",
+        "Infant",
+        "FareType",
+        "PreferredAirlines"
 })
 public class FlightAvailReq {
 
