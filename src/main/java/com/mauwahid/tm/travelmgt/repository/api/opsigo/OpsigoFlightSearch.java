@@ -248,7 +248,7 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
 
             flightTravel = new FlightTravel();
             flightTravel.setErrorCode("0");
-            flightTravel.setTravelAPI("opsigo");
+            flightTravel.setTravelAPI(Common.API_OPSIGO);
 
             objDetail = arrData.optJSONObject(j);
 
