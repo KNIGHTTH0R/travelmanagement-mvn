@@ -143,13 +143,18 @@ public class AstriHotelCancel implements HotelCancelInterface {
             // Hotel Resrvation remarks
 
             JSONObject objReservationHotelRemarks = objResHotel.optJSONObject("ReservationHotelRemarks");
-            HotelReservationRemarks hotelReservationRemarks = new HotelReservationRemarks();
 
-            hotelReservationRemarks.setRemarks(objReservationHotelRemarks.optString("Remarks"));
-            hotelReservationRemarks.setReservationHotelID(objReservationHotelRemarks.optString("ReservationHotelID"));
-            hotelReservationRemarks.setReservationHotelRemarksID(objReservationHotelRemarks.optString("ReservationHotelRemarksID"));
+            if(objReservationHotelRemarks != null){
+                HotelReservationRemarks hotelReservationRemarks = new HotelReservationRemarks();
 
-            reservationHotel.setHotelReservationRemarks(hotelReservationRemarks);
+                hotelReservationRemarks.setRemarks(objReservationHotelRemarks.optString("Remarks"));
+                hotelReservationRemarks.setReservationHotelID(objReservationHotelRemarks.optString("ReservationHotelID"));
+                hotelReservationRemarks.setReservationHotelRemarksID(objReservationHotelRemarks.optString("ReservationHotelRemarksID"));
+
+                reservationHotel.setHotelReservationRemarks(hotelReservationRemarks);
+
+            }
+
 
 
             //Hotel Room List
