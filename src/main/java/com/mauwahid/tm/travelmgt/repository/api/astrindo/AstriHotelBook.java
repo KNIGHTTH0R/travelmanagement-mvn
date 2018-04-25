@@ -63,14 +63,14 @@ public class AstriHotelBook  implements HotelBookInterface{
             jsonData = AstriApiCaller.callApiGet(url,params);
             log.debug("JSON RES : "+jsonData);
         }catch (IOException ex){
-            log.error("searchTravel : "+ex.toString());
+            log.error("Error Hotel Book : "+ex.toString());
             return exceptionHandling(ex, params.toString(), jsonData);
         }
 
         try{
             return translateToObject(jsonData);
         }catch (Exception ex) {
-            log.error("searchHotel translateToObj : "+ex.toString());
+            log.error("translateToObj : "+ex.toString());
 
             return exceptionHandling(ex, params.toString(), jsonData);
         }
@@ -190,13 +190,17 @@ public class AstriHotelBook  implements HotelBookInterface{
         // Hotel Resrvation remarks
 
         JSONObject objReservationHotelRemarks = objResHotel.optJSONObject("ReservationHotelRemarks");
-        HotelReservationRemarks hotelReservationRemarks = new HotelReservationRemarks();
 
-        hotelReservationRemarks.setRemarks(objReservationHotelRemarks.optString("Remarks"));
-        hotelReservationRemarks.setReservationHotelID(objReservationHotelRemarks.optString("ReservationHotelID"));
-        hotelReservationRemarks.setReservationHotelRemarksID(objReservationHotelRemarks.optString("ReservationHotelRemarksID"));
+        if(objReservationHotelRemarks != null){
+            HotelReservationRemarks hotelReservationRemarks = new HotelReservationRemarks();
 
-        reservationHotel.setHotelReservationRemarks(hotelReservationRemarks);
+            hotelReservationRemarks.setRemarks(objReservationHotelRemarks.optString("Remarks"));
+            hotelReservationRemarks.setReservationHotelID(objReservationHotelRemarks.optString("ReservationHotelID"));
+            hotelReservationRemarks.setReservationHotelRemarksID(objReservationHotelRemarks.optString("ReservationHotelRemarksID"));
+
+            reservationHotel.setHotelReservationRemarks(hotelReservationRemarks);
+
+        }
 
 
         //Hotel Room List
