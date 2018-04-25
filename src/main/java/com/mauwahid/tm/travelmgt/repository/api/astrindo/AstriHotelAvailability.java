@@ -39,7 +39,9 @@ public class AstriHotelAvailability implements HotelSearchInterface {
 
         String jsonData = "";
 
-        url = AstriApiCaller.uri + "HotelAvailability.aspx";
+      //  url = AstriApiCaller.uri + "HotelAvailability.aspx";
+
+        url = AstriApiCaller.uri + "HotelAvailability_v1_2.aspx";
 
         try{
             jsonData = AstriApiCaller.callApiGet(url,params);
@@ -91,7 +93,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             objHotel = arrHotel.optJSONObject(i);
             hotel = new HotelHotel();
 
-            log.debug("Hotel "+i);
+         //   log.debug("Hotel "+i);
             hotel.setSessionId(objData.optString("SessionID"));
             hotel.setHotelKey(objHotel.optString("HotelKey"));
             hotel.setHotelId(objHotel.optString("HotelID"));
@@ -117,7 +119,7 @@ public class AstriHotelAvailability implements HotelSearchInterface {
             JSONArray arrFacilities = objHotel.optJSONArray("HotelFacilityList");
             JSONObject objFacility = null;
 
-            log.debug("try to open facility");
+          //  log.debug("try to open facility");
 
             if(arrFacilities !=null){
                 for(int x=0;x<arrFacilities.length();x++){

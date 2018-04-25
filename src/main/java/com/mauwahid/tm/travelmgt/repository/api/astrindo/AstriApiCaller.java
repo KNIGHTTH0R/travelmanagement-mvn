@@ -18,6 +18,7 @@ public class AstriApiCaller {
     // production
     public static String BASE_URI = "http://203.153.216.34:1612/";
 
+
     public static String uri = BASE_URI + "B2B/";
 
 
