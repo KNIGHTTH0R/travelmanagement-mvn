@@ -207,81 +207,93 @@ public class AstriHotelBook  implements HotelBookInterface{
         JSONArray arrRooms = objResHotel.optJSONArray("ReservationHotelRoomList");
         JSONObject objRoom = null;
 
-        HotelReservationRoom hotelReservationRoom;
-        Set<HotelReservationRoom> reservationRooms = new HashSet<>();
+        if(arrRooms !=null){
+            HotelReservationRoom hotelReservationRoom;
+            Set<HotelReservationRoom> reservationRooms = new HashSet<>();
 
 
-        for(int i=0;i<arrRooms.length();i++){
-            objRoom = arrRooms.optJSONObject(i);
-            hotelReservationRoom = new HotelReservationRoom();
+            for(int i=0;i<arrRooms.length();i++){
+                objRoom = arrRooms.optJSONObject(i);
+                hotelReservationRoom = new HotelReservationRoom();
 
-            hotelReservationRoom.setReservationHotelID(objRoom.optString("ReservationHotelID"));
-            hotelReservationRoom.setReservationHotelRoomID(objRoom.optString("ReservationHotelRoomID"));
-            hotelReservationRoom.setRoomType(objRoom.optString("RoomType"));
-            hotelReservationRoom.setRoomName(objRoom.optString("RoomName"));
-            hotelReservationRoom.setBoardName(objRoom.optString("BoardName"));
-            hotelReservationRoom.setSuppRoomID(objRoom.optString("SuppRoomID"));
-            hotelReservationRoom.setTotalRoom(objRoom.optString("TotalRoom"));
+                hotelReservationRoom.setReservationHotelID(objRoom.optString("ReservationHotelID"));
+                hotelReservationRoom.setReservationHotelRoomID(objRoom.optString("ReservationHotelRoomID"));
+                hotelReservationRoom.setRoomType(objRoom.optString("RoomType"));
+                hotelReservationRoom.setRoomName(objRoom.optString("RoomName"));
+                hotelReservationRoom.setBoardName(objRoom.optString("BoardName"));
+                hotelReservationRoom.setSuppRoomID(objRoom.optString("SuppRoomID"));
+                hotelReservationRoom.setTotalRoom(objRoom.optString("TotalRoom"));
 
-            reservationRooms.add(hotelReservationRoom);
+                reservationRooms.add(hotelReservationRoom);
+
+            }
+
+            reservationHotel.setHotelReservationRooms(reservationRooms);
 
         }
 
-        reservationHotel.setHotelReservationRooms(reservationRooms);
 
         JSONArray arrHotelFareList = objResHotel.optJSONArray("ReservationHotelFareList");
-        JSONObject objHotelFare = null;
-        HotelReservationFare hotelReservationFare;
-        Set<HotelReservationFare> hotelReservationFareSet = new HashSet<>();
 
-        for(int y=0;y<arrHotelFareList.length();y++){
-            objHotelFare = arrHotelFareList.optJSONObject(y);
+        if(arrHotelFareList != null){
+            JSONObject objHotelFare = null;
+            HotelReservationFare hotelReservationFare;
+            Set<HotelReservationFare> hotelReservationFareSet = new HashSet<>();
 
-            hotelReservationFare = new HotelReservationFare();
-            hotelReservationFare.setReservationHotelFareID(objHotelFare.optString("ReservationHotelFareID"));
-            hotelReservationFare.setReservationHotelRoomID(objHotelFare.optString("ReservationHotelRoomID"));
-            hotelReservationFare.setCurrCode(objHotelFare.optString("CurrCode"));
-            hotelReservationFare.setSellCurrCode(objHotelFare.optString("SellCureCode"));
-            hotelReservationFare.setPrice(objHotelFare.optString("Price"));
-            hotelReservationFare.setPriceConverted(objHotelFare.optString("PriceConverted"));
-            hotelReservationFare.setServiceFee(objHotelFare.optString("ServiceFee"));
-            hotelReservationFare.setDiscount(objHotelFare.optString("Discount"));
-            hotelReservationFare.setPaymentCurrCode(objHotelFare.optString("PaymentCurrCode"));
-            hotelReservationFare.setPaymentAmount(objHotelFare.optString("PaymentAmount"));
-            hotelReservationFare.setActive(objHotelFare.optString("Active"));
+            for(int y=0;y<arrHotelFareList.length();y++){
+                objHotelFare = arrHotelFareList.optJSONObject(y);
+
+                hotelReservationFare = new HotelReservationFare();
+                hotelReservationFare.setReservationHotelFareID(objHotelFare.optString("ReservationHotelFareID"));
+                hotelReservationFare.setReservationHotelRoomID(objHotelFare.optString("ReservationHotelRoomID"));
+                hotelReservationFare.setCurrCode(objHotelFare.optString("CurrCode"));
+                hotelReservationFare.setSellCurrCode(objHotelFare.optString("SellCureCode"));
+                hotelReservationFare.setPrice(objHotelFare.optString("Price"));
+                hotelReservationFare.setPriceConverted(objHotelFare.optString("PriceConverted"));
+                hotelReservationFare.setServiceFee(objHotelFare.optString("ServiceFee"));
+                hotelReservationFare.setDiscount(objHotelFare.optString("Discount"));
+                hotelReservationFare.setPaymentCurrCode(objHotelFare.optString("PaymentCurrCode"));
+                hotelReservationFare.setPaymentAmount(objHotelFare.optString("PaymentAmount"));
+                hotelReservationFare.setActive(objHotelFare.optString("Active"));
 
 
-            hotelReservationFareSet.add(hotelReservationFare);
+                hotelReservationFareSet.add(hotelReservationFare);
+
+            }
+
+            reservationHotel.setHotelReservationFares(hotelReservationFareSet);
 
         }
-
-        reservationHotel.setHotelReservationFares(hotelReservationFareSet);
 
 
         JSONArray arrCancellationPolicy = objResHotel.optJSONArray("ReservationHotelCancellationPolicyList");
-        JSONObject objCancellationPolicy = null;
-        HotelReservationCancelationPolicy reservationCancelationPolicy;
-        Set<HotelReservationCancelationPolicy> reservationCancelationPolicies = new HashSet<>();
 
-        for(int z=0;z<arrCancellationPolicy.length();z++){
-            objCancellationPolicy = arrCancellationPolicy.getJSONObject(z);
+        if(arrCancellationPolicy != null){
+            JSONObject objCancellationPolicy = null;
+            HotelReservationCancelationPolicy reservationCancelationPolicy;
+            Set<HotelReservationCancelationPolicy> reservationCancelationPolicies = new HashSet<>();
 
-            reservationCancelationPolicy = new HotelReservationCancelationPolicy();
-            reservationCancelationPolicy.setReservationHotelCancelPolicyId(objCancellationPolicy.optString("ReservationHotelCancellationPolicyID"));
-            reservationCancelationPolicy.setReservationHotelID(objCancellationPolicy.optString("ReservationHotelID"));
-            reservationCancelationPolicy.setReservationHotelRoomID(objCancellationPolicy.optString("ReservationHotelRoomID"));
-            reservationCancelationPolicy.setFromDate(objCancellationPolicy.optString("FromDate"));
-            reservationCancelationPolicy.setToDate(objCancellationPolicy.optString("ToDate"));
-            reservationCancelationPolicy.setCurrCode(objCancellationPolicy.optString("CurrCode"));
-            reservationCancelationPolicy.setSellCurrCode(objCancellationPolicy.optString("SellCurrCode"));
-            reservationCancelationPolicy.setChargeAmount(objCancellationPolicy.optString("ChargeAmount"));
-            reservationCancelationPolicy.setChargeAmountConverted(objCancellationPolicy.optString("ChargeAmountConverted"));
-            reservationCancelationPolicy.setDescription(objCancellationPolicy.optString("Description"));
+            for(int z=0;z<arrCancellationPolicy.length();z++){
+                objCancellationPolicy = arrCancellationPolicy.getJSONObject(z);
 
-            reservationCancelationPolicies.add(reservationCancelationPolicy);
+                reservationCancelationPolicy = new HotelReservationCancelationPolicy();
+                reservationCancelationPolicy.setReservationHotelCancelPolicyId(objCancellationPolicy.optString("ReservationHotelCancellationPolicyID"));
+                reservationCancelationPolicy.setReservationHotelID(objCancellationPolicy.optString("ReservationHotelID"));
+                reservationCancelationPolicy.setReservationHotelRoomID(objCancellationPolicy.optString("ReservationHotelRoomID"));
+                reservationCancelationPolicy.setFromDate(objCancellationPolicy.optString("FromDate"));
+                reservationCancelationPolicy.setToDate(objCancellationPolicy.optString("ToDate"));
+                reservationCancelationPolicy.setCurrCode(objCancellationPolicy.optString("CurrCode"));
+                reservationCancelationPolicy.setSellCurrCode(objCancellationPolicy.optString("SellCurrCode"));
+                reservationCancelationPolicy.setChargeAmount(objCancellationPolicy.optString("ChargeAmount"));
+                reservationCancelationPolicy.setChargeAmountConverted(objCancellationPolicy.optString("ChargeAmountConverted"));
+                reservationCancelationPolicy.setDescription(objCancellationPolicy.optString("Description"));
+
+                reservationCancelationPolicies.add(reservationCancelationPolicy);
+            }
+
+            reservationHotel.setHotelReservationCancelationPolicies(reservationCancelationPolicies);
+
         }
-
-        reservationHotel.setHotelReservationCancelationPolicies(reservationCancelationPolicies);
 
 
         hotelBookResult.setHotelReservationHotel(reservationHotel);
