@@ -88,13 +88,14 @@ public class FlightIssueService {
         FlightIssueResponse flightIssueResponse = new FlightIssueResponse();
         flightIssueResponse.setSessionKey(Common.generateSessionID());
 
-        if(flightIssue.getStatusCode() == StatusCode.NOT_IMPLEMENTED){
-            flightIssueResponse.setStatus(StatusCode.NOT_IMPLEMENTED);
-            flightIssueResponse.setMessage(StatusCode.S_NOT_IMPLEMENTED);
-
-        }else {
+        if(flightIssue.getStatusCode() == StatusCode.SUCCESS){
             flightIssueResponse.setStatus(StatusCode.SUCCESS);
             flightIssueResponse.setMessage(StatusCode.S_SUCCESS);
+
+        }else {
+
+            flightIssueResponse.setStatus(flightIssue.getStatusCode());
+            flightIssueResponse.setMessage(flightIssue.getStatusDesc());
 
         }
 
