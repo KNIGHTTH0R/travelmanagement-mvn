@@ -13,7 +13,8 @@ import java.util.Map;
 public class AntavayaApiCaller {
 
    // @Value("${opsigo.url}")
-    public static String uri = "https://opsigo-vayaapi.azurewebsites.net";
+  //  public static String uri = "https://opsigo-vayaapi.azurewebsites.net";
+   public static String uri = "https://opsitools-vac.azurewebsites.net";
 
 
     public String authToken = "";
