@@ -67,7 +67,7 @@ public class FlightIssueService {
         }
 
         if(flightIssueReq.getApiSource().equalsIgnoreCase(Common.API_ANTAVAYA)){
-            Map param = PointerFlightIssue.translateToParam(flightIssueReq);
+            Map param = AntavayaFlightIssue.translateToParam(flightIssueReq);
 
             flightIssueInterface = context.getBean(AntavayaFlightIssue.class);
             flightIssue = flightIssueInterface.issueFlight(param);
