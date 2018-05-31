@@ -16,6 +16,11 @@ public class AntavayaTokenGenerator {
 
         String uri = "https://opsigo-auth.azurewebsites.net/core/connect/token";
         Map params = new HashMap<String,String>();
+   //     params.put("grant_type","client_credentials");
+   //     params.put("client_id","client-cre-opsitools-timn");
+   //     params.put("client_secret","6vJKDn8wQJFewX#Z");
+   //     params.put("scope","scope-va-timn-opsitools");
+
         params.put("grant_type","client_credentials");
         params.put("client_id","client-cre-opsitools-timn");
         params.put("client_secret","6vJKDn8wQJFewX#Z");
