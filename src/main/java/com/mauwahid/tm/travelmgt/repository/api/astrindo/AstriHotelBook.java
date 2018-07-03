@@ -144,49 +144,54 @@ public class AstriHotelBook  implements HotelBookInterface{
         JSONObject objCustomer = objData.optJSONObject("ReservationCustomers");
         HotelReservationCustomer hotelReservationCustomer = new HotelReservationCustomer();
 
-        hotelReservationCustomer.setActive(objCustomer.optString("Active"));
-        hotelReservationCustomer.setReservationCustomerID(objCustomer.optString("ReservationCustomerID"));
-        hotelReservationCustomer.setReservationID(objCustomer.optString("ReservationID"));
-        hotelReservationCustomer.setTitle(objCustomer.optString("Title"));
-        hotelReservationCustomer.setFirstName(objCustomer.optString("FirstName"));
-        hotelReservationCustomer.setLastName(objCustomer.optString("LastName"));
-        hotelReservationCustomer.setEmail(objCustomer.optString("Email"));
-        hotelReservationCustomer.setContactNumber(objCustomer.optString("ContactNumber"));
-        hotelReservationCustomer.setAddress(objCustomer.optString("Address"));
-        hotelReservationCustomer.setCreatedBy(objCustomer.optString("CreatedBy"));
-        hotelReservationCustomer.setLastUpdatedBy(objCustomer.optString("LastUpdatedBy"));
-        hotelReservationCustomer.setLastUpdatedTime(objCustomer.optString("LastUpdatedTime"));
-        hotelReservationCustomer.setActive(objCustomer.optString("Active"));
+        if(objCustomer != null) {
 
-        hotelBookResult.setHotelReservationCustomer(hotelReservationCustomer);
+            hotelReservationCustomer.setActive(objCustomer.optString("Active"));
+            hotelReservationCustomer.setReservationCustomerID(objCustomer.optString("ReservationCustomerID"));
+            hotelReservationCustomer.setReservationID(objCustomer.optString("ReservationID"));
+            hotelReservationCustomer.setTitle(objCustomer.optString("Title"));
+            hotelReservationCustomer.setFirstName(objCustomer.optString("FirstName"));
+            hotelReservationCustomer.setLastName(objCustomer.optString("LastName"));
+            hotelReservationCustomer.setEmail(objCustomer.optString("Email"));
+            hotelReservationCustomer.setContactNumber(objCustomer.optString("ContactNumber"));
+            hotelReservationCustomer.setAddress(objCustomer.optString("Address"));
+            hotelReservationCustomer.setCreatedBy(objCustomer.optString("CreatedBy"));
+            hotelReservationCustomer.setLastUpdatedBy(objCustomer.optString("LastUpdatedBy"));
+            hotelReservationCustomer.setLastUpdatedTime(objCustomer.optString("LastUpdatedTime"));
+            hotelReservationCustomer.setActive(objCustomer.optString("Active"));
 
+            hotelBookResult.setHotelReservationCustomer(hotelReservationCustomer);
+
+        }
        //
 
         HotelReservationHotel reservationHotel = new HotelReservationHotel();
 
-        reservationHotel.setReservationHotelID(objResHotel.optString("ReservationHotelID"));
-        reservationHotel.setReservationID(objResHotel.optString("ReservationID"));
-        reservationHotel.setHotelID(objResHotel.optString("HotelID"));
-        reservationHotel.setHotelName(objResHotel.optString("HotelName"));
-        reservationHotel.setHotelAddress(objResHotel.optString("HotelAddress"));
-        reservationHotel.setHotelPhone(objResHotel.optString("HotelPhone"));
-        reservationHotel.setSuppHotelCode(objResHotel.optString("SuppHotelCode"));
-        reservationHotel.setSupplierCode(objResHotel.optString("SupplierCode"));
-        reservationHotel.setCheckInDate(objResHotel.optString("CheckInDate"));
-        reservationHotel.setCheckOutDate(objResHotel.optString("CheckOutDate"));
-        reservationHotel.setBookingStatus(objResHotel.optString("BookingSttus"));
-        reservationHotel.setTimeLimit(objResHotel.optString("TimeLimit"));
-        reservationHotel.setConfirmationCode(objResHotel.optString("ConfirmationCode"));
-        reservationHotel.setCancellationCode(objResHotel.optString("CancellationCode"));
-        reservationHotel.setVoucherNo(objResHotel.optString("VoucherNo"));
-        reservationHotel.setCreatedBy(objResHotel.optString("CreatedBy"));
-        reservationHotel.setCreatedTime(objResHotel.optString("CreatedTime"));
-        reservationHotel.setCreatedIPAddress(objResHotel.optString("CreatedIPAddress"));
-        reservationHotel.setLastUpdatedBy(objResHotel.optString("LastUpdatedBy"));
-        reservationHotel.setLastUpdatedTime(objResHotel.optString("LastUpdatedTime"));
-        reservationHotel.setActive(objResHotel.optString("Active"));
+        if(objResHotel != null) {
 
+            reservationHotel.setReservationHotelID(objResHotel.optString("ReservationHotelID"));
+            reservationHotel.setReservationID(objResHotel.optString("ReservationID"));
+            reservationHotel.setHotelID(objResHotel.optString("HotelID"));
+            reservationHotel.setHotelName(objResHotel.optString("HotelName"));
+            reservationHotel.setHotelAddress(objResHotel.optString("HotelAddress"));
+            reservationHotel.setHotelPhone(objResHotel.optString("HotelPhone"));
+            reservationHotel.setSuppHotelCode(objResHotel.optString("SuppHotelCode"));
+            reservationHotel.setSupplierCode(objResHotel.optString("SupplierCode"));
+            reservationHotel.setCheckInDate(objResHotel.optString("CheckInDate"));
+            reservationHotel.setCheckOutDate(objResHotel.optString("CheckOutDate"));
+            reservationHotel.setBookingStatus(objResHotel.optString("BookingSttus"));
+            reservationHotel.setTimeLimit(objResHotel.optString("TimeLimit"));
+            reservationHotel.setConfirmationCode(objResHotel.optString("ConfirmationCode"));
+            reservationHotel.setCancellationCode(objResHotel.optString("CancellationCode"));
+            reservationHotel.setVoucherNo(objResHotel.optString("VoucherNo"));
+            reservationHotel.setCreatedBy(objResHotel.optString("CreatedBy"));
+            reservationHotel.setCreatedTime(objResHotel.optString("CreatedTime"));
+            reservationHotel.setCreatedIPAddress(objResHotel.optString("CreatedIPAddress"));
+            reservationHotel.setLastUpdatedBy(objResHotel.optString("LastUpdatedBy"));
+            reservationHotel.setLastUpdatedTime(objResHotel.optString("LastUpdatedTime"));
+            reservationHotel.setActive(objResHotel.optString("Active"));
 
+        }
         // Hotel Resrvation remarks
 
         JSONObject objReservationHotelRemarks = objResHotel.optJSONObject("ReservationHotelRemarks");
