@@ -87,8 +87,8 @@ public class FlightBookService {
             flightBookResponse.setStatus(StatusCode.NO_CONTENT);
             flightBookResponse.setMessage(StatusCode.S_NO_CONTENT);
 
-            flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
-            flightBook.setStatusDesc("Failed");
+       //     flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
+        //    flightBook.setStatusDesc("Failed");
         }
 
         flightBookResponse.setFlightBook(flightBook);

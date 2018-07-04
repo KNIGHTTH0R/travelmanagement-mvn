@@ -80,17 +80,37 @@ public class PointerFlightBook implements FlightBookInterface {
         flightBook = new FlightBook();
         flightBook.setStatusCode(objData.optString("code"));
 
-        if(!flightBook.getStatusCode().equalsIgnoreCase("200")){
+        String status = objData.optString("code");
+
+        if(status.equalsIgnoreCase("200")){
+            flightBook.setStatusDesc(StatusCode.S_SUCCESS);
+
+            flightBook.setTimeLimit(objResult.optString("time_limit"));
+            //     flightBook.setMaskapai(objResult.optString("maskapai"));
+            flightBook.setBookingCode(objResult.optString("booking_code"));
+
+        }else if(status.equalsIgnoreCase("204")){
+            flightBook.setStatusCode(status+"");
+            flightBook.setStatusDesc("Flight not available");
+            flightBook.setBookingCode("");
+
+        }else if(status.equalsIgnoreCase("400")) {
+            flightBook.setStatusCode(StatusCode.BAD_REQUEST+"");
+            flightBook.setStatusDesc("Booking Expired");
+            flightBook.setBookingCode("");
+        }else{
+            flightBook.setBookingCode("");
             flightBook.setStatusCode(StatusCode.NO_CONTENT+"");
             flightBook.setStatusDesc("Failed");
-            return flightBook;
+         //   return flightBook;
         }
 
-        flightBook.setStatusDesc(StatusCode.S_SUCCESS);
 
-        flightBook.setTimeLimit(objResult.optString("time_limit"));
+   //     flightBook.setStatusDesc(StatusCode.S_SUCCESS);
+
+   //     flightBook.setTimeLimit(objResult.optString("time_limit"));
    //     flightBook.setMaskapai(objResult.optString("maskapai"));
-        flightBook.setBookingCode(objResult.optString("booking_code"));
+    //    flightBook.setBookingCode(objResult.optString("booking_code"));
 /*
         JSONArray arrPassenger = objResult.optJSONArray("passenger");
         JSONObject objPassenger = null;
