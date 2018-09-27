@@ -60,4 +60,10 @@ public class FlightTravel {
     @JsonProperty("total_transit")
     private int totalTransit;
 
+    @JsonProperty("is_pairing")
+    private boolean isPairing;
+
+    @JsonProperty("pair_flight_fare")
+    private FlightPrice pairFlight;
+
 }

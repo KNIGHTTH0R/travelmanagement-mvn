@@ -208,6 +208,45 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                     Set<FlightTravel> connectingFlights = getFlightTravel(jsonArray);
 
                     flightTravel.setConnectingTravel(connectingFlights);
+
+
+                    int totalConnecting = connectingFlights.size();
+
+                    log.debug("Total Connecting "+totalConnecting);
+
+                    if(totalConnecting == 2){
+
+                        log.debug("if totalcon 2");
+
+                        int[] arrSizeSeat = new int[2];
+                        int idx = 0;
+                        FlightPrice tmpPrice = new FlightPrice();
+                        Iterator iterator = connectingFlights.iterator();
+
+                        while (iterator.hasNext()){
+
+
+                            FlightTravel ft = (FlightTravel)iterator.next();
+                            arrSizeSeat[idx] = ft.getSeats().size();
+
+                            for(FlightSeat fs : ft.getSeats()){
+                                if(!fs.getFlightPrice().getFare().equalsIgnoreCase("0.0")){
+                                    tmpPrice = fs.getFlightPrice();
+                                }
+                            }
+                            idx++;
+                        }
+
+                        log.debug("Size seat 0 "+arrSizeSeat[0]+ " seat 1 : "+arrSizeSeat[1]);
+                        if(arrSizeSeat[0] == 1 && arrSizeSeat[1] == 1){
+                            flightTravel.setPairing(true);
+                            flightTravel.setPairFlight(tmpPrice);
+                        }else{
+                            flightTravel.setPairing(false);
+                        }
+
+
+                    }
                 }
 
                 flightTravels.add(flightTravel);
@@ -336,6 +375,46 @@ public class OpsigoFlightSearch  implements FlightSearchInterface{
                 Set<FlightTravel> connectingFlights = getFlightTravel(arrConn);
 
                 flightTravel.setConnectingTravel(connectingFlights);
+
+                int totalConnecting = connectingFlights.size();
+
+                log.debug("Total Connecting "+totalConnecting);
+
+                if(totalConnecting == 2){
+
+                    log.debug("if totalcon 2");
+
+                    int[] arrSizeSeat = new int[2];
+                    int idx = 0;
+                    FlightPrice tmpPrice = new FlightPrice();
+                    Iterator iterator = connectingFlights.iterator();
+
+                    while (iterator.hasNext()){
+
+
+                        FlightTravel ft = (FlightTravel)iterator.next();
+                        arrSizeSeat[idx] = ft.getSeats().size();
+
+                        for(FlightSeat fs : ft.getSeats()){
+                            if(!fs.getFlightPrice().getFare().equalsIgnoreCase("0.0")){
+                                tmpPrice = fs.getFlightPrice();
+                            }
+                        }
+                        idx++;
+                    }
+
+                    log.debug("Size seat 0 "+arrSizeSeat[0]+ " seat 1 : "+arrSizeSeat[1]);
+                    if(arrSizeSeat[0] == 1 && arrSizeSeat[1] == 1){
+                        flightTravel.setPairing(true);
+                        flightTravel.setPairFlight(tmpPrice);
+                    }else{
+                        flightTravel.setPairing(false);
+                    }
+
+
+                }
+
+
             }
 
 

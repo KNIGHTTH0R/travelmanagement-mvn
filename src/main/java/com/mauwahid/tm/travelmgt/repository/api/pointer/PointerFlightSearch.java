@@ -209,14 +209,28 @@ public class PointerFlightSearch implements FlightSearchInterface {
 
                         objPrice = objSeat.optJSONObject("best_price");
                         price = new FlightPrice();
-                        price.setFare(objPrice.optString("fare"));
-                        price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
-                        price.setFareChildPax(objPrice.optString("fare_child_pax"));
-                        price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
-                        price.setTax(objPrice.optString("tax"));
-                        price.setTotalPrice(objPrice.optString("total_price"));
+
+                        if(j==0){
+                            price.setFare(objPrice.optString("fare"));
+                            price.setFareAdultPax(objPrice.optString("fare_adult_pax"));
+                            price.setFareChildPax(objPrice.optString("fare_child_pax"));
+                            price.setFareInfantPax(objPrice.optString("fare_infant_pax"));
+                            price.setTax(objPrice.optString("tax"));
+                            price.setTotalPrice(objPrice.optString("total_price"));
+
+                        }else{
+                            price.setFare("0");
+                            price.setFareAdultPax("0");
+                            price.setFareChildPax("0");
+                            price.setFareInfantPax("0");
+                            price.setTax("0");
+                            price.setTotalPrice("0");
+
+                        }
 
                         seat.setFlightPrice(price);
+
+
                         seats.add(seat);
 
                     }
@@ -263,6 +277,35 @@ public class PointerFlightSearch implements FlightSearchInterface {
                     }
 
                     flightTravel.setConnectingTravel(connectingFlightTravel);
+
+                    int totalConnecting = connectingFlightTravel.size();
+
+                    if(totalConnecting == 2){
+
+                        int[] arrSizeSeat = new int[2];
+                        int idx = 0;
+                        FlightPrice tmpPrice = new FlightPrice();
+                        Iterator iterator = connectingFlightTravel.iterator();
+
+                        while (iterator.hasNext()){
+
+                            FlightTravel ft = (FlightTravel)iterator.next();
+                            arrSizeSeat[idx] = ft.getSeats().size();
+                            for(FlightSeat fs : ft.getSeats()){
+                                tmpPrice = fs.getFlightPrice();
+                            }
+                            idx++;
+                        }
+
+                        if(arrSizeSeat[0] == 1 && arrSizeSeat[1] == 1){
+                            flightTravel.setPairing(true);
+                            flightTravel.setPairFlight(tmpPrice);
+                        }else{
+                            flightTravel.setPairing(false);
+                        }
+
+
+                    }
 
 
                 }
