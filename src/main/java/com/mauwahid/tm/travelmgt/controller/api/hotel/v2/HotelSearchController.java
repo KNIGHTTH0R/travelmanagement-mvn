@@ -40,7 +40,8 @@ public class HotelSearchController {
             return new ResponseEntity(authService.respAuthFailed(),HttpStatus.UNAUTHORIZED);
         }
 
-        HotelSearchResponse response = hotelSearchService.searchHotel(userId,hotelSearchReq);
+//        HotelSearchResponse response = hotelSearchService.searchHotel(userId,hotelSearchReq);
+        HotelSearchResponse response = null;
 
         return  new ResponseEntity(response, HttpStatus.OK);
     }
