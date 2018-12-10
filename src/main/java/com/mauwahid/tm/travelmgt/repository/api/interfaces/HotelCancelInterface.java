@@ -1,6 +1,6 @@
 package com.mauwahid.tm.travelmgt.repository.api.interfaces;
 
-import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.HotelCancelResult;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.v1.HotelCancelResult;
 
 import java.util.Map;
 

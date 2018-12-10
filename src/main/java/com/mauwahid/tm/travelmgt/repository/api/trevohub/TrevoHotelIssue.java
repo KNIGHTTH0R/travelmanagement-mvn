@@ -1,7 +1,7 @@
 package com.mauwahid.tm.travelmgt.repository.api.trevohub;
 
-import com.mauwahid.tm.travelmgt.domain.api.request.HotelIssueReq;
-import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.*;
+import com.mauwahid.tm.travelmgt.domain.api.apimodel.hotel.v1.*;
+import com.mauwahid.tm.travelmgt.domain.api.request.hotel.v1.HotelIssueReq;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
