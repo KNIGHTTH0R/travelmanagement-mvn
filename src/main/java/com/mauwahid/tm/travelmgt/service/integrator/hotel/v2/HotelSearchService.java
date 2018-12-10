@@ -71,8 +71,8 @@ public class HotelSearchService {
         if(apiSources.contains(Common.API_ASTRINDO)){
            // hotelSearchInterface = new AstriHotelAvailability();
             hotelSearchInterface = context.getBean(AstriHotelAvailability.class);
-            param = AstriHotelAvailability.translateToParam(hotelSearchReq);
-            hotels = hotelSearchInterface.searchHotel(param);
+         //   param = AstriHotelAvailability.translateToParam(hotelSearchReq);
+           // hotels = hotelSearchInterface.searchHotel(param);
         }
 
 
@@ -86,7 +86,7 @@ public class HotelSearchService {
         String sessionId = Common.generateSessionID();
 
       //  hotelSearchResponse.setSessionKey(sessionId);
-        hotelSearchResponse.setHotels(hotels);
+       // hotelSearchResponse.setHotels(hotels);
 
         hotelSearchResponse.setStatus(StatusCode.SUCCESS);
         hotelSearchResponse.setMessage(StatusCode.S_SUCCESS);
@@ -112,7 +112,7 @@ public class HotelSearchService {
      //   logHotelSearch.setJsonData(jsonData);
         logHotelSearch.setMessage(hotelSearchResponse.getMessage());
         logHotelSearch.setStatusCode(hotelSearchResponse.getStatus());
-        logHotelSearch.setApiSessionKey(hotelSearchResponse.getSessionKey());
+     //   logHotelSearch.setApiSessionKey(hotelSearchResponse.getSessionKey());
 
         logHotelSearchRepo.save(logHotelSearch);
     }
