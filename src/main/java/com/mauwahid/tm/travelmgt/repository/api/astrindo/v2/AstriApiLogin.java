@@ -20,11 +20,12 @@ public class AstriApiLogin {
     private static final String username = "INFOMEDIAU00";
     private static final String password = "password123";
 
-    @Autowired
+   // @Autowired
     private RestTemplate restTemplate;
 
     public String postAndGetSession(){
 
+        restTemplate = new RestTemplate();
 
         RqLogin rqLogin = new RqLogin(username, password);
         HttpEntity<RqLogin> request = new HttpEntity<>(rqLogin);
